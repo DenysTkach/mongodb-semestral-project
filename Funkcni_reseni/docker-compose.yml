@@ -1,15 +1,268 @@
 services:
-  mongo:
+  configsvr01:
     image: mongo:${MONGO_IMAGE_TAG}
-    container_name: ${MONGO_CONTAINER_NAME}
-    restart: unless-stopped
-    ports:
-      - "${MONGO_PORT}:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    container_name: configsvr01
+    hostname: configsvr01
+    command: >
+      bash -lc "
+      cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
+      chmod 400 /etc/mongo-keyfile &&
+      chown mongodb:mongodb /etc/mongo-keyfile &&
+      exec mongod --config /etc/mongo/mongod-configsvr.conf
+      "
     volumes:
-      - mongo_data:/data/db
+      - configsvr01_data:/data/db
+      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - ./config/mongod-configsvr.conf:/etc/mongo/mongod-configsvr.conf:ro
+    networks:
+      - mongo-cluster
+
+  configsvr02:
+    image: mongo:${MONGO_IMAGE_TAG}
+    container_name: configsvr02
+    hostname: configsvr02
+    command: >
+      bash -lc "
+      cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
+      chmod 400 /etc/mongo-keyfile &&
+      chown mongodb:mongodb /etc/mongo-keyfile &&
+      exec mongod --config /etc/mongo/mongod-configsvr.conf
+      "
+    volumes:
+      - configsvr02_data:/data/db
+      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - ./config/mongod-configsvr.conf:/etc/mongo/mongod-configsvr.conf:ro
+    networks:
+      - mongo-cluster
+
+  configsvr03:
+    image: mongo:${MONGO_IMAGE_TAG}
+    container_name: configsvr03
+    hostname: configsvr03
+    command: >
+      bash -lc "
+      cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
+      chmod 400 /etc/mongo-keyfile &&
+      chown mongodb:mongodb /etc/mongo-keyfile &&
+      exec mongod --config /etc/mongo/mongod-configsvr.conf
+      "
+    volumes:
+      - configsvr03_data:/data/db
+      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - ./config/mongod-configsvr.conf:/etc/mongo/mongod-configsvr.conf:ro
+    networks:
+      - mongo-cluster
+
+  shard01a:
+    image: mongo:${MONGO_IMAGE_TAG}
+    container_name: shard01a
+    hostname: shard01a
+    command: >
+      bash -lc "
+      cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
+      chmod 400 /etc/mongo-keyfile &&
+      chown mongodb:mongodb /etc/mongo-keyfile &&
+      exec mongod --config /etc/mongo/mongod-shard.conf --replSet shard01rs
+      "
+    volumes:
+      - shard01a_data:/data/db
+      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
+    networks:
+      - mongo-cluster
+
+  shard01b:
+    image: mongo:${MONGO_IMAGE_TAG}
+    container_name: shard01b
+    hostname: shard01b
+    command: >
+      bash -lc "
+      cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
+      chmod 400 /etc/mongo-keyfile &&
+      chown mongodb:mongodb /etc/mongo-keyfile &&
+      exec mongod --config /etc/mongo/mongod-shard.conf --replSet shard01rs
+      "
+    volumes:
+      - shard01b_data:/data/db
+      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
+    networks:
+      - mongo-cluster
+
+  shard01c:
+    image: mongo:${MONGO_IMAGE_TAG}
+    container_name: shard01c
+    hostname: shard01c
+    command: >
+      bash -lc "
+      cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
+      chmod 400 /etc/mongo-keyfile &&
+      chown mongodb:mongodb /etc/mongo-keyfile &&
+      exec mongod --config /etc/mongo/mongod-shard.conf --replSet shard01rs
+      "
+    volumes:
+      - shard01c_data:/data/db
+      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
+    networks:
+      - mongo-cluster
+
+  shard02a:
+    image: mongo:${MONGO_IMAGE_TAG}
+    container_name: shard02a
+    hostname: shard02a
+    command: >
+      bash -lc "
+      cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
+      chmod 400 /etc/mongo-keyfile &&
+      chown mongodb:mongodb /etc/mongo-keyfile &&
+      exec mongod --config /etc/mongo/mongod-shard.conf --replSet shard02rs
+      "
+    volumes:
+      - shard02a_data:/data/db
+      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
+    networks:
+      - mongo-cluster
+
+  shard02b:
+    image: mongo:${MONGO_IMAGE_TAG}
+    container_name: shard02b
+    hostname: shard02b
+    command: >
+      bash -lc "
+      cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
+      chmod 400 /etc/mongo-keyfile &&
+      chown mongodb:mongodb /etc/mongo-keyfile &&
+      exec mongod --config /etc/mongo/mongod-shard.conf --replSet shard02rs
+      "
+    volumes:
+      - shard02b_data:/data/db
+      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
+    networks:
+      - mongo-cluster
+
+  shard02c:
+    image: mongo:${MONGO_IMAGE_TAG}
+    container_name: shard02c
+    hostname: shard02c
+    command: >
+      bash -lc "
+      cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
+      chmod 400 /etc/mongo-keyfile &&
+      chown mongodb:mongodb /etc/mongo-keyfile &&
+      exec mongod --config /etc/mongo/mongod-shard.conf --replSet shard02rs
+      "
+    volumes:
+      - shard02c_data:/data/db
+      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
+    networks:
+      - mongo-cluster
+
+  shard03a:
+    image: mongo:${MONGO_IMAGE_TAG}
+    container_name: shard03a
+    hostname: shard03a
+    command: >
+      bash -lc "
+      cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
+      chmod 400 /etc/mongo-keyfile &&
+      chown mongodb:mongodb /etc/mongo-keyfile &&
+      exec mongod --config /etc/mongo/mongod-shard.conf --replSet shard03rs
+      "
+    volumes:
+      - shard03a_data:/data/db
+      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
+    networks:
+      - mongo-cluster
+
+  shard03b:
+    image: mongo:${MONGO_IMAGE_TAG}
+    container_name: shard03b
+    hostname: shard03b
+    command: >
+      bash -lc "
+      cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
+      chmod 400 /etc/mongo-keyfile &&
+      chown mongodb:mongodb /etc/mongo-keyfile &&
+      exec mongod --config /etc/mongo/mongod-shard.conf --replSet shard03rs
+      "
+    volumes:
+      - shard03b_data:/data/db
+      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
+    networks:
+      - mongo-cluster
+
+  shard03c:
+    image: mongo:${MONGO_IMAGE_TAG}
+    container_name: shard03c
+    hostname: shard03c
+    command: >
+      bash -lc "
+      cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
+      chmod 400 /etc/mongo-keyfile &&
+      chown mongodb:mongodb /etc/mongo-keyfile &&
+      exec mongod --config /etc/mongo/mongod-shard.conf --replSet shard03rs
+      "
+    volumes:
+      - shard03c_data:/data/db
+      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
+    networks:
+      - mongo-cluster
+
+  mongos:
+    image: mongo:${MONGO_IMAGE_TAG}
+    container_name: mongos-router
+    hostname: mongos
+    depends_on:
+      - configsvr01
+      - configsvr02
+      - configsvr03
+      - shard01a
+      - shard01b
+      - shard01c
+      - shard02a
+      - shard02b
+      - shard02c
+      - shard03a
+      - shard03b
+      - shard03c
+    command: >
+      bash -lc "
+      cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
+      chmod 400 /etc/mongo-keyfile &&
+      chown mongodb:mongodb /etc/mongo-keyfile &&
+      exec mongos --config /etc/mongo/mongos.conf
+      "
+    ports:
+      - "${MONGOS_PORT}:27017"
+    volumes:
+      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - ./config/mongos.conf:/etc/mongo/mongos.conf:ro
+      - ../Data/processed:/import:ro
+      - ./scripts/mongo:/workspace/scripts/mongo:ro
+    networks:
+      - mongo-cluster
 
 volumes:
-  mongo_data:
+  configsvr01_data:
+  configsvr02_data:
+  configsvr03_data:
+  shard01a_data:
+  shard01b_data:
+  shard01c_data:
+  shard02a_data:
+  shard02b_data:
+  shard02c_data:
+  shard03a_data:
+  shard03b_data:
+  shard03c_data:
+
+networks:
+  mongo-cluster:
+    name: mongo-cluster

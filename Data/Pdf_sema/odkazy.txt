@@ -1,0 +1,6 @@
+MongoDB
+https://www.mongodb.com/
+https://medium.com/@ravikushwaha18.rk/setting-up-a-mongodb-replica-set-with-docker-compose-62ece5c295a1
+https://medium.com/@rishavkapil61/setting-up-a-mongodb-replica-set-cluster-using-docker-compose-50181a31afa0
+https://www.mongodb.com/resources/products/compatibilities/deploying-a-mongodb-cluster-with-docker
+https://github.com/minhhungit/mongodb-cluster-docker-compose (zastaralá verze, jen pro představu o MonogDB cluster)
