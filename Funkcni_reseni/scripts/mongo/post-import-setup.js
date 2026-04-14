@@ -139,7 +139,6 @@ applyValidator("events", {
 
 appDb.matches.createIndex({ match_id: 1 }, { unique: true, name: "ux_match_id" });
 appDb.players.createIndex({ player_id: 1 }, { unique: true, name: "ux_player_id" });
-appDb.events.createIndex({ event_id: "hashed" }, { name: "ix_events_event_id_hashed" });
 appDb.events.createIndex({ match_id: 1 }, { name: "ix_events_match_id" });
 appDb.events.createIndex({ player_id: 1 }, { name: "ix_events_player_id" });
 appDb.events.createIndex(
@@ -147,15 +146,6 @@ appDb.events.createIndex(
   { name: "ix_events_team_type" }
 );
 appDb.events.createIndex({ season: 1, minute: 1 }, { name: "ix_events_season_minute" });
-
-sh.enableSharding(dbName);
-try {
-  sh.shardCollection(dbName + ".events", { event_id: "hashed" });
-} catch (e) {
-  if (!String(e).includes("already sharded")) {
-    throw e;
-  }
-}
 
 printjson({
   validators: appDb.getCollectionInfos().map((collection) => ({

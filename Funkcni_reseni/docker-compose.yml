@@ -1,10 +1,28 @@
 services:
+  keyfile-setup:
+    image: mongo:${MONGO_IMAGE_TAG}
+    container_name: mongo-keyfile-setup
+    command: >
+      bash -lc "
+      if [ ! -s /keyfile/mongo-keyfile ]; then
+        umask 177 &&
+        dd if=/dev/urandom bs=756 count=1 2>/dev/null | base64 > /keyfile/mongo-keyfile;
+      fi &&
+      chmod 400 /keyfile/mongo-keyfile
+      "
+    volumes:
+      - mongo_keyfile:/keyfile
+    restart: "no"
+    networks:
+      - mongo-cluster
+
   configsvr01:
     image: mongo:${MONGO_IMAGE_TAG}
     container_name: configsvr01
     hostname: configsvr01
     command: >
       bash -lc "
+      until [ -s /run/secrets/mongo-keyfile ]; do sleep 1; done &&
       cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
       chmod 400 /etc/mongo-keyfile &&
       chown mongodb:mongodb /etc/mongo-keyfile &&
@@ -12,7 +30,7 @@ services:
       "
     volumes:
       - configsvr01_data:/data/db
-      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - mongo_keyfile:/run/secrets:ro
       - ./config/mongod-configsvr.conf:/etc/mongo/mongod-configsvr.conf:ro
     networks:
       - mongo-cluster
@@ -23,6 +41,7 @@ services:
     hostname: configsvr02
     command: >
       bash -lc "
+      until [ -s /run/secrets/mongo-keyfile ]; do sleep 1; done &&
       cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
       chmod 400 /etc/mongo-keyfile &&
       chown mongodb:mongodb /etc/mongo-keyfile &&
@@ -30,7 +49,7 @@ services:
       "
     volumes:
       - configsvr02_data:/data/db
-      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - mongo_keyfile:/run/secrets:ro
       - ./config/mongod-configsvr.conf:/etc/mongo/mongod-configsvr.conf:ro
     networks:
       - mongo-cluster
@@ -41,6 +60,7 @@ services:
     hostname: configsvr03
     command: >
       bash -lc "
+      until [ -s /run/secrets/mongo-keyfile ]; do sleep 1; done &&
       cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
       chmod 400 /etc/mongo-keyfile &&
       chown mongodb:mongodb /etc/mongo-keyfile &&
@@ -48,7 +68,7 @@ services:
       "
     volumes:
       - configsvr03_data:/data/db
-      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - mongo_keyfile:/run/secrets:ro
       - ./config/mongod-configsvr.conf:/etc/mongo/mongod-configsvr.conf:ro
     networks:
       - mongo-cluster
@@ -59,6 +79,7 @@ services:
     hostname: shard01a
     command: >
       bash -lc "
+      until [ -s /run/secrets/mongo-keyfile ]; do sleep 1; done &&
       cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
       chmod 400 /etc/mongo-keyfile &&
       chown mongodb:mongodb /etc/mongo-keyfile &&
@@ -66,7 +87,7 @@ services:
       "
     volumes:
       - shard01a_data:/data/db
-      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - mongo_keyfile:/run/secrets:ro
       - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
     networks:
       - mongo-cluster
@@ -77,6 +98,7 @@ services:
     hostname: shard01b
     command: >
       bash -lc "
+      until [ -s /run/secrets/mongo-keyfile ]; do sleep 1; done &&
       cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
       chmod 400 /etc/mongo-keyfile &&
       chown mongodb:mongodb /etc/mongo-keyfile &&
@@ -84,7 +106,7 @@ services:
       "
     volumes:
       - shard01b_data:/data/db
-      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - mongo_keyfile:/run/secrets:ro
       - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
     networks:
       - mongo-cluster
@@ -95,6 +117,7 @@ services:
     hostname: shard01c
     command: >
       bash -lc "
+      until [ -s /run/secrets/mongo-keyfile ]; do sleep 1; done &&
       cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
       chmod 400 /etc/mongo-keyfile &&
       chown mongodb:mongodb /etc/mongo-keyfile &&
@@ -102,7 +125,7 @@ services:
       "
     volumes:
       - shard01c_data:/data/db
-      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - mongo_keyfile:/run/secrets:ro
       - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
     networks:
       - mongo-cluster
@@ -113,6 +136,7 @@ services:
     hostname: shard02a
     command: >
       bash -lc "
+      until [ -s /run/secrets/mongo-keyfile ]; do sleep 1; done &&
       cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
       chmod 400 /etc/mongo-keyfile &&
       chown mongodb:mongodb /etc/mongo-keyfile &&
@@ -120,7 +144,7 @@ services:
       "
     volumes:
       - shard02a_data:/data/db
-      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - mongo_keyfile:/run/secrets:ro
       - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
     networks:
       - mongo-cluster
@@ -131,6 +155,7 @@ services:
     hostname: shard02b
     command: >
       bash -lc "
+      until [ -s /run/secrets/mongo-keyfile ]; do sleep 1; done &&
       cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
       chmod 400 /etc/mongo-keyfile &&
       chown mongodb:mongodb /etc/mongo-keyfile &&
@@ -138,7 +163,7 @@ services:
       "
     volumes:
       - shard02b_data:/data/db
-      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - mongo_keyfile:/run/secrets:ro
       - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
     networks:
       - mongo-cluster
@@ -149,6 +174,7 @@ services:
     hostname: shard02c
     command: >
       bash -lc "
+      until [ -s /run/secrets/mongo-keyfile ]; do sleep 1; done &&
       cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
       chmod 400 /etc/mongo-keyfile &&
       chown mongodb:mongodb /etc/mongo-keyfile &&
@@ -156,7 +182,7 @@ services:
       "
     volumes:
       - shard02c_data:/data/db
-      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - mongo_keyfile:/run/secrets:ro
       - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
     networks:
       - mongo-cluster
@@ -167,6 +193,7 @@ services:
     hostname: shard03a
     command: >
       bash -lc "
+      until [ -s /run/secrets/mongo-keyfile ]; do sleep 1; done &&
       cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
       chmod 400 /etc/mongo-keyfile &&
       chown mongodb:mongodb /etc/mongo-keyfile &&
@@ -174,7 +201,7 @@ services:
       "
     volumes:
       - shard03a_data:/data/db
-      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - mongo_keyfile:/run/secrets:ro
       - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
     networks:
       - mongo-cluster
@@ -185,6 +212,7 @@ services:
     hostname: shard03b
     command: >
       bash -lc "
+      until [ -s /run/secrets/mongo-keyfile ]; do sleep 1; done &&
       cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
       chmod 400 /etc/mongo-keyfile &&
       chown mongodb:mongodb /etc/mongo-keyfile &&
@@ -192,7 +220,7 @@ services:
       "
     volumes:
       - shard03b_data:/data/db
-      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - mongo_keyfile:/run/secrets:ro
       - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
     networks:
       - mongo-cluster
@@ -203,6 +231,7 @@ services:
     hostname: shard03c
     command: >
       bash -lc "
+      until [ -s /run/secrets/mongo-keyfile ]; do sleep 1; done &&
       cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
       chmod 400 /etc/mongo-keyfile &&
       chown mongodb:mongodb /etc/mongo-keyfile &&
@@ -210,7 +239,7 @@ services:
       "
     volumes:
       - shard03c_data:/data/db
-      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - mongo_keyfile:/run/secrets:ro
       - ./config/mongod-shard.conf:/etc/mongo/mongod-shard.conf:ro
     networks:
       - mongo-cluster
@@ -234,6 +263,7 @@ services:
       - shard03c
     command: >
       bash -lc "
+      until [ -s /run/secrets/mongo-keyfile ]; do sleep 1; done &&
       cp /run/secrets/mongo-keyfile /etc/mongo-keyfile &&
       chmod 400 /etc/mongo-keyfile &&
       chown mongodb:mongodb /etc/mongo-keyfile &&
@@ -242,14 +272,46 @@ services:
     ports:
       - "${MONGOS_PORT}:27017"
     volumes:
-      - ./config/keyfile:/run/secrets/mongo-keyfile:ro
+      - mongo_keyfile:/run/secrets:ro
       - ./config/mongos.conf:/etc/mongo/mongos.conf:ro
       - ../Data/processed:/import:ro
       - ./scripts/mongo:/workspace/scripts/mongo:ro
     networks:
       - mongo-cluster
 
+  cluster-setup:
+    image: docker:28-cli
+    container_name: mongo-cluster-setup
+    depends_on:
+      - configsvr01
+      - configsvr02
+      - configsvr03
+      - shard01a
+      - shard01b
+      - shard01c
+      - shard02a
+      - shard02b
+      - shard02c
+      - shard03a
+      - shard03b
+      - shard03c
+      - mongos
+    command: ["sh", "/workspace/scripts/auto-setup.sh"]
+    restart: "no"
+    environment:
+      MONGO_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_APP_DB: ${MONGO_APP_DB}
+      MONGO_APP_USERNAME: ${MONGO_APP_USERNAME}
+      MONGO_APP_PASSWORD: ${MONGO_APP_PASSWORD}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./scripts:/workspace/scripts:ro
+    networks:
+      - mongo-cluster
+
 volumes:
+  mongo_keyfile:
   configsvr01_data:
   configsvr02_data:
   configsvr03_data:

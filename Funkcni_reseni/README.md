@@ -9,7 +9,7 @@ This folder contains a sharded MongoDB setup for the semestral project.
 - `3` shard replica sets: `shard01rs`, `shard02rs`, `shard03rs`
 - `3` nodes per shard replica set
 - `1` `mongos` router exposed on port `27030`
-- internal authentication via `keyFile`
+- internal authentication via `keyFile` generated at runtime
 - external authentication via MongoDB users
 
 In total, the topology contains `13` containers:
@@ -32,15 +32,21 @@ The largest collection is `events`, which is sharded by hashed `event_id`.
 
 ## Start
 
-Run the following commands from this directory:
+Run the following command from this directory:
 
 ```powershell
 docker compose up -d
-.\scripts\init-cluster.ps1
-.\scripts\import-data.ps1
 ```
 
 Docker Desktop must be running before these commands are executed.
+
+The `cluster-setup` one-shot service now waits for all MongoDB containers,
+configures replica sets and shards, creates users, and imports the datasets
+automatically.
+
+The cluster `keyFile` is generated automatically into a dedicated Docker volume,
+so no fixed authentication key is stored in the repository. Running
+`docker compose down -v` removes it and the next `up` generates a new one.
 
 To stop everything:
 
@@ -104,6 +110,6 @@ docker compose exec mongos mongosh -u admin -p admin123 --authenticationDatabase
 
 ## Important Notes
 
-- `init-cluster.ps1` configures replica sets, adds shards and creates users.
-- `import-data.ps1` imports `matches.json`, `players.json` and `events.json`, creates indexes and shards the `events` collection.
+- `cluster-setup` performs the full automatic bootstrap during `docker compose up -d`.
+- `import-data.ps1` remains available as a manual utility for re-importing the prepared datasets.
 - The `events` collection is the main fact collection and provides enough records for the project requirement of at least `5,000` records in one dataset.

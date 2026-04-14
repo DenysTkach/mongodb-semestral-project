@@ -29,6 +29,21 @@ function Invoke-DockerCommand {
     }
 }
 
+function Invoke-MongoshEval {
+    param([string]$Eval)
+
+    Invoke-DockerCommand -Arguments @(
+        "exec", "mongos-router",
+        "mongosh",
+        "--quiet",
+        "--port", "27017",
+        "--username", $rootUser,
+        "--password", $rootPassword,
+        "--authenticationDatabase", "admin",
+        "--eval", $Eval
+    )
+}
+
 $solutionRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
 $projectRoot = Resolve-Path (Join-Path $solutionRoot "..")
 $envPath = Join-Path $solutionRoot ".env"
@@ -65,6 +80,32 @@ try {
         "--drop"
     )
 
+    $prepareEventsCollection = @"
+const dbName = '$dbName';
+const appDb = db.getSiblingDB(dbName);
+
+try {
+  appDb.events.drop();
+} catch (e) {
+  const message = String(e);
+  if (
+    !message.includes('ns not found') &&
+    !message.includes('NamespaceNotFound')
+  ) {
+    throw e;
+  }
+}
+
+sh.enableSharding(dbName);
+sh.shardCollection(
+  dbName + '.events',
+  { event_id: 'hashed' },
+  false,
+  { numInitialChunks: 12 }
+);
+"@
+    Invoke-MongoshEval -Eval $prepareEventsCollection
+
     Invoke-DockerCommand -Arguments @(
         "exec", "mongos-router",
         "mongoimport",
@@ -91,8 +132,7 @@ try {
         "--db", $dbName,
         "--collection", "events",
         "--file", "/import/events.json",
-        "--jsonArray",
-        "--drop"
+        "--jsonArray"
     )
 
     Invoke-DockerCommand -Arguments @(
