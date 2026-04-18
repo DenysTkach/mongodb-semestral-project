@@ -1,0 +1,28 @@
+
+Vážení studenti,
+
+jménem celého týmu předmětu BSQBD se Vám omlouvám za vzniklé komplikace. Bohužel došlo k situaci, kdy několik studentů neúmyslně vyřadilo z provozu server, na kterém běžela virtualizace pro Vaše semestrální projekty.
+
+Server se nyní nachází ve stabilizovaném stavu, avšak bez přístupu k internetu. Doporučujeme Vám co nejdříve si stáhnout ze serveru veškerá data k Vašim projektům a dokončit práci na vlastních zařízeních.
+Z těchto zařízení následně proběhne i obhajoba.
+
+Pro přenos dat můžete využít:
+
+Linux: standardní SCP přes SSH
+Windows a macOS: např. grafický nástroj Cyberduck (https://cyberduck.io/) s využitím SFTP
+Přihlašovací údaje zůstávají stejné, jaké jste obdrželi dříve e-mailem.
+
+Žádáme Vás, abyste na virtuálních strojích aktuálně:
+
+nespouštěli žádné grafické aplikace,
+neprováděli další importy dat,
+nespouštěli zpět dockery Vašich řešení,
+pokud možno se vyhnuli používání TightVNC.
+Semestrální práci je nutné kompletně odevzdat do Moodle. Pokud velikost řešení přesahuje 80 MB, odevzdejte jej prostřednictvím OneDrive a nasdílejte garantce předmětu, doktorce Borkovcové, a Vašemu cvičícímu.
+V takovém případě zároveň nahrajte do Moodle .zip soubor obsahující dokumentaci vč. dotazů, zdroj k jupyterlab notebooku a skripty pro:
+
+čištění a analýzu dat,
+plnění dat,
+sestavení Docker prostředí,
+inicializaci Vašeho clusteru.
+Ještě jednou se omlouváme za vzniklé komplikace a děkujeme za pochopení.

@@ -8,3 +8,5 @@ __pycache__/
 Data/processed/
 Funkcni_reseni/config/keyfile
 Data/raw/
+Funkcni_reseni/evidence/*
+!Funkcni_reseni/evidence/.gitkeep

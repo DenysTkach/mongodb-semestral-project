@@ -108,8 +108,21 @@ Optional cluster overview:
 docker compose exec mongos mongosh -u admin -p admin123 --authenticationDatabase admin /workspace/scripts/mongo/cluster-health.js
 ```
 
+Pre-defense self-check with evidence capture:
+
+```powershell
+.\scripts\pre-defense-check.ps1
+```
+
+Optional failover demonstration for one shard replica set:
+
+```powershell
+.\scripts\pre-defense-check.ps1 -SimulateFailover -ReplicaSet shard01rs
+```
+
 ## Important Notes
 
 - `cluster-setup` performs the full automatic bootstrap during `docker compose up -d`.
 - `import-data.ps1` remains available as a manual utility for re-importing the prepared datasets.
+- `pre-defense-check.ps1` runs the common verification steps, captures evidence files, and can optionally demonstrate a controlled shard failover.
 - The `events` collection is the main fact collection and provides enough records for the project requirement of at least `5,000` records in one dataset.
