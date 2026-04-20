@@ -5,7 +5,7 @@ __pycache__/
 .ipynb_checkpoints/
 .vscode/
 .idea/
-Data/processed/
+
 Funkcni_reseni/config/keyfile
 Data/raw/
 Funkcni_reseni/evidence/*

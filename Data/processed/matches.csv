@@ -1,0 +1,34 @@
+match_id,match_date,kick_off,season,competition_id,competition_name,home_team_id,home_team_name,away_team_id,away_team_name,home_score,away_score,stadium_id,stadium_name,referee_id,referee_name,competition_stage_id,competition_stage_name
+303666,2019-09-21,21:00:00.000,2019/2020,11,La Liga,1049,Granada,217,Barcelona,2,0,4667,Estadio Nuevo Los Cármenes,,,1,Regular Season
+303430,2019-09-24,21:00:00.000,2019/2020,11,La Liga,217,Barcelona,222,Villarreal,2,1,342,Spotify Camp Nou,,,1,Regular Season
+303473,2019-10-06,21:00:00.000,2019/2020,11,La Liga,217,Barcelona,213,Sevilla,4,0,342,Spotify Camp Nou,180.0,Antonio Miguel Mateu Lahoz,1,Regular Season
+303700,2019-10-19,13:00:00.000,2019/2020,11,La Liga,322,Eibar,217,Barcelona,0,3,347,Estadio Municipal de Ipurúa,,,1,Regular Season
+303600,2019-10-29,21:15:00.000,2019/2020,11,La Liga,217,Barcelona,901,Real Valladolid,5,1,342,Spotify Camp Nou,,,1,Regular Season
+303504,2019-11-02,16:00:00.000,2019/2020,11,La Liga,221,Levante UD,217,Barcelona,3,1,350,Estadio Ciudad de Valencia,,,1,Regular Season
+303487,2019-11-09,21:00:00.000,2019/2020,11,La Liga,217,Barcelona,209,Celta Vigo,4,1,342,Spotify Camp Nou,,,1,Regular Season
+303715,2019-11-23,13:00:00.000,2019/2020,11,La Liga,205,Leganés,217,Barcelona,1,2,355,Estadio Municipal de Butarque,,,1,Regular Season
+303524,2019-12-01,21:00:00.000,2019/2020,11,La Liga,212,Atlético Madrid,217,Barcelona,0,1,4654,	Estádio Cívitas Metropolitano,180.0,Antonio Miguel Mateu Lahoz,1,Regular Season
+303451,2019-12-07,21:00:00.000,2019/2020,11,La Liga,217,Barcelona,1043,Mallorca,5,2,342,Spotify Camp Nou,,,1,Regular Season
+303664,2019-12-14,16:00:00.000,2019/2020,11,La Liga,210,Real Sociedad,217,Barcelona,2,2,5043,Reale Arena,,,1,Regular Season
+303596,2019-12-18,20:00:00.000,2019/2020,11,La Liga,217,Barcelona,220,Real Madrid,0,0,342,Spotify Camp Nou,,,1,Regular Season
+303517,2019-12-21,16:00:00.000,2019/2020,11,La Liga,217,Barcelona,206,Deportivo Alavés,4,1,342,Spotify Camp Nou,,,1,Regular Season
+303652,2020-01-04,21:00:00.000,2019/2020,11,La Liga,214,Espanyol,217,Barcelona,2,2,351,RCDE Stadium,,,1,Regular Season
+303610,2020-01-19,21:00:00.000,2019/2020,11,La Liga,217,Barcelona,1049,Granada,1,0,342,Spotify Camp Nou,,,1,Regular Season
+303400,2020-01-25,16:00:00.000,2019/2020,11,La Liga,207,Valencia,217,Barcelona,2,0,344,Estadio de Mestalla,183.0,Jesús Gil Manzano,1,Regular Season
+303682,2020-02-02,21:00:00.000,2019/2020,11,La Liga,217,Barcelona,221,Levante UD,2,1,342,Spotify Camp Nou,,,1,Regular Season
+303707,2020-02-09,21:00:00.000,2019/2020,11,La Liga,218,Real Betis,217,Barcelona,2,3,352,Estadio Benito Villamarín,,,1,Regular Season
+303377,2020-02-15,16:00:00.000,2019/2020,11,La Liga,217,Barcelona,216,Getafe,2,1,342,Spotify Camp Nou,,,1,Regular Season
+303731,2020-02-22,16:00:00.000,2019/2020,11,La Liga,217,Barcelona,322,Eibar,5,0,342,Spotify Camp Nou,,,1,Regular Season
+303470,2020-03-01,21:00:00.000,2019/2020,11,La Liga,220,Real Madrid,217,Barcelona,2,0,353,Estadio Santiago Bernabéu,180.0,Antonio Miguel Mateu Lahoz,1,Regular Season
+303479,2020-03-07,18:30:00.000,2019/2020,11,La Liga,217,Barcelona,210,Real Sociedad,1,0,342,Spotify Camp Nou,,,1,Regular Season
+303548,2020-06-13,22:00:00.000,2019/2020,11,La Liga,1043,Mallorca,217,Barcelona,0,4,4454,Estadi Mallorca Son Moix,,,1,Regular Season
+303532,2020-06-16,22:00:00.000,2019/2020,11,La Liga,217,Barcelona,205,Leganés,2,0,342,Spotify Camp Nou,,,1,Regular Season
+303674,2020-06-19,22:00:00.000,2019/2020,11,La Liga,213,Sevilla,217,Barcelona,0,0,349,Estadio Ramón Sánchez Pizjuán,211.0,José Luis González González,1,Regular Season
+303493,2020-06-23,22:00:00.000,2019/2020,11,La Liga,217,Barcelona,215,Athletic Club,1,0,342,Spotify Camp Nou,183.0,Jesús Gil Manzano,1,Regular Season
+303516,2020-06-27,17:00:00.000,2019/2020,11,La Liga,209,Celta Vigo,217,Barcelona,2,2,653,Abanca-Balaídos,,,1,Regular Season
+303696,2020-06-30,22:00:00.000,2019/2020,11,La Liga,217,Barcelona,212,Atlético Madrid,2,2,342,Spotify Camp Nou,,,1,Regular Season
+303725,2020-07-05,22:00:00.000,2019/2020,11,La Liga,222,Villarreal,217,Barcelona,1,4,361,Estadio de la Cerámica,,,1,Regular Season
+303615,2020-07-08,22:00:00.000,2019/2020,11,La Liga,217,Barcelona,214,Espanyol,1,0,342,Spotify Camp Nou,,,1,Regular Season
+303680,2020-07-11,19:30:00.000,2019/2020,11,La Liga,901,Real Valladolid,217,Barcelona,0,1,622,Estadio Municipal José Zorrilla,180.0,Antonio Miguel Mateu Lahoz,1,Regular Season
+303634,2020-07-16,21:00:00.000,2019/2020,11,La Liga,217,Barcelona,422,Osasuna,1,2,342,Spotify Camp Nou,,,1,Regular Season
+303421,2020-07-19,17:00:00.000,2019/2020,11,La Liga,206,Deportivo Alavés,217,Barcelona,0,5,348,Estadio de Mendizorroza,,,1,Regular Season

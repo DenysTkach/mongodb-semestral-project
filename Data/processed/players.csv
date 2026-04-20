@@ -1,0 +1,477 @@
+player_id,player_name,player_nickname,jersey_number,country,team_id,team_name,position,season
+6699,Ander Capa Rodríguez,Ander Capa,21,Spain,215,Athletic Club,Right Wing,2019/2020
+32953,Asier Villalibre Molina,Asier Villalibre,25,Spain,215,Athletic Club,Center Forward,2019/2020
+6775,Daniel García Carrillo,Dani García,14,Spain,215,Athletic Club,Right Defensive Midfield,2019/2020
+41542,Daniel Vivian Moreno,Dani Vivian,29,Spain,215,Athletic Club,,2019/2020
+30715,Gaizka Larrazabal Goikoetxea,Gaizka Larrazabal,12,Spain,215,Athletic Club,,2019/2020
+6662,Iago Herrerín Buisán,Iago Herrerín,13,Spain,215,Athletic Club,,2019/2020
+6842,Iker Muniain Goñi,Iker Muniain,10,Spain,215,Athletic Club,Left Wing,2019/2020
+6393,Iñaki Williams Arthuer,Iñaki Williams,9,Ghana,215,Athletic Club,Center Forward,2019/2020
+6387,Iñigo Córdoba Kerejeta,Iñigo Córdoba,11,Spain,215,Athletic Club,Left Wing,2019/2020
+8540,Kenan Kodro,,23,Bosnia and Herzegovina,215,Athletic Club,,2019/2020
+6789,Mikel Balenziaga Oruesagasti,Mikel Balenziaga,24,Spain,215,Athletic Club,Left Back,2019/2020
+6389,Mikel San José Domínguez,Mikel San José,6,Spain,215,Athletic Club,,2019/2020
+6667,Mikel Vesga Arruti,Mikel Vesga,16,Spain,215,Athletic Club,Left Defensive Midfield,2019/2020
+30225,Oihan Sancet Tirapu,Oihan Sancet,34,Spain,215,Athletic Club,Center Attacking Midfield,2019/2020
+6391,Raúl García Escudero,Raúl García,22,Spain,215,Athletic Club,Center Attacking Midfield,2019/2020
+11746,Unai López Cabrera,Unai López,8,Spain,215,Athletic Club,Right Defensive Midfield,2019/2020
+6397,Unai Núñez Gestoso,Unai Núñez,3,Spain,215,Athletic Club,Right Center Back,2019/2020
+11748,Unai Simón Mendibil,Unai Simón,1,Spain,215,Athletic Club,Goalkeeper,2019/2020
+35473,Unai Vencedor Paris,Unai Vencedor,27,Spain,215,Athletic Club,,2019/2020
+6877,Yeray Álvarez López,Yeray Álvarez,5,Spain,215,Athletic Club,Left Center Back,2019/2020
+6392,Íñigo Lekue Martínez,Iñigo Lekue,15,Spain,215,Athletic Club,Right Wing,2019/2020
+6665,Íñigo Martínez Berridi,Íñigo Martínez,4,Spain,215,Athletic Club,,2019/2020
+6649,Óscar de Marcos Arana,De Marcos,18,Spain,215,Athletic Club,Right Back,2019/2020
+6654,Antonio Adán Garrido,Antonio Adán,1,Spain,212,Atlético Madrid,,2019/2020
+5198,Diego da Silva Costa,Diego Costa,19,Spain,212,Atlético Madrid,Left Center Forward,2019/2020
+11167,Felipe Augusto de Almeida Monteiro,Felipe,18,Brazil,212,Atlético Madrid,Left Center Back,2019/2020
+5575,Héctor Miguel Herrera López,Héctor Herrera,16,Mexico,212,Atlético Madrid,Right Center Midfield,2019/2020
+34532,Ivan Šaponjić,,17,Serbia,212,Atlético Madrid,,2019/2020
+6378,Jan Oblak,,13,Slovenia,212,Atlético Madrid,Goalkeeper,2019/2020
+5199,Jorge Resurrección Merodio,Koke,6,Spain,212,Atlético Madrid,Left Midfield,2019/2020
+5259,José María Giménez de Vargas,José Giménez,2,Uruguay,212,Atlético Madrid,Right Center Back,2019/2020
+12041,João Félix Sequeira,João Félix,7,Portugal,212,Atlético Madrid,Right Center Forward,2019/2020
+3308,Kieran Trippier,,23,England,212,Atlético Madrid,Right Back,2019/2020
+33339,Manuel Sánchez De La Peña,Manu Sánchez,35,Spain,212,Atlético Madrid,,2019/2020
+6840,Marcos Llorente Moreno,Marcos Llorente,14,Spain,212,Atlético Madrid,Right Center Forward,2019/2020
+6790,Mario Hermoso Canseco,Mario Hermoso,22,Spain,212,Atlético Madrid,Left Center Back,2019/2020
+26532,Renan Augusto Lodi dos Santos,Renan Lodi,12,Brazil,212,Atlético Madrid,Left Back,2019/2020
+41732,Ricard Sánchez Sendra,Ricard Sánchez,42,Spain,212,Atlético Madrid,,2019/2020
+5696,Santiago Arias Naranjo,Santiago Arias,4,Colombia,212,Atlético Madrid,Right Back,2019/2020
+6381,Saúl Ñíguez Esclapez,Saúl Ñíguez,8,Spain,212,Atlético Madrid,Left Defensive Midfield,2019/2020
+3245,Thomas Lemar,,11,France,212,Atlético Madrid,Left Midfield,2019/2020
+6383,Thomas Teye Partey,Thomas Partey,5,Ghana,212,Atlético Madrid,Right Defensive Midfield,2019/2020
+6841,Víctor Machín Pérez,Vitolo,20,Spain,212,Atlético Madrid,Right Midfield,2019/2020
+5633,Yannick Ferreira Carrasco,Yannick Carrasco,21,Belgium,212,Atlético Madrid,Left Midfield,2019/2020
+3477,Álvaro Borja Morata Martín,Álvaro Morata,9,Spain,212,Atlético Madrid,Left Center Forward,2019/2020
+41733,Álvaro García Segovia,Álvaro García,26,Spain,212,Atlético Madrid,,2019/2020
+6377,Ángel Martín Correa,Ángel Correa,10,Argentina,212,Atlético Madrid,Right Midfield,2019/2020
+30756,Anssumane Fati,Ansu Fati,31,Spain,217,Barcelona,Left Wing,2019/2020
+5487,Antoine Griezmann,,17,France,217,Barcelona,Center Forward,2019/2020
+39159,Arnau Tenas Ureña,Arnau Tenas,36,Spain,217,Barcelona,,2019/2020
+11392,Arthur Henrique Ramos de Oliveira Melo,Arthur,8,Brazil,217,Barcelona,Left Center Midfield,2019/2020
+8206,Arturo Erasmo Vidal Pardo,Arturo Vidal,22,Chile,217,Barcelona,Left Wing,2019/2020
+13599,Carles Aleña Castillo,Carles Aleñà,19,Spain,217,Barcelona,Right Center Midfield,2019/2020
+25006,Carles Pérez Sayol,Carles Pérez,27,Spain,217,Barcelona,Center Forward,2019/2020
+6826,Clément Lenglet,,15,France,217,Barcelona,Left Center Back,2019/2020
+41641,Daniel Morer Cabrera,Dani Morer,35,Spain,217,Barcelona,,2019/2020
+8118,Frenkie de Jong,,21,Netherlands,217,Barcelona,Center Defensive Midfield,2019/2020
+5213,Gerard Piqué Bernabéu,Gerard Piqué,3,Spain,217,Barcelona,Right Center Back,2019/2020
+17304,Héctor Junior Firpo Adames,Junior Firpo,24,Spain,217,Barcelona,Left Back,2019/2020
+37237,Ignacio Peña Sotorres,Iñaki Peña,26,Spain,217,Barcelona,,2019/2020
+5470,Ivan Rakitić,,4,Croatia,217,Barcelona,Right Center Midfield,2019/2020
+41408,Javier Enrique Delgado Saverio,Kike Saverio,38,Ecuador,217,Barcelona,,2019/2020
+11532,Jean-Clair Todibo,,6,France,217,Barcelona,Right Center Back,2019/2020
+5211,Jordi Alba Ramos,Jordi Alba,18,Spain,217,Barcelona,Left Back,2019/2020
+41543,Jorge Cuenca Barreno,Jorge Cuenca,43,Spain,217,Barcelona,,2019/2020
+41407,Juan Brandariz Movilla,Chumi,40,Spain,217,Barcelona,,2019/2020
+5503,Lionel Andrés Messi Cuccittini,Lionel Messi,10,Argentina,217,Barcelona,Right Wing,2019/2020
+5246,Luis Alberto Suárez Díaz,Luis Suárez,9,Uruguay,217,Barcelona,Left Wing,2019/2020
+20055,Marc-André ter Stegen,Marc-André ter Stegen,1,Germany,217,Barcelona,Goalkeeper,2019/2020
+4447,Martin Braithwaite Christensen,Martin Braithwaite,19,Denmark,217,Barcelona,Center Forward,2019/2020
+5674,Moussa Wagué,,16,Senegal,217,Barcelona,Right Back,2019/2020
+6590,Norberto Murara Neto,Neto,13,Brazil,217,Barcelona,Goalkeeper,2019/2020
+6374,Nélson Cabral Semedo,Nélson Semedo,2,Portugal,217,Barcelona,Right Back,2019/2020
+5477,Ousmane Dembélé,,11,France,217,Barcelona,Right Wing,2019/2020
+41122,Ramón Rodríguez Jiménez,Monchu,42,Spain,217,Barcelona,,2019/2020
+23987,Rey Manaj,,41,Albania,217,Barcelona,,2019/2020
+24841,Ricard Puig Martí,Riqui Puig,28,Spain,217,Barcelona,Left Center Midfield,2019/2020
+32480,Ronald Federico Araújo da Silva,Ronald Araújo,33,Uruguay,217,Barcelona,Right Center Back,2019/2020
+5492,Samuel Yves Umtiti,Samuel Umtiti,23,France,217,Barcelona,Right Center Back,2019/2020
+6379,Sergi Roberto Carnicer,Sergi Roberto,20,Spain,217,Barcelona,Right Back,2019/2020
+20734,Sergio Akieme Rodríguez,Sergio Akieme,39,Spain,217,Barcelona,,2019/2020
+5203,Sergio Busquets i Burgos,Sergio Busquets,5,Spain,217,Barcelona,Center Defensive Midfield,2019/2020
+24949,Álex Collado Gutiérrez,Álex Collado,30,Spain,217,Barcelona,Right Wing Back,2019/2020
+6799,Brais Méndez Portela,Brais Méndez,23,Spain,209,Celta Vigo,Right Center Midfield,2019/2020
+17804,David Costas Cordal,David Costas,3,Spain,209,Celta Vigo,,2019/2020
+6776,David Juncà Reñé,David Juncà,17,Spain,209,Celta Vigo,Left Wing Back,2019/2020
+6609,Denis Suárez Fernández,Denis Suárez,6,Spain,209,Celta Vigo,Left Center Midfield,2019/2020
+28194,Dragan Rosić,,40,Serbia,209,Celta Vigo,,2019/2020
+6310,Filip Bradarić,,14,Croatia,209,Celta Vigo,Right Center Midfield,2019/2020
+11389,Francisco José Beltrán Peinado,Fran Beltrán,8,Spain,209,Celta Vigo,Center Defensive Midfield,2019/2020
+5194,Fyodor Smolov,,9,Russia,209,Celta Vigo,Left Center Forward,2019/2020
+30294,Gabriel Matías Fernández Leites,Gabriel Fernández,19,Uruguay,209,Celta Vigo,Left Center Midfield,2019/2020
+6805,Hugo Mallo Novegil,Hugo Mallo,2,Spain,209,Celta Vigo,Right Wing Back,2019/2020
+5217,Iago Aspas Juncal,Iago Aspas,10,Spain,209,Celta Vigo,Right Center Forward,2019/2020
+40890,Iván Villar Martínez,Iván Villar,25,Spain,209,Celta Vigo,,2019/2020
+41116,Jacobo González Rodrigañez,Jacobo González,29,Spain,209,Celta Vigo,Left Wing Back,2019/2020
+6585,Jeison Fabián Murillo Cerón,Jeison Murillo,21,Colombia,209,Celta Vigo,Center Back,2019/2020
+24273,Jorge Sáenz de Miera Colmeiro,Jorge Sáenz,16,Spain,209,Celta Vigo,Left Center Back,2019/2020
+16555,Joseph Aidoo,,18,Ghana,209,Celta Vigo,Right Center Back,2019/2020
+35000,José Manuel Fontán Mondragón,José Fontán,31,Spain,209,Celta Vigo,,2019/2020
+25014,Juan Hernández García,Juan Hernández,7,Spain,209,Celta Vigo,,2019/2020
+22029,Kevin Vázquez Comesaña,Kevin Vázquez,20,Spain,209,Celta Vigo,Right Wing Back,2019/2020
+24730,Lucas René Olaza Catrofe,Lucas Olaza,15,Uruguay,209,Celta Vigo,Left Center Back,2019/2020
+6724,Manuel Agudo Durán,Nolito,3,Spain,209,Celta Vigo,Left Center Forward,2019/2020
+11388,Néstor Alejandro Araújo Razo,Néstor Araujo,4,Mexico,209,Celta Vigo,Center Back,2019/2020
+12555,Okay Yokuşlu,,5,Turkey,209,Celta Vigo,Center Defensive Midfield,2019/2020
+4558,Pape Cheikh Diop Gueye,Pape Diop,24,Senegal,209,Celta Vigo,Left Center Midfield,2019/2020
+5516,Pione Sisto Ifolo Emirmija,Pione Sisto,11,Denmark,209,Celta Vigo,Left Center Forward,2019/2020
+6998,Rafael Alcântara do Nascimento,Rafinha,12,Brazil,209,Celta Vigo,Center Defensive Midfield,2019/2020
+6795,Rubén Blanco Veiga,Rubén Blanco,13,Spain,209,Celta Vigo,Goalkeeper,2019/2020
+6594,Santiago Mina Lorenzo,Santi Mina,22,Spain,209,Celta Vigo,Left Wing Back,2019/2020
+32815,Sergio Bermejo Lillo,Sergio Bermejo,28,Spain,209,Celta Vigo,,2019/2020
+6884,Sergio Álvarez Conde,Sergio Álvarez,1,Spain,209,Celta Vigo,,2019/2020
+6798,Stanislav Lobotka,,14,Slovakia,209,Celta Vigo,Right Center Midfield,2019/2020
+41125,Abdallahi Mohamed Mahmoud,,36,Mauritania,206,Deportivo Alavés,Left Center Midfield,2019/2020
+6935,Adrián Marín Gómez,Adrián Marín,17,Spain,206,Deportivo Alavés,Left Back,2019/2020
+30419,Alberto Rodríguez Baró,Tachi Rodríguez,27,Spain,206,Deportivo Alavés,Right Center Back,2019/2020
+6400,Aleix Vidal Parreu,Aleix Vidal,18,Spain,206,Deportivo Alavés,Right Midfield,2019/2020
+9748,Antonio Sivera Salvá,Antonio Sivera,13,Spain,206,Deportivo Alavés,,2019/2020
+37236,Aritz Castro Pérez,Aritz Castro,31,Spain,206,Deportivo Alavés,,2019/2020
+30760,Borja Sainz Eguskiza,Borja Sainz,29,Spain,206,Deportivo Alavés,,2019/2020
+26387,Edgar Antonio Méndez Ortega,Edgar Méndez,16,Spain,206,Deportivo Alavés,Right Midfield,2019/2020
+6629,Fernando Pacheco Flores,Fernando Pacheco,1,Spain,206,Deportivo Alavés,Goalkeeper,2019/2020
+24078,Javier Muñoz Jiménez,Javier Muñoz,15,Spain,206,Deportivo Alavés,Center Attacking Midfield,2019/2020
+6923,Joaquín Navarro Jiménez,Ximo Navarro,23,Spain,206,Deportivo Alavés,Left Center Back,2019/2020
+5628,José Luis Rodríguez Francis,José Rodríguez,38,Panama,206,Deportivo Alavés,,2019/2020
+3265,José Luis Sanmartín Mato,Joselu,9,Spain,206,Deportivo Alavés,Left Center Forward,2019/2020
+23263,Lisandro Magallán,,6,Argentina,206,Deportivo Alavés,Left Center Back,2019/2020
+10318,Ljubomir Fejsa,,15,Serbia,206,Deportivo Alavés,Center Defensive Midfield,2019/2020
+6732,Lucas Pérez Martínez,Lucas Pérez,7,Spain,206,Deportivo Alavés,Right Center Forward,2019/2020
+24049,Luis Jesús Rioja González,Luis Rioja,11,Spain,206,Deportivo Alavés,Left Midfield,2019/2020
+6632,Manuel Alejandro García Sánchez,Manu García,19,Spain,206,Deportivo Alavés,Left Center Midfield,2019/2020
+6618,Martín Aguirregabiria Padilla,Martín Aguirregabiria,21,Spain,206,Deportivo Alavés,Right Back,2019/2020
+6626,Mubarak Wakaso,,22,Ghana,206,Deportivo Alavés,Left Midfield,2019/2020
+3513,Oliver Burke,,24,Scotland,206,Deportivo Alavés,Left Midfield,2019/2020
+41123,Paulino de la Fuente Gómez,Paulino de la Fuente,32,Spain,206,Deportivo Alavés,,2019/2020
+6565,Pere Pons Riera,Pere Pons,20,Spain,206,Deportivo Alavés,Right Center Forward,2019/2020
+6900,Rafael Jesús Navarro Mazuelos,Rafa Navarro,12,Spain,206,Deportivo Alavés,,2019/2020
+6571,Roberto Jiménez Gago,Roberto Jiménez,13,Spain,206,Deportivo Alavés,Goalkeeper,2019/2020
+6636,Rodrigo Ely,,4,Brazil,206,Deportivo Alavés,Right Center Back,2019/2020
+6612,Rubén Duarte Sánchez,Rubén Duarte,3,Spain,206,Deportivo Alavés,Left Back,2019/2020
+6659,Víctor Camarasa Ferrando,Víctor Camarasa,10,Spain,206,Deportivo Alavés,Right Center Midfield,2019/2020
+6615,Víctor Laguardia Cisneros,Víctor Laguardia,5,Spain,206,Deportivo Alavés,Right Center Back,2019/2020
+6709,Anaitz Arbilla Zabala,Anaitz Arbilla,23,Spain,322,Eibar,Left Center Back,2019/2020
+6707,Charles Días Barbosa de Oliveira,Charles,19,Brazil,322,Eibar,Left Center Forward,2019/2020
+6910,Eduardo Expósito Jaén,Edu Expósito,10,Spain,322,Eibar,Left Defensive Midfield,2019/2020
+6711,Enrique García Martínez,Kike,17,Spain,322,Eibar,Left Center Forward,2019/2020
+23808,Enrique González Casín,Quique,7,Spain,322,Eibar,Center Forward,2019/2020
+23803,Esteban Rodrigo Burgos,Esteban Burgos,2,Argentina,322,Eibar,Right Center Back,2019/2020
+7105,Fabián Ariel Orellana Valenzuela,Fabián Orellana,14,Chile,322,Eibar,Right Wing,2019/2020
+6712,Gonzalo Escalante,,5,Argentina,322,Eibar,Center Attacking Midfield,2019/2020
+6705,José Ángel Valdés Díaz,Cote,15,Spain,322,Eibar,Left Back,2019/2020
+6698,Marko Dmitrović,,1,Serbia,322,Eibar,Goalkeeper,2019/2020
+8555,Pablo Ezequiel De Blasis,Pablo de Blasis,16,Argentina,322,Eibar,Left Wing,2019/2020
+6867,Papa Kouly Diop,Pape Diop,8,Senegal,322,Eibar,Right Defensive Midfield,2019/2020
+6708,Paulo André Rodrigues de Oliveira,Paulo Oliveira,12,Portugal,322,Eibar,Right Center Back,2019/2020
+7907,Pedro Bigas Rigo,Pedro Bigas,3,Spain,322,Eibar,,2019/2020
+6907,Pedro León Sánchez Gil,Pedro León,21,Spain,322,Eibar,Right Midfield,2019/2020
+7154,Sebastián Carlos Cristóforo Pepe,Sebastián Cristóforo,18,Uruguay,322,Eibar,Left Defensive Midfield,2019/2020
+6700,Sergio Enrich Ametller,Sergi Enrich,9,Spain,322,Eibar,Center Forward,2019/2020
+13107,Sergio Álvarez Díaz,Sergio Álvarez,6,Spain,322,Eibar,Right Center Midfield,2019/2020
+5687,Takashi Inui,,22,Japan,322,Eibar,Left Wing,2019/2020
+10612,Yoel Rodríguez Oterino,Yoel,13,Spain,322,Eibar,,2019/2020
+23981,Álvaro Tejero Sacristán,Álvaro Tejero,24,Spain,322,Eibar,Right Back,2019/2020
+22287,Adrià Giner Pedrosa,Adrià Pedrosa,3,Spain,214,Espanyol,,2019/2020
+11539,Adrián Embarba Blázquez,Adri Embarba,23,Spain,214,Espanyol,Right Center Forward,2019/2020
+6388,Ander Iturraspe Derteano,Ander Iturraspe,8,Spain,214,Espanyol,Right Defensive Midfield,2019/2020
+6848,Andrés Tomás Prieto Albert,Andrés Prieto,1,Spain,214,Espanyol,,2019/2020
+6573,Bernardo José Espinosa Zúñiga,Bernardo Espinosa,20,Colombia,214,Espanyol,Center Back,2019/2020
+41603,Daniel Villahermosa Martínez,Dani Villahermosa,38,Spain,214,Espanyol,,2019/2020
+6754,David López Silva,David López,15,Spain,214,Espanyol,Center Defensive Midfield,2019/2020
+6768,Diego López Rodríguez,Diego López,13,Spain,214,Espanyol,Goalkeeper,2019/2020
+6886,Dídac Vilá Rosselló,Dídac Vilá,17,Spain,214,Espanyol,Left Wing Back,2019/2020
+6769,Edinaldo Gomes Pereira,Naldo,5,Brazil,214,Espanyol,Right Center Back,2019/2020
+11293,Fernando Calero Villa,Fernando Calero,24,Spain,214,Espanyol,Right Center Back,2019/2020
+6791,Javier López Rodríguez,Javi López,16,Spain,214,Espanyol,Right Back,2019/2020
+6930,Jonathan Calleri,,12,Argentina,214,Espanyol,Right Center Forward,2019/2020
+6635,Leandro Daniel Cabrera Sasía,Leandro Cabrera,18,Uruguay,214,Espanyol,Left Center Back,2019/2020
+23343,Lei Wu,Wu Lei,7,China,214,Espanyol,Left Center Midfield,2019/2020
+22919,Lluís López Mármol,Lluís López,6,Spain,214,Espanyol,,2019/2020
+6866,Marc Roca Junqué,Marc Roca,21,Spain,214,Espanyol,Left Center Midfield,2019/2020
+30421,Matías Ezequiel Vargas Martín,Matías Vargas,22,Argentina,214,Espanyol,Right Midfield,2019/2020
+41456,Nicolás Melamed Ribaudo,Nico Melamed,33,Spain,214,Espanyol,,2019/2020
+6692,Oier Olazábal Paredes,Oier Olazábal,25,Spain,214,Espanyol,,2019/2020
+31885,Pol Lozano Vizuete,Pol Lozano,26,Spain,214,Espanyol,Right Center Midfield,2019/2020
+16209,Raúl de Tomás Gómez,Raúl de Tomás,11,Spain,214,Espanyol,Left Center Forward,2019/2020
+3236,Sergi Darder Moll,Sergi Darder,10,Spain,214,Espanyol,Right Center Back,2019/2020
+30420,Víctor Campuzano Bonilla,Víctor Campuzano,31,Spain,214,Espanyol,Center Attacking Midfield,2019/2020
+32670,Víctor Gómez Perea,Víctor Gómez,34,Spain,214,Espanyol,Right Wing Back,2019/2020
+6758,Víctor Sánchez Mata,Víctor Sánchez,4,Spain,214,Espanyol,,2019/2020
+6902,Óscar Melendo Jiménez,Óscar Melendo,14,Spain,214,Espanyol,Left Midfield,2019/2020
+3991,Allan Romeo Nyom,Allan Nyom,12,Cameroon,216,Getafe,Right Back,2019/2020
+6621,Amath Ndiaye,,11,Senegal,216,Getafe,Right Midfield,2019/2020
+6722,David Soria Solís,David Soria,13,Spain,216,Getafe,Goalkeeper,2019/2020
+6786,David Timor Copoví,David Timor,24,Spain,216,Getafe,,2019/2020
+25134,Deyverson Brum Silva Acosta,Deyverson,14,Brazil,216,Getafe,,2019/2020
+6634,Djené Dakonam Ortega,Djene Dakonam,2,Togo,216,Getafe,Right Center Back,2019/2020
+11550,Jaime Mata Arnaiz,Jaime Mata,7,Spain,216,Getafe,Left Center Forward,2019/2020
+6630,Jorge Molina Vidal,Jorge Molina,19,Spain,216,Getafe,Right Center Forward,2019/2020
+6931,Leandro Chichizola,,1,Argentina,216,Getafe,,2019/2020
+17620,Marc Cucurella Saseta,Marc Cucurella,15,Spain,216,Getafe,Left Midfield,2019/2020
+7104,Mathías Olivera Miramontes,Mathías Olivera,17,Uruguay,216,Getafe,Left Back,2019/2020
+6863,Mauro Wilney Arambarri Rosa,Mauro Arambarri,18,Uruguay,216,Getafe,Right Defensive Midfield,2019/2020
+6901,Nemanja Maksimović,,20,Serbia,216,Getafe,Left Defensive Midfield,2019/2020
+5466,Oghenekaro Etebo,Peter Etebo,5,Nigeria,216,Getafe,Right Midfield,2019/2020
+3666,Robert Kenedy Nunes do Nascimento,Kenedy,25,Brazil,216,Getafe,Left Back,2019/2020
+6788,Xabier Etxeita Gorritxategi,Xabier Etxeita,16,Spain,216,Getafe,Left Center Back,2019/2020
+6611,Ángel Luis Rodríguez Díaz,Ángel Rodríguez,9,Spain,216,Getafe,Right Center Forward,2019/2020
+25704,Aarón Escandell Banacloche,Aarón Escandell,13,Spain,1049,Granada,,2019/2020
+8866,Carlos Fernández Luna,Carlos Fernández,24,Spain,1049,Granada,Center Forward,2019/2020
+25702,Carlos Neva Tey,Carlos Neva,15,Spain,1049,Granada,Left Back,2019/2020
+11501,Darwin Daniel Machís Marcano,Darwin Machís,23,Venezuela (Bolivarian Republic),1049,Granada,Left Wing,2019/2020
+4546,Dimitri Foulquier,,2,Guadeloupe,1049,Granada,Left Back,2019/2020
+23807,Domingos Sousa Coutinho Meneses Duarte,Domingos Duarte,22,Portugal,1049,Granada,Right Center Back,2019/2020
+24134,Germán Sánchez Barahona,Germán Sánchez,6,Spain,1049,Granada,Left Center Back,2019/2020
+24324,Gustavo Adrián Ramos Vásquez,Adrián Ramos,20,Colombia,1049,Granada,,2019/2020
+24142,José Antonio Martínez Gil,José Martínez,5,Spain,1049,Granada,Right Defensive Midfield,2019/2020
+24126,José Antonio Rodríguez Díaz,Antonio Puertas,10,Spain,1049,Granada,Right Wing,2019/2020
+6982,Maxime Gonalons,,4,France,1049,Granada,Right Defensive Midfield,2019/2020
+24127,Ramon Olamilekan Azeez,Ramon Azeez,12,Nigeria,1049,Granada,Center Attacking Midfield,2019/2020
+26009,Roberto Soldado Rillo,Roberto Soldado,9,Spain,1049,Granada,Center Forward,2019/2020
+24140,Rui Tiago Dantas da Silva,Rui Silva,1,Portugal,1049,Granada,Goalkeeper,2019/2020
+24133,Víctor David Díaz Miguel,Víctor Díaz,16,Spain,1049,Granada,Right Back,2019/2020
+24052,Yan Brice Eteki,Yan Eteki,8,Cameroon,1049,Granada,Right Defensive Midfield,2019/2020
+16249,Yangel Clemente Herrera Ravelo,Yangel Herrera,21,Venezuela (Bolivarian Republic),1049,Granada,Right Defensive Midfield,2019/2020
+24143,Álvaro Vadillo Cifuentes,Álvaro Vadillo,7,Spain,1049,Granada,Left Wing,2019/2020
+24144,Ángel Montoro Sánchez,Ángel Montoro,19,Spain,1049,Granada,Left Defensive Midfield,2019/2020
+16538,İsmail Köybaşı,,11,Turkey,1049,Granada,,2019/2020
+6851,Aitor Ruibal García,Aitor Ruibal,19,Spain,205,Leganés,Right Wing Back,2019/2020
+22418,Bryan Gil Salvatierra,Bryan Gil,26,Spain,205,Leganés,Left Center Midfield,2019/2020
+3139,Chidozie Collins Awaziem,Chidozie Awaziem,12,Nigeria,205,Leganés,Right Center Back,2019/2020
+6603,Dimitrios Siovas,,22,Greece,205,Leganés,Left Center Back,2019/2020
+3246,Guido Marcelo Carrillo,Guido Carrillo,18,Argentina,205,Leganés,Right Center Forward,2019/2020
+11332,Ibrahim Amadou,,23,France,205,Leganés,Center Defensive Midfield,2019/2020
+41291,Iván Amores Alonso,Iván Amores,36,Spain,205,Leganés,,2019/2020
+6610,Iván Cuéllar Sacristán,Pichu,1,Spain,205,Leganés,Goalkeeper,2019/2020
+30798,Javier Avilés Cortés,Javier Avilés,33,Spain,205,Leganés,,2019/2020
+6606,Javier Eraso Goñi,Javi Eraso,17,Spain,205,Leganés,Right Center Forward,2019/2020
+11730,Jonathan Cristian Silva,Jonathan Silva,5,Argentina,205,Leganés,Left Wing Back,2019/2020
+6580,José Luis García del Pozo,Recio,8,Spain,205,Leganés,Left Center Midfield,2019/2020
+23921,Juan Soriano Oropesa,Juan Soriano,13,Spain,205,Leganés,,2019/2020
+5830,Kenneth Josiah Omeruo,Kenneth Omeruo,4,Nigeria,205,Leganés,Center Back,2019/2020
+6885,Kévin Manuel Rodrigues,Kévin Rodrigues,24,Portugal,205,Leganés,Left Wing Back,2019/2020
+6756,Marc Navarro Ceciliano,Marc Navarro,2,Spain,205,Leganés,,2019/2020
+6602,Miguel Ángel Guerrero Martín,Miguel Ángel Guerrero,9,Spain,205,Leganés,Left Center Forward,2019/2020
+37006,Pablo Lombo Suárez,Pablo Lombo,35,Spain,205,Leganés,,2019/2020
+6569,Roberto José Rosales Altuve,Roberto Rosales,16,Venezuela (Bolivarian Republic),205,Leganés,Right Wing Back,2019/2020
+17818,Rodrigo Tarín Higón,Rodri Tarín,15,Spain,205,Leganés,Center Back,2019/2020
+16024,Roger Claver Assalé Djapone,Roger Assalé,20,Côte d'Ivoire,205,Leganés,Left Center Forward,2019/2020
+3610,Roque Mesa Quevedo,Roque Mesa,6,Spain,205,Leganés,Right Center Midfield,2019/2020
+6599,Rubén Salvador Pérez Del Mármol,Rubén Pérez,21,Spain,205,Leganés,Center Defensive Midfield,2019/2020
+6598,Unai Bustinza Martínez,Unai Bustinza,3,Spain,205,Leganés,Left Center Back,2019/2020
+16212,Óscar Rodríguez Arnaiz,Óscar Rodríguez,27,Spain,205,Leganés,Right Wing,2019/2020
+23344,Aitor Fernández Abarisketa,Aitor Fernández,13,Spain,221,Levante UD,Goalkeeper,2019/2020
+6784,Antonio García Aranda,Toño,3,Spain,221,Levante UD,Left Back,2019/2020
+21147,Borja Mayoral Moya,Borja Mayoral,21,Spain,221,Levante UD,Left Center Forward,2019/2020
+23948,Carlos Clerc Martínez,Carlos Clerc,19,Spain,221,Levante UD,Left Back,2019/2020
+38251,Daniel Cárdenas Lindez,Dani Cárdenas,26,Spain,221,Levante UD,,2019/2020
+6782,Enis Bardhi,,10,"Macedonia, Republic of",221,Levante UD,Left Midfield,2019/2020
+6809,Erick Cathriel Cabaco Almada,Erick Cabaco,18,Uruguay,221,Levante UD,Left Midfield,2019/2020
+11669,Gonzalo Julián Melero Manzanares,Gonzalo Melero,22,Spain,221,Levante UD,Left Defensive Midfield,2019/2020
+12020,Hernâni Jorge Santos Fortes,Hernâni,8,Portugal,221,Levante UD,Right Defensive Midfield,2019/2020
+6672,Jorge Andújar Moreno,Coke,23,Spain,221,Levante UD,,2019/2020
+11676,Jorge Miramón Santagertrudis,Jorge Miramón,20,Spain,221,Levante UD,Right Back,2019/2020
+6668,José Luis Morales Nogales,José Luis Morales,11,Spain,221,Levante UD,Right Center Forward,2019/2020
+6688,José Ángel Gómez Campaña,José Campaña,24,Spain,221,Levante UD,Right Midfield,2019/2020
+6796,Nemanja Radoja,,5,Serbia,221,Levante UD,Right Defensive Midfield,2019/2020
+17303,Nikola Vukčević,,17,Montenegro,221,Levante UD,Right Center Forward,2019/2020
+6684,Roger Martí Salvador,Roger Martí,9,Spain,221,Levante UD,Left Center Forward,2019/2020
+6680,Rubén Rochina Naixes,Rubén Rochina,16,Spain,221,Levante UD,Left Midfield,2019/2020
+6592,Rúben Miguel Nunes Vezo,Rúben Vezo,14,Portugal,221,Levante UD,Left Center Back,2019/2020
+6682,Sergio Postigo Redondo,Sergio Postigo,15,Spain,221,Levante UD,Right Center Back,2019/2020
+5598,Óscar Esau Duarte Gaitán,Óscar Duarte,6,Costa Rica,221,Levante UD,,2019/2020
+24067,Abdón Prats Bastidas,Abdón Prats,9,Spain,1043,Mallorca,Right Center Forward,2019/2020
+23986,Aleix Febas Pérez,Aleix Febas,23,Spain,1043,Mallorca,Right Center Forward,2019/2020
+24613,Alejandro Pozo Pozo,Alejandro Pozo,7,Spain,1043,Mallorca,Right Back,2019/2020
+8689,Aleksandar Sedlar,,20,Serbia,1043,Mallorca,,2019/2020
+30512,Aleksandar Trajkovski,,17,"Macedonia, Republic of",1043,Mallorca,,2019/2020
+8654,Ante Budimir,,22,Croatia,1043,Mallorca,Left Center Forward,2019/2020
+24086,Antonio José Raillo Arenas,Antonio Raillo,21,Spain,1043,Mallorca,Left Center Back,2019/2020
+24088,Daniel José Rodríguez Vázquez,Dani Rodríguez,14,Spain,1043,Mallorca,Left Midfield,2019/2020
+10277,Fabricio Martín Agosto Ramírez,Fabri,13,Spain,1043,Mallorca,,2019/2020
+24576,Francisco Gámez López,Fran Gámez,15,Spain,1043,Mallorca,Right Back,2019/2020
+25061,Francisco Javier Campos Coll,Xisco Campos,5,Spain,1043,Mallorca,,2019/2020
+24087,Iddrisu Baba Mohammed,Iddrisu Baba,12,Ghana,1043,Mallorca,Right Center Midfield,2019/2020
+24089,Joan Sastre Vanrell,Joan Sastre,2,Spain,1043,Mallorca,Left Back,2019/2020
+27342,Josep Señé Escudero,Josep Señé,4,Spain,1043,Mallorca,Left Center Midfield,2019/2020
+11671,Juan Camilo Hernández Suárez,Cucho Hernández,29,Colombia,1043,Mallorca,Left Center Midfield,2019/2020
+24079,Júnior Wakalibille Lago,Lago Junior,11,Côte d'Ivoire,1043,Mallorca,Left Midfield,2019/2020
+24083,Manuel Reina Rodríguez,Manolo Reina,1,Spain,1043,Mallorca,Goalkeeper,2019/2020
+24269,Marc Pedraza Sarto,Marc Pedraza,6,Spain,1043,Mallorca,Right Defensive Midfield,2019/2020
+24084,Martin Valjent,,24,Slovakia,1043,Mallorca,Right Center Back,2019/2020
+25595,Miquel Parera Pizá,Miquel Parera,25,Spain,1043,Mallorca,,2019/2020
+7361,Pablo Chavarría,,19,Argentina,1043,Mallorca,,2019/2020
+24072,Salvador Sevilla López,Salva Sevilla,8,Spain,1043,Mallorca,Left Center Midfield,2019/2020
+31090,Takefusa Kubo,,26,Japan,1043,Mallorca,Right Midfield,2019/2020
+3122,Yannis Salibur,,16,France,1043,Mallorca,Left Defensive Midfield,2019/2020
+6735,Adrián López Álvarez,Adrián López,22,Spain,422,Osasuna,Left Center Forward,2019/2020
+40115,Aimar Oroz,,34,Spain,422,Osasuna,,2019/2020
+6587,Antonio Latorre Grueso,Toni Lato,15,Spain,422,Osasuna,Left Wing Back,2019/2020
+24212,Aridane Hernández Umpiérrez,Aridane Hernández,23,Spain,422,Osasuna,Right Center Back,2019/2020
+6604,Darko Brašanac,,20,Serbia,422,Osasuna,Right Center Midfield,2019/2020
+23950,David García Zubiría,David García,5,Spain,422,Osasuna,Left Center Back,2019/2020
+23213,Enric Gallego Puigsech,Enric Gallego,11,Spain,422,Osasuna,Right Center Forward,2019/2020
+24315,Enrique Barja Afonso,Kike Barja,19,Spain,422,Osasuna,Left Center Forward,2019/2020
+6830,Facundo Sebastián Roncaglia,Facundo Roncaglia,12,Argentina,422,Osasuna,,2019/2020
+6591,Ignacio Vidal Miralles,Nacho Vidal,2,Spain,422,Osasuna,Right Wing Back,2019/2020
+23945,Iñigo Pérez Soto,Iñigo Pérez,21,Spain,422,Osasuna,Left Center Midfield,2019/2020
+40114,Javier Martínez Calvo,Javi Martínez,33,Spain,422,Osasuna,,2019/2020
+30277,Jon Moncayola Tollar,Jon Moncayola,27,Spain,422,Osasuna,Center Defensive Midfield,2019/2020
+41471,José Javier Hualde Zaratiegui,José Hualde,35,Spain,422,Osasuna,,2019/2020
+6810,José Manuel Arnáiz Díaz,José Arnáiz,16,Spain,422,Osasuna,Right Center Forward,2019/2020
+25062,Juan Manuel Pérez Ruiz,Juan Pérez,25,Spain,422,Osasuna,,2019/2020
+23944,Oier Sanjurjo Mate,Oier,6,Spain,422,Osasuna,Right Center Midfield,2019/2020
+24085,Pervis Josué Estupiñán Tenorio,Pervis Estupiñán,30,Ecuador,422,Osasuna,Left Wing Back,2019/2020
+6693,Raúl Rodríguez Navas,Raúl Navas,3,Spain,422,Osasuna,Center Back,2019/2020
+23947,Roberto Torres Morales,Roberto Torres,10,Spain,422,Osasuna,Right Center Midfield,2019/2020
+6730,Rubén Iván Martínez Andrade,Rubén Martínez,13,Spain,422,Osasuna,,2019/2020
+24211,Sergio Herrera Pirón,Sergio Herrera,1,Spain,422,Osasuna,Goalkeeper,2019/2020
+11538,Alejandro Moreno Lopera,Moreno Lopera,15,Spain,218,Real Betis,Left Back,2019/2020
+6663,Antonio Barragán Fernández,Antonio Barragán,19,Spain,218,Real Betis,,2019/2020
+6648,Aïssa Mandi,,23,Algeria,218,Real Betis,Right Center Back,2019/2020
+11391,Borja Iglesias Quintas,Borja Iglesias,9,Spain,218,Real Betis,Center Forward,2019/2020
+6658,Cristian Tello Herrera,Cristian Tello,11,Spain,218,Real Betis,Center Defensive Midfield,2019/2020
+30518,Daniel Martín Fernández,Dani Martín,13,Spain,218,Real Betis,,2019/2020
+33079,Edgar González Estrada,Edgar González,32,Spain,218,Real Betis,,2019/2020
+23522,Emerson Aparecido Leite de Souza Junior,Emerson Royal,22,Brazil,218,Real Betis,Right Back,2019/2020
+26404,Guido Rodríguez,,21,Argentina,218,Real Betis,Center Defensive Midfield,2019/2020
+6651,Joaquín Sánchez Rodríguez,Joaquín,17,Spain,218,Real Betis,Left Center Midfield,2019/2020
+16309,Joel Robles Blázquez,Joel Robles,1,Spain,218,Real Betis,Goalkeeper,2019/2020
+7910,Lorenzo Jesús Morón García,Loren Morón,16,Spain,218,Real Betis,Center Forward,2019/2020
+7068,Marc Bartra Aregall,Marc Bartra,5,Spain,218,Real Betis,Left Center Back,2019/2020
+2948,Nabil Fekir,,8,France,218,Real Betis,Left Midfield,2019/2020
+6673,Sergio Canales Madrazo,Sergio Canales,10,Spain,218,Real Betis,Right Center Midfield,2019/2020
+6777,Sidnei Rechel da Silva Júnior,Sidnei,12,Brazil,218,Real Betis,,2019/2020
+5214,William Silva de Carvalho,William Carvalho,14,Portugal,218,Real Betis,Left Center Midfield,2019/2020
+3379,Alphonse Areola,,1,France,220,Real Madrid,,2019/2020
+5539,Carlos Henrique Casimiro,Casemiro,14,Brazil,220,Real Madrid,Center Defensive Midfield,2019/2020
+5721,Daniel Carvajal Ramos,Daniel Carvajal,2,Spain,220,Real Madrid,Right Back,2019/2020
+6773,Federico Santiago Valverde Dipetta,Federico Valverde,15,Uruguay,220,Real Madrid,Right Center Midfield,2019/2020
+3804,Ferland Mendy,,23,France,220,Real Madrid,Left Back,2019/2020
+4926,Francisco Román Alarcón Suárez,Isco,22,Spain,220,Real Madrid,Center Attacking Midfield,2019/2020
+6399,Gareth Frank Bale,Gareth Bale,11,Wales,220,Real Madrid,Right Center Forward,2019/2020
+5202,José Ignacio Fernández Iglesias,Nacho,6,Spain,220,Real Madrid,,2019/2020
+19677,Karim Benzema,,9,France,220,Real Madrid,Left Center Forward,2019/2020
+5200,Lucas Vázquez Iglesias,Lucas Vázquez,17,Spain,220,Real Madrid,Right Midfield,2019/2020
+6319,Luka Jović,,18,Serbia,220,Real Madrid,,2019/2020
+5463,Luka Modrić,,10,Croatia,220,Real Madrid,Right Center Midfield,2019/2020
+5552,Marcelo Vieira da Silva Júnior,Marcelo,12,Brazil,220,Real Madrid,Left Back,2019/2020
+3163,Mariano Díaz Mejía,Mariano Díaz,24,Dominican Republic,220,Real Madrid,Center Forward,2019/2020
+5485,Raphaël Varane,,5,France,220,Real Madrid,Right Center Back,2019/2020
+25104,Rodrygo Silva de Goes,Rodrygo,27,Brazil,220,Real Madrid,Center Attacking Midfield,2019/2020
+5201,Sergio Ramos García,Sergio Ramos,4,Spain,220,Real Madrid,Left Center Back,2019/2020
+3509,Thibaut Courtois,,13,Belgium,220,Real Madrid,Goalkeeper,2019/2020
+5574,Toni Kroos,,8,Germany,220,Real Madrid,Left Center Midfield,2019/2020
+18395,Vinícius José Paixão de Oliveira Júnior,Vinícius Júnior,25,Brazil,220,Real Madrid,Left Midfield,2019/2020
+13620,Éder Gabriel Militão,Éder Militão,3,Brazil,220,Real Madrid,,2019/2020
+6330,Adnan Januzaj,,11,Belgium,210,Real Sociedad,Right Midfield,2019/2020
+22452,Aihen Muñoz Capellán,Ahien Muñoz,12,Spain,210,Real Sociedad,,2019/2020
+32185,Alejandro Remiro Gargallo,Álex Remiro,1,Spain,210,Real Sociedad,Goalkeeper,2019/2020
+8819,Alexander Isak,,19,Sweden,210,Real Sociedad,Center Forward,2019/2020
+22321,Ander Barrenetxea Muguruza,Ander Barrenetxea,22,Spain,210,Real Sociedad,Left Midfield,2019/2020
+24236,Ander Guevara Lajo,Ander Guevara,16,Spain,210,Real Sociedad,Center Defensive Midfield,2019/2020
+6670,Andoni Gorosabel Espinosa,Andoni Gorosabel,18,Spain,210,Real Sociedad,Right Back,2019/2020
+6582,Cristian Portugués Manzanera,Portu,7,Spain,210,Real Sociedad,Right Midfield,2019/2020
+6713,Diego Javier Llorente Ríos,Diego Llorente,3,Spain,210,Real Sociedad,Left Center Back,2019/2020
+3498,Ignacio Monreal Eraso,Nacho Monreal,20,Spain,210,Real Sociedad,Left Back,2019/2020
+6676,Igor Zubeldia Elorza,Igor Zubeldía,5,Spain,210,Real Sociedad,Right Center Back,2019/2020
+6605,Joseba Zaldúa Bengoetxea,Joseba Zaldúa,2,Spain,210,Real Sociedad,Right Back,2019/2020
+16210,Luca Sangalli Fuentes,Luca Sangalli,23,Spain,210,Real Sociedad,,2019/2020
+8252,Martin Ødegaard,,21,Norway,210,Real Sociedad,Right Center Midfield,2019/2020
+7069,Miguel Ángel Moyà Rumbo,Miguel Ángel Moyá,13,Spain,210,Real Sociedad,,2019/2020
+3042,Mikel Merino Zazón,Mikel Merino,8,Spain,210,Real Sociedad,Left Center Midfield,2019/2020
+6685,Mikel Oyarzabal Ugarte,Mikel Oyarzabal,10,Spain,210,Real Sociedad,Left Midfield,2019/2020
+10709,Modibo Sagnan,,15,France,210,Real Sociedad,,2019/2020
+22128,Robin Aime Robert Le Normand,Robin Le Normand,24,France,210,Real Sociedad,Left Center Back,2019/2020
+6721,Willian José da Silva,Willian José,9,Brazil,210,Real Sociedad,Center Forward,2019/2020
+21390,Andriy Lunin,,13,Ukraine,901,Real Valladolid,,2019/2020
+18164,Antonio Jesús Regal Angulo,Antoñito,18,Spain,901,Real Valladolid,,2019/2020
+11303,Anuar Mohamed Tuhami,Anuar Tuhami,8,Morocco,901,Real Valladolid,Left Defensive Midfield,2019/2020
+34728,Diego Alende López,Diego Alende,30,Spain,901,Real Valladolid,,2019/2020
+6760,Enes Ünal,,9,Turkey,901,Real Valladolid,Left Center Midfield,2019/2020
+40881,Enrique Pérez Muñoz,Kike Pérez,28,Spain,901,Real Valladolid,Center Attacking Midfield,2019/2020
+17520,Federico Barba,,3,Italy,901,Real Valladolid,Left Center Back,2019/2020
+24141,Federico San Emeterio Díaz,Fede,16,Spain,901,Real Valladolid,Right Center Midfield,2019/2020
+11304,Francisco José Olivas Alba,Kiko Olivas,4,Spain,901,Real Valladolid,Right Center Back,2019/2020
+11297,Javier Moyano Lujano,Javi Moyano,17,Spain,901,Real Valladolid,Right Back,2019/2020
+21225,Javier Sánchez de Felipe,Javier Sánchez,5,Spain,901,Real Valladolid,Left Center Back,2019/2020
+22020,Joaquín Fernández Moreno,Joaquín Fernández,24,Spain,901,Real Valladolid,Center Defensive Midfield,2019/2020
+11302,Jordi Masip López,Jordi Masip,1,Spain,901,Real Valladolid,Goalkeeper,2019/2020
+32673,Jorge De Frutos Sebastián,Jorge De Frutos,12,Spain,901,Real Valladolid,,2019/2020
+24920,José Antonio Caro Díaz,Churripi,13,Spain,901,Real Valladolid,,2019/2020
+11298,José Ignacio Martínez García,Nacho Martínez,22,Spain,901,Real Valladolid,Left Back,2019/2020
+11291,Laureano Antonio Villa Suárez,Toni Suárez,19,Spain,901,Real Valladolid,,2019/2020
+29256,Matheus Fernandes Siqueira,Matheus Fernandes,8,Brazil,901,Real Valladolid,,2019/2020
+11301,Miguel Alfonso Herrero Javaloyas,Míchel,21,Spain,901,Real Valladolid,Right Defensive Midfield,2019/2020
+20735,Miguel De la Fuente Escudero,Miguel De la Fuente,29,Spain,901,Real Valladolid,,2019/2020
+30519,Mohamed Salisu,,27,Ghana,901,Real Valladolid,Left Wing Back,2019/2020
+12073,Pablo Hervías Ruiz,Pablo Hervías,11,Spain,901,Real Valladolid,Center Defensive Midfield,2019/2020
+11292,Pedro Antonio Porro Sauceda,Pedro Porro,2,Spain,901,Real Valladolid,Right Wing Back,2019/2020
+6601,Raúl García Carnero,Raúl García,6,Spain,901,Real Valladolid,Left Back,2019/2020
+11300,Rubén Alcaraz Jiménez,Rubén Alcaraz,14,Spain,901,Real Valladolid,Left Center Midfield,2019/2020
+3508,Sandro Ramírez Castillo,Sandro Ramírez,20,Spain,901,Real Valladolid,Right Center Forward,2019/2020
+17027,Sergio Guardiola Navarro,Sergi Guardiola,7,Spain,901,Real Valladolid,Right Center Forward,2019/2020
+41610,Víctor García Raja,Víctor García,35,Spain,901,Real Valladolid,,2019/2020
+24777,Waldo Rubio Martín,Waldo Rubio,23,Spain,901,Real Valladolid,Left Center Midfield,2019/2020
+11296,Óscar Plano Pedreño,Óscar Plano,10,Spain,901,Real Valladolid,Left Center Forward,2019/2020
+6825,Daniel Filipe Martins Carriço,Daniel Carriço,6,Portugal,213,Sevilla,Left Center Back,2019/2020
+3366,Diego Carlos Santos Silva,Diego Carlos,20,Brazil,213,Sevilla,Left Center Back,2019/2020
+16003,Fernando Francisco Reges,Fernando Reges,25,Brazil,213,Sevilla,Center Defensive Midfield,2019/2020
+6719,Franco Damián Vázquez,Franco Vázquez,22,Argentina,213,Sevilla,Left Wing,2019/2020
+33307,Genaro Rodríguez Serrano,Genaro Rodríguez,36,Spain,213,Sevilla,,2019/2020
+3058,Javier Hernández Balcázar,,14,Mexico,213,Sevilla,Center Forward,2019/2020
+7022,Jesús Joaquín Fernández Sáez de la Torre,Suso,14,Spain,213,Sevilla,Left Wing,2019/2020
+6821,Jesús Navas González,Jesús Navas,16,Spain,213,Sevilla,Right Back,2019/2020
+6701,Joan Jordán Moreno,Joan Jordán,24,Spain,213,Sevilla,Right Center Midfield,2019/2020
+33146,José Mena Rodríguez,José Mena,26,Spain,213,Sevilla,,2019/2020
+4445,Jules Koundé,,12,France,213,Sevilla,Right Center Back,2019/2020
+4345,Lucas Ariel Ocampos,Lucas Ocampos,5,Argentina,213,Sevilla,Right Wing,2019/2020
+20033,Luuk de Jong,,19,Netherlands,213,Sevilla,Center Forward,2019/2020
+3218,Marcos Paulo Mesquita Lopes,Rony Lopes,7,Portugal,213,Sevilla,,2019/2020
+6616,Munir El Haddadi Mohamed,Munir El Haddadi,11,Morocco,213,Sevilla,Left Wing,2019/2020
+16489,Nemanja Gudelj,,17,Serbia,213,Sevilla,Right Center Midfield,2019/2020
+41409,Pablo Pérez Rico,Pablo Pérez,40,Spain,213,Sevilla,,2019/2020
+6804,Sergi Gómez Solà,Sergi Gómez,3,Spain,213,Sevilla,,2019/2020
+6718,Sergio Escudero Palomo,Sergio Escudero,18,Spain,213,Sevilla,,2019/2020
+18620,Sergio Reguilón Rodríguez,Sergio Reguilón,23,Spain,213,Sevilla,Left Back,2019/2020
+11541,Tomáš Vaclík,,1,Czech Republic,213,Sevilla,Goalkeeper,2019/2020
+6785,Yassine Bounou,,13,Morocco,213,Sevilla,,2019/2020
+6301,Youssef En-Nesyri,,15,Morocco,213,Sevilla,Center Forward,2019/2020
+5504,Éver Maximiliano David Banega,Éver Banega,10,Argentina,213,Sevilla,Left Center Midfield,2019/2020
+12021,Óliver Torres Muñoz,Óliver Torres,21,Spain,213,Sevilla,Left Center Midfield,2019/2020
+6583,Carlos Soler Barragán,Carlos Soler,8,Spain,207,Valencia,Left Midfield,2019/2020
+36900,Cristian Rivero Sabater,Cristian Rivero,28,Spain,207,Valencia,,2019/2020
+6797,Daniel Wass,,18,Denmark,207,Valencia,Right Back,2019/2020
+3389,Eliaquim Mangala,,4,France,207,Valencia,,2019/2020
+6891,Ezequiel Marcelo Garay,Ezequiel Garay,24,Argentina,207,Valencia,Right Center Back,2019/2020
+6748,Ferrán Torres García,Ferrán Torres,20,Spain,207,Valencia,Right Midfield,2019/2020
+3437,Francis Joseph Coquelin,,17,France,207,Valencia,Right Center Midfield,2019/2020
+6746,Gabriel Armando de Abreu,Gabriel Paulista,5,Brazil,207,Valencia,Left Center Back,2019/2020
+6589,Geoffrey Kondogbia,,6,Central African Republic,207,Valencia,Left Center Midfield,2019/2020
+6898,Jaume Doménech Sánchez,Jaume Doménech,1,Spain,207,Valencia,Goalkeeper,2019/2020
+6828,Jaume Vicent Costa Jordá,Jaume Costa,3,Spain,207,Valencia,Left Center Forward,2019/2020
+6596,José Luis Gayà Peña,José Gayá,14,Spain,207,Valencia,Left Back,2019/2020
+22740,Kang-In Lee,Lee Kang-In,16,Korea (South),207,Valencia,,2019/2020
+6401,Kevin Gameiro,Kévin Gameiro,9,France,207,Valencia,Right Center Forward,2019/2020
+6297,Maximiliano Gómez González,Maxi Gómez,22,Uruguay,207,Valencia,Left Center Forward,2019/2020
+5718,Rodrigo Moreno Machado,Rodrigo,19,Spain,207,Valencia,Right Center Forward,2019/2020
+6613,Rubén Sobrino Pozuelo,Rubén Sobrino,23,Spain,207,Valencia,Left Midfield,2019/2020
+33164,Vicente Esquerdo Santas,Vicente Esquerdo,34,Spain,207,Valencia,,2019/2020
+3515,Alberto Moreno Pérez,Alberto Moreno,18,Spain,222,Villarreal,Left Back,2019/2020
+24861,Andrei Florin Ratiu,Andrei Ratiu,27,Romania,222,Villarreal,,2019/2020
+3141,André-Frank Zambo Anguissa,André Zambo Anguissa,19,Cameroon,222,Villarreal,Right Center Midfield,2019/2020
+8697,Andrés Eduardo Fernández Moreno,Andrés Fernández,13,Spain,222,Villarreal,,2019/2020
+22819,Bruno Soriano Llido,Bruno Soriano,21,Spain,222,Villarreal,Right Defensive Midfield,2019/2020
+5688,Carlos Arturo Bacca Ahumada,Carlos Bacca,9,Colombia,222,Villarreal,Center Attacking Midfield,2019/2020
+34515,Fernando Niño Rodriguez,Fernando Niño,34,Spain,222,Villarreal,Center Forward,2019/2020
+6402,Francisco Alcácer García,Paco Alcácer,17,Spain,222,Villarreal,Left Center Forward,2019/2020
+6766,Gerard Moreno Balaguero,Gerard Moreno,7,Spain,222,Villarreal,Center Forward,2019/2020
+20063,Javier Ontiveros Parra,Javi Ontiveros,24,Spain,222,Villarreal,Left Wing,2019/2020
+4629,José Ramiro Funes Mori,Ramiro Funes Mori,6,Argentina,222,Villarreal,,2019/2020
+3551,Karl Brillant Toko Ekambi,Karl Toko Ekambi,17,Cameroon,222,Villarreal,Left Wing,2019/2020
+11384,Manuel Morlanes Ariño,Manu Morlanes,15,Spain,222,Villarreal,,2019/2020
+6771,Manuel Trigueros Muñoz,Manu Trigueros,14,Spain,222,Villarreal,Left Wing,2019/2020
+6772,Mario Gaspar Pérez Martínez,Mario Gaspar,2,Spain,222,Villarreal,Right Back,2019/2020
+11675,Moisés Gómez Bordonado,Moi Gómez,23,Spain,222,Villarreal,Center Forward,2019/2020
+6892,Pau Francisco Torres,Pau Torres,4,Spain,222,Villarreal,Left Center Back,2019/2020
+7030,Raúl Albiol i Tortajada,Raúl Albiol,3,Spain,222,Villarreal,Right Center Back,2019/2020
+6710,Rubén Peña Jiménez,Rubén Peña,20,Spain,222,Villarreal,Right Back,2019/2020
+16335,Samuel Chimerenka Chukwueze,Samuel Chukwueze,11,Nigeria,222,Villarreal,Right Wing,2019/2020
+11386,Santiago Cazorla González,Santi Cazorla,8,Spain,222,Villarreal,Center Attacking Midfield,2019/2020
+6755,Sergio Asenjo Andrés,Sergio Asenjo,1,Spain,222,Villarreal,Goalkeeper,2019/2020
+15737,Sergio Lozano Lluch,Sergio Lozano,28,Spain,222,Villarreal,,2019/2020
+35287,Sofian Chakla,Soufiane Chakla,22,Morocco,222,Villarreal,,2019/2020
+3497,Vicente Iborra De La Fuente,Vicente Iborra,10,Spain,222,Villarreal,Left Center Midfield,2019/2020
+24729,Xavier Quintillà Guasch,Xavi Quintillà,16,Spain,222,Villarreal,Left Back,2019/2020
