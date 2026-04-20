@@ -570,9 +570,9 @@ In this project, the query makes it easy to see when goals are concentrated acro
 
 ## Category 3: Nested / embedded documents
 
-### Query 13: Pass events reshaped into nested documents
+### Query 13: Match passing leaders as embedded team documents
 Task:
-Transform pass events from the flat event schema into a nested document structure that groups match context, player information, pass information, and coordinates.
+For each match and team, identify the most active passers, enrich them with player metadata, and build an embedded `top_passers` array inside a compact match-team document.
 
 Command:
 ```javascript
@@ -580,47 +580,97 @@ db.getSiblingDB("statsbomb").events.aggregate([
   {
     $match: {
       event_type_name: "Pass",
-      player_id: { $ne: null },
-      pass_recipient_id: { $ne: null }
+      match_id: { $ne: null },
+      team_id: { $ne: null },
+      player_id: { $ne: null }
     }
   },
   {
-    $project: {
-      _id: 0,
-      event_id: 1,
-      match_context: {
+    $group: {
+      _id: {
         match_id: "$match_id",
-        season: "$season",
-        period: "$period",
-        minute: "$minute",
-        second: "$second"
-      },
-      player_info: {
-        player_id: "$player_id",
-        player_name: "$player_name",
         team_id: "$team_id",
         team_name: "$team_name",
-        position_name: "$position_name"
+        player_id: "$player_id"
       },
-      pass_context: {
-        recipient_id: "$pass_recipient_id",
-        recipient_name: "$pass_recipient_name",
-        play_pattern_name: "$play_pattern_name",
-        duration: "$duration"
+      pass_count: { $sum: 1 },
+      avg_pass_minute: { $avg: "$minute" },
+      distinct_recipients: { $addToSet: "$pass_recipient_id" }
+    }
+  },
+  {
+    $lookup: {
+      from: "players",
+      localField: "_id.player_id",
+      foreignField: "player_id",
+      as: "player"
+    }
+  },
+  { $unwind: "$player" },
+  { $sort: { "_id.match_id": 1, "_id.team_name": 1, pass_count: -1, "_id.player_id": 1 } },
+  {
+    $group: {
+      _id: {
+        match_id: "$_id.match_id",
+        team_id: "$_id.team_id",
+        team_name: "$_id.team_name"
       },
-      location: {
-        x: "$location_x",
-        y: "$location_y"
+      top_passers: {
+        $push: {
+          player_id: "$_id.player_id",
+          player_name: "$player.player_name",
+          country: "$player.country",
+          position: "$player.position",
+          pass_count: "$pass_count",
+          avg_pass_minute: { $round: ["$avg_pass_minute", 2] },
+          distinct_recipient_count: {
+            $size: {
+              $filter: {
+                input: "$distinct_recipients",
+                as: "recipient",
+                cond: { $ne: ["$$recipient", null] }
+              }
+            }
+          }
+        }
+      },
+      total_team_passes: { $sum: "$pass_count" }
+    }
+  },
+  {
+    $lookup: {
+      from: "matches",
+      localField: "_id.match_id",
+      foreignField: "match_id",
+      as: "match"
+    }
+  },
+  { $unwind: "$match" },
+  {
+    $project: {
+      _id: 0,
+      match_id: "$_id.match_id",
+      match_summary: {
+        match_date: "$match.match_date",
+        home_team: "$match.home_team_name",
+        away_team: "$match.away_team_name"
+      },
+      team: {
+        team_id: "$_id.team_id",
+        team_name: "$_id.team_name",
+        total_team_passes: "$total_team_passes",
+        top_passers: { $slice: ["$top_passers", 5] }
       }
     }
   },
+  { $sort: { match_id: 1, "team.team_name": 1 } },
   { $limit: 10 }
 ])
 ```
 
 Comment:
-In general, this query does not aggregate counts; instead it reshapes flat source documents into a nested output that is closer to a document-oriented domain model.
-In this project, the prepared StatsBomb events are mostly flattened, so this pipeline demonstrates how to reconstruct a more natural embedded structure for pass analysis without changing the stored data itself.
+In general, this query combines analytical aggregation with document-oriented output construction. It first computes player-level passing metrics, then enriches them with a join to `players`, and finally regroups the result into embedded `top_passers` arrays per match and team.
+In this project, the pipeline produces match-level team documents that are much closer to how a document database is often consumed by applications. It is stronger than a simple reshape because it mixes `$group`, `$lookup`, multi-level aggregation, derived metrics, and nested arrays in one result.
 
 ### Query 14: Shot events with embedded shot profile
 Task:
@@ -687,44 +737,120 @@ Comment:
 In general, this pipeline uses `$set` to derive new analytical fields and then embeds them into a compact nested subdocument.
 In this project, the query produces a reusable shot-oriented structure that is easier to inspect than the raw flat event rows. It also demonstrates conditional document enrichment directly inside MongoDB.
 
-### Query 15: Teams with embedded disciplinary summaries
+### Query 15: Teams with embedded disciplinary profiles by venue and card type
 Task:
-For each team, create a nested card summary document that contains yellow cards, red cards, and total card events.
+Join card-related events with match metadata, classify them as home or away, and build a nested disciplinary profile for each team that contains both overall totals and an embedded venue breakdown.
 
 Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
-  { $match: { card_name: { $ne: null }, team_name: { $ne: null } } },
+  {
+    $match: {
+      card_name: { $ne: null },
+      team_id: { $ne: null },
+      match_id: { $ne: null }
+    }
+  },
+  {
+    $lookup: {
+      from: "matches",
+      localField: "match_id",
+      foreignField: "match_id",
+      as: "match"
+    }
+  },
+  { $unwind: "$match" },
+  {
+    $project: {
+      team_id: 1,
+      team_name: 1,
+      card_name: 1,
+      venue: {
+        $cond: [
+          { $eq: ["$team_id", "$match.home_team_id"] },
+          "home",
+          "away"
+        ]
+      }
+    }
+  },
   {
     $group: {
-      _id: "$team_name",
-      yellow_cards: {
-        $sum: {
-          $cond: [{ $eq: ["$card_name", "Yellow Card"] }, 1, 0]
+      _id: {
+        team_id: "$team_id",
+        team_name: "$team_name",
+        venue: "$venue",
+        card_name: "$card_name"
+      },
+      card_events: { $sum: 1 }
+    }
+  },
+  { $sort: { "_id.team_name": 1, "_id.venue": 1, card_events: -1, "_id.card_name": 1 } },
+  {
+    $group: {
+      _id: {
+        team_id: "$_id.team_id",
+        team_name: "$_id.team_name",
+        venue: "$_id.venue"
+      },
+      total_cards_at_venue: { $sum: "$card_events" },
+      card_breakdown: {
+        $push: {
+          card_name: "$_id.card_name",
+          card_events: "$card_events"
         }
       },
-      red_cards: {
+      yellow_cards_at_venue: {
+        $sum: {
+          $cond: [{ $eq: ["$_id.card_name", "Yellow Card"] }, "$card_events", 0]
+        }
+      },
+      red_cards_at_venue: {
         $sum: {
           $cond: [
-            { $in: ["$card_name", ["Red Card", "Second Yellow"]] },
-            1,
+            { $in: ["$_id.card_name", ["Red Card", "Second Yellow"]] },
+            "$card_events",
             0
           ]
         }
-      },
-      total_cards: { $sum: 1 }
+      }
     }
   },
-  { $sort: { total_cards: -1, _id: 1 } },
+  { $sort: { "_id.team_name": 1, total_cards_at_venue: -1, "_id.venue": 1 } },
+  {
+    $group: {
+      _id: {
+        team_id: "$_id.team_id",
+        team_name: "$_id.team_name"
+      },
+      venue_profiles: {
+        $push: {
+          venue: "$_id.venue",
+          total_cards: "$total_cards_at_venue",
+          yellow_cards: "$yellow_cards_at_venue",
+          red_cards: "$red_cards_at_venue",
+          card_breakdown: "$card_breakdown"
+        }
+      },
+      total_cards: { $sum: "$total_cards_at_venue" },
+      yellow_cards: { $sum: "$yellow_cards_at_venue" },
+      red_cards: { $sum: "$red_cards_at_venue" }
+    }
+  },
+  { $sort: { total_cards: -1, "_id.team_name": 1 } },
   { $limit: 10 },
   {
     $project: {
       _id: 0,
-      team_name: "$_id",
-      card_summary: {
+      team: {
+        team_id: "$_id.team_id",
+        team_name: "$_id.team_name"
+      },
+      disciplinary_profile: {
+        total_cards: "$total_cards",
         yellow_cards: "$yellow_cards",
         red_cards: "$red_cards",
-        total_cards: "$total_cards"
+        venue_profiles: "$venue_profiles"
       }
     }
   }
@@ -732,8 +858,8 @@ db.getSiblingDB("statsbomb").events.aggregate([
 ```
 
 Comment:
-In general, this query combines conditional aggregation with document reshaping, so the final result is a compact embedded summary instead of a flat list of metrics.
-In this project, the pipeline produces a nested disciplinary profile per team. Barcelona clearly dominates the selected sample because the dataset contains many Barcelona matches.
+In general, this query is a much richer embedded-document example than a simple per-team summary. It enriches event data with match context, derives a venue attribute, aggregates twice, and then produces a nested `disciplinary_profile` with embedded `venue_profiles` and card-type arrays.
+In this project, the result gives a compact but analytically useful disciplinary document per team. It is stronger because it shows nested document construction after a real multi-stage aggregation workflow rather than only projecting a few counters into one subdocument.
 
 ### Query 16: Player activity profiles as embedded documents
 Task:
@@ -916,243 +1042,639 @@ In this project, the query clearly shows how match flow differs between the firs
 
 ## Category 4: Indexes / performance
 
-### Query 19: Overview of indexes on the events collection
+### Query 19: Consolidated index catalog with usage totals across all shards
 Task:
-List all indexes defined on the `events` collection together with their key patterns.
-
-Command:
-```javascript
-db.getSiblingDB("statsbomb").events.getIndexes().map(index => ({
-  name: index.name,
-  key: index.key,
-  version: index.v
-}))
-```
-
-Comment:
-In general, this command inspects the collection metadata and returns the index definitions that MongoDB can use during query planning.
-In this project, the `events` collection contains the default `_id` index, the hashed shard key index on `event_id`, and several analytical indexes such as `match_id`, `player_id`, `team_id + event_type_name`, and `season + minute`. This query is the starting point for explaining later performance-related commands.
-
-### Query 20: Index usage statistics across shards
-Task:
-Show index usage counters for the `events` collection and include the shard on which each counter was recorded.
+Merge `$indexStats` output across the whole sharded cluster and rank indexes by total access count, while also showing how many shards reported usage data for each index.
 
 Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
   { $indexStats: {} },
   {
-    $project: {
-      _id: 0,
-      name: 1,
-      key: 1,
-      shard: 1,
-      host: 1,
-      access_ops: "$accesses.ops",
-      tracked_since: "$accesses.since"
+    $group: {
+      _id: {
+        name: "$name",
+        key: "$key"
+      },
+      total_access_ops: { $sum: "$accesses.ops" },
+      shards_reporting: { $addToSet: "$shard" },
+      hosts: { $addToSet: "$host" },
+      first_tracked: { $min: "$accesses.since" }
     }
   },
-  { $sort: { access_ops: -1, name: 1, shard: 1 } }
+  {
+    $project: {
+      _id: 0,
+      index_name: "$_id.name",
+      key: "$_id.key",
+      total_access_ops: 1,
+      shards_reporting: 1,
+      shard_count: { $size: "$shards_reporting" },
+      host_count: { $size: "$hosts" },
+      first_tracked: 1
+    }
+  },
+  { $sort: { total_access_ops: -1, index_name: 1 } }
 ])
 ```
 
 Comment:
-In general, `$indexStats` returns per-index usage counters collected by MongoDB since the node started tracking them.
-In this project, the output shows the counters separately for each shard replica set. During validation, the `player_id` and `match_id` indexes already had non-zero usage, which confirms that some of our analytical queries were using them.
+In general, this query goes beyond a raw `getIndexes()` listing because it joins logical index definitions with actual runtime usage statistics. It uses `$group` to consolidate per-shard counters into one cluster-wide view.
+In this project, the result shows which analytical indexes are really being exercised by the queries. During validation, the `ix_events_player_id`, `ix_events_match_id`, and `ix_events_team_type` indexes had non-zero counters, while some others were still unused since tracking started.
 
-### Query 21: Execution plan for filtering by match id
+### Query 20: Unused indexes since statistics tracking started
 Task:
-Use `explain("executionStats")` to verify that filtering events by `match_id` uses the dedicated `ix_events_match_id` index.
+Identify indexes on the `events` collection that have recorded zero accesses across all shards since MongoDB started tracking index usage.
 
 Command:
 ```javascript
-const exp = db.getSiblingDB("statsbomb")
-  .events
-  .find({ match_id: 303451 })
-  .explain("executionStats");
-
-printjson({
-  winningPlan: exp.queryPlanner.winningPlan,
-  totalDocsExamined: exp.executionStats.totalDocsExamined,
-  totalKeysExamined: exp.executionStats.totalKeysExamined,
-  nReturned: exp.executionStats.nReturned
-});
+db.getSiblingDB("statsbomb").events.aggregate([
+  { $indexStats: {} },
+  {
+    $group: {
+      _id: {
+        name: "$name",
+        key: "$key"
+      },
+      total_access_ops: { $sum: "$accesses.ops" },
+      shards_reporting: { $addToSet: "$shard" },
+      first_tracked: { $min: "$accesses.since" }
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      index_name: "$_id.name",
+      key: "$_id.key",
+      total_access_ops: 1,
+      shard_count: { $size: "$shards_reporting" },
+      is_unused_since_tracking_started: {
+        $eq: ["$total_access_ops", NumberLong("0")]
+      },
+      first_tracked: 1
+    }
+  },
+  { $match: { is_unused_since_tracking_started: true } },
+  { $sort: { index_name: 1 } }
+])
 ```
 
 Comment:
-In general, `explain("executionStats")` shows both the winning execution plan and how much work the server had to do, including examined keys and examined documents.
-In this project, the plan used `IXSCAN` on `ix_events_match_id` on every shard and then merged the results. That is exactly what we want for frequent match-scoped analytical queries.
+In general, this query is a performance audit for index maintenance overhead. It uses usage statistics to find indexes that currently consume storage and write-maintenance cost without contributing to read performance.
+In this project, the query helps justify whether every created index is still necessary. On the current validation run, indexes such as `_id_`, `event_id_hashed`, and sometimes `ix_events_season_minute` can appear as unused simply because no matching workload has been executed since the counters started.
 
-### Query 22: Execution plan for the compound team and event-type index
+### Query 21: Comparative benchmark of the main analytical indexes
 Task:
-Verify that a query filtering by both `team_id` and `event_type_name` uses the compound index `ix_events_team_type`.
+Run `explain("executionStats")` for several representative analytical workloads and compare which index each workload uses and how much work MongoDB performs per returned document.
 
 Command:
 ```javascript
-const exp = db.getSiblingDB("statsbomb")
-  .events
-  .find({ team_id: 217, event_type_name: "Pass" })
-  .explain("executionStats");
+function summarize(label, cursorFactory) {
+  const exp = cursorFactory().explain("executionStats");
 
-printjson({
-  winningPlan: exp.queryPlanner.winningPlan,
-  totalDocsExamined: exp.executionStats.totalDocsExamined,
-  totalKeysExamined: exp.executionStats.totalKeysExamined,
-  nReturned: exp.executionStats.nReturned
-});
+  function findLeaf(node) {
+    if (!node || typeof node !== "object") return null;
+    if (node.stage === "IXSCAN" || node.stage === "COLLSCAN") return node;
+
+    if (Array.isArray(node.shards)) {
+      for (const shard of node.shards) {
+        const found = findLeaf(shard.winningPlan || shard);
+        if (found) return found;
+      }
+    }
+
+    for (const key of ["inputStage", "inputStages", "queryPlan", "winningPlan"]) {
+      const val = node[key];
+      if (Array.isArray(val)) {
+        for (const item of val) {
+          const found = findLeaf(item);
+          if (found) return found;
+        }
+      } else if (val) {
+        const found = findLeaf(val);
+        if (found) return found;
+      }
+    }
+
+    return null;
+  }
+
+  const leaf = findLeaf(exp.queryPlanner.winningPlan);
+
+  return {
+    scenario: label,
+    leaf_stage: leaf ? leaf.stage : null,
+    index_name: leaf && leaf.indexName ? leaf.indexName : null,
+    totalDocsExamined: exp.executionStats.totalDocsExamined,
+    totalKeysExamined: exp.executionStats.totalKeysExamined,
+    nReturned: exp.executionStats.nReturned,
+    keys_per_returned: exp.executionStats.nReturned
+      ? Number((exp.executionStats.totalKeysExamined / exp.executionStats.nReturned).toFixed(3))
+      : null,
+    docs_per_returned: exp.executionStats.nReturned
+      ? Number((exp.executionStats.totalDocsExamined / exp.executionStats.nReturned).toFixed(3))
+      : null
+  };
+}
+
+[
+  summarize(
+    "match_id exact filter",
+    () => db.getSiblingDB("statsbomb").events.find({ match_id: 303451 })
+  ),
+  summarize(
+    "player_id exact filter",
+    () => db.getSiblingDB("statsbomb").events.find({ player_id: 5503 })
+  ),
+  summarize(
+    "team_id + event_type_name",
+    () => db.getSiblingDB("statsbomb").events.find({ team_id: 217, event_type_name: "Pass" })
+  ),
+  summarize(
+    "season + minute with sort",
+    () => db.getSiblingDB("statsbomb").events.find({ season: "2019/2020", minute: { $gte: 75 } }).sort({ minute: 1 }).limit(20)
+  )
+]
 ```
 
 Comment:
-In general, this command is used to confirm that a compound predicate can exploit a matching compound index instead of scanning the collection.
-In this project, the plan used `IXSCAN` on `ix_events_team_type`, which is important because many football analytics queries naturally filter by team and event type together.
+In general, this command turns multiple `explain` plans into one comparative benchmark table. Instead of looking at one query in isolation, it compares several realistic workloads and derives normalized metrics such as `keys_per_returned` and `docs_per_returned`.
+In this project, all four representative scenarios used their intended indexes and achieved a near `1:1` ratio between examined keys, examined documents, and returned documents. That is a strong sign that the chosen index design matches the actual analytical workload.
 
-### Query 23: Execution plan for season filtering with minute sorting
+### Query 22: Prefix behavior of the compound `team_id + event_type_name` index
 Task:
-Check whether a query filtered by `season` and sorted by `minute` can use the `ix_events_season_minute` index efficiently.
+Compare how the compound index `ix_events_team_type` behaves for a left-prefix query, a full compound query, and a query that ignores the leftmost indexed field.
 
 Command:
 ```javascript
-const exp = db.getSiblingDB("statsbomb")
-  .events
-  .find({ season: "2019/2020", minute: { $gte: 75 } })
-  .sort({ minute: 1 })
-  .limit(20)
-  .explain("executionStats");
+function summarize(label, query) {
+  const exp = db.getSiblingDB("statsbomb")
+    .events
+    .find(query)
+    .limit(20)
+    .explain("executionStats");
 
-printjson({
-  winningPlan: exp.queryPlanner.winningPlan,
-  totalDocsExamined: exp.executionStats.totalDocsExamined,
-  totalKeysExamined: exp.executionStats.totalKeysExamined,
-  nReturned: exp.executionStats.nReturned
-});
+  function findLeaf(node) {
+    if (!node || typeof node !== "object") return null;
+    if (node.stage === "IXSCAN" || node.stage === "COLLSCAN") return node;
+
+    if (Array.isArray(node.shards)) {
+      for (const shard of node.shards) {
+        const found = findLeaf(shard.winningPlan || shard);
+        if (found) return found;
+      }
+    }
+
+    for (const key of ["inputStage", "inputStages", "queryPlan", "winningPlan"]) {
+      const val = node[key];
+      if (Array.isArray(val)) {
+        for (const item of val) {
+          const found = findLeaf(item);
+          if (found) return found;
+        }
+      } else if (val) {
+        const found = findLeaf(val);
+        if (found) return found;
+      }
+    }
+
+    return null;
+  }
+
+  const leaf = findLeaf(exp.queryPlanner.winningPlan);
+
+  return {
+    scenario: label,
+    leaf_stage: leaf ? leaf.stage : null,
+    index_name: leaf && leaf.indexName ? leaf.indexName : null,
+    totalDocsExamined: exp.executionStats.totalDocsExamined,
+    totalKeysExamined: exp.executionStats.totalKeysExamined,
+    nReturned: exp.executionStats.nReturned
+  };
+}
+
+[
+  summarize("team_id only", { team_id: 217 }),
+  summarize("team_id + event_type_name", { team_id: 217, event_type_name: "Pass" }),
+  summarize("event_type_name only", { event_type_name: "Pass" })
+]
 ```
 
 Comment:
-In general, this query tests whether an index can support both filtering and sorting, which is one of the key reasons to create compound indexes.
-In this project, the winning plan used `IXSCAN` on `ix_events_season_minute` and applied a limit very early. This is a good sign for time-window analyses over the event stream.
+In general, this query demonstrates the left-prefix rule for compound indexes. MongoDB can usually use the compound index when the query starts with the leftmost field, but not when the leftmost field is skipped.
+In this project, both `team_id only` and `team_id + event_type_name` used `ix_events_team_type`, while `event_type_name only` fell back to `COLLSCAN`. This makes the design trade-off of the compound index easy to explain in the documentation.
 
-### Query 24: Execution plan for a non-indexed field
+### Query 23: Comparison of indexed sorting versus blocking sort
 Task:
-Use `explain("executionStats")` on a filter by `team_name` to show what happens when the query uses a non-indexed field.
+Compare an indexed sort supported by `ix_events_season_minute` with a non-indexed workload that requires a blocking sort stage.
 
 Command:
 ```javascript
-const exp = db.getSiblingDB("statsbomb")
-  .events
-  .find({ team_name: "Barcelona" })
-  .explain("executionStats");
+function summarize(label, query, sortSpec) {
+  let cursor = db.getSiblingDB("statsbomb").events.find(query);
+  if (sortSpec) {
+    cursor = cursor.sort(sortSpec);
+  }
 
-printjson({
-  winningPlan: exp.queryPlanner.winningPlan,
-  totalDocsExamined: exp.executionStats.totalDocsExamined,
-  totalKeysExamined: exp.executionStats.totalKeysExamined,
-  nReturned: exp.executionStats.nReturned
-});
+  const exp = cursor.limit(20).explain("executionStats");
+
+  function hasStage(node, stageName) {
+    if (!node || typeof node !== "object") return false;
+    if (node.stage === stageName) return true;
+    if (Array.isArray(node.shards)) {
+      return node.shards.some(shard => hasStage(shard.winningPlan || shard, stageName));
+    }
+
+    return Object.values(node).some(val =>
+      Array.isArray(val)
+        ? val.some(item => hasStage(item, stageName))
+        : hasStage(val, stageName)
+    );
+  }
+
+  function findLeaf(node) {
+    if (!node || typeof node !== "object") return null;
+    if (node.stage === "IXSCAN" || node.stage === "COLLSCAN") return node;
+    if (Array.isArray(node.shards)) {
+      for (const shard of node.shards) {
+        const found = findLeaf(shard.winningPlan || shard);
+        if (found) return found;
+      }
+    }
+
+    for (const val of Object.values(node)) {
+      if (Array.isArray(val)) {
+        for (const item of val) {
+          const found = findLeaf(item);
+          if (found) return found;
+        }
+      } else if (val && typeof val === "object") {
+        const found = findLeaf(val);
+        if (found) return found;
+      }
+    }
+
+    return null;
+  }
+
+  const leaf = findLeaf(exp.queryPlanner.winningPlan);
+
+  return {
+    scenario: label,
+    leaf_stage: leaf ? leaf.stage : null,
+    index_name: leaf && leaf.indexName ? leaf.indexName : null,
+    has_blocking_sort: hasStage(exp.queryPlanner.winningPlan, "SORT"),
+    totalDocsExamined: exp.executionStats.totalDocsExamined,
+    totalKeysExamined: exp.executionStats.totalKeysExamined,
+    nReturned: exp.executionStats.nReturned
+  };
+}
+
+[
+  summarize(
+    "indexed season filter + minute sort",
+    { season: "2019/2020", minute: { $gte: 75 } },
+    { minute: 1 }
+  ),
+  summarize(
+    "non-indexed team_name filter + minute sort",
+    { team_name: "Barcelona" },
+    { minute: 1 }
+  )
+]
 ```
 
 Comment:
-In general, this query is useful as a contrast case: when there is no suitable index, MongoDB falls back to `COLLSCAN`, which is more expensive on larger collections.
-In this project, the explain output showed `COLLSCAN` on every shard, `0` examined keys, and examination of the full collection. That makes this query a clear example of why index design matters for performance.
+In general, this command compares two sorting scenarios and explicitly checks whether a blocking `SORT` stage appears in the winning plan. That is one of the clearest ways to explain the performance value of a compound index that supports both filtering and sorting.
+In this project, the indexed scenario used `ix_events_season_minute` without a blocking sort, while the non-indexed `team_name` workload required `COLLSCAN` and a blocking `SORT`. The difference in examined documents is large enough to be convincing during defense.
+
+### Query 24: Per-shard index storage overhead on the `events` collection
+Task:
+Use `collStats` to compare how much index storage each shard consumes for the `events` collection and determine which index is the largest on each shard.
+
+Command:
+```javascript
+const stats = db.getSiblingDB("statsbomb").runCommand({ collStats: "events" });
+
+Object.entries(stats.shards)
+  .map(([shard, shardStats]) => ({
+    shard,
+    count: shardStats.count,
+    size: shardStats.size,
+    avgObjSize: shardStats.avgObjSize,
+    totalIndexSize: shardStats.totalIndexSize,
+    index_to_data_ratio_pct: Number(((shardStats.totalIndexSize / shardStats.size) * 100).toFixed(2)),
+    largest_index_name: Object.entries(shardStats.indexSizes).sort((a, b) => b[1] - a[1])[0][0],
+    largest_index_size: Object.entries(shardStats.indexSizes).sort((a, b) => b[1] - a[1])[0][1]
+  }))
+  .sort((a, b) => b.totalIndexSize - a.totalIndexSize || a.shard.localeCompare(b.shard));
+```
+
+Comment:
+In general, this command looks at the storage cost of indexing, not only at read plans. It reshapes sharded `collStats` output into a per-shard comparison and derives an index-to-data ratio that is useful for capacity planning.
+In this project, the result shows that index overhead is very similar across all three shards and that the largest index on every shard is the hashed shard-key index on `event_id`. This is a good argument that the distribution and index maintenance cost are balanced across the cluster.
 
 ## Category 5: Cluster / sharding / admin
 
-### Query 25: Sharding status overview
+### Query 25: Chunk ownership by shard with representative hashed boundaries
 Task:
-Inspect the overall sharded cluster state, including shards, balancer, chunk metadata, and distribution of sharded collections.
+Analyze how the sharded `statsbomb.events` collection is split into chunks in MongoDB 8.0 metadata, enrich each shard with `config.shards`, and show representative lower and upper chunk bounds.
 
 Command:
 ```javascript
-sh.status()
+db.getSiblingDB("config").collections.aggregate([
+  { $match: { _id: "statsbomb.events", dropped: { $ne: true } } },
+  {
+    $lookup: {
+      from: "chunks",
+      localField: "uuid",
+      foreignField: "uuid",
+      as: "chunks"
+    }
+  },
+  { $unwind: "$chunks" },
+  { $sort: { "chunks.shard": 1, "chunks.min.event_id": 1 } },
+  {
+    $group: {
+      _id: "$chunks.shard",
+      chunk_count: { $sum: 1 },
+      first_chunk_min: { $first: "$chunks.min" },
+      last_chunk_max: { $last: "$chunks.max" }
+    }
+  },
+  {
+    $lookup: {
+      from: "shards",
+      localField: "_id",
+      foreignField: "_id",
+      as: "shard_meta"
+    }
+  },
+  { $unwind: "$shard_meta" },
+  {
+    $project: {
+      _id: 0,
+      shard: "$_id",
+      host: "$shard_meta.host",
+      state: "$shard_meta.state",
+      chunk_count: 1,
+      first_chunk_min: 1,
+      last_chunk_max: 1
+    }
+  },
+  { $sort: { chunk_count: -1, shard: 1 } }
+])
 ```
 
 Comment:
-In general, `sh.status()` is the standard MongoDB command for inspecting the global state of a sharded cluster.
-In this project, the output confirms that the cluster contains three shards, that the `statsbomb.events` collection is sharded by hashed `event_id`, and that the balancer is enabled. It also shows that the event data is distributed across all three shards.
+In general, this pipeline works with MongoDB sharding metadata by first resolving the collection UUID from `config.collections` and then joining the physical chunk documents from `config.chunks`. This is important in newer MongoDB versions where chunk metadata is linked by UUID rather than by namespace.
+In this project, the query proves that `statsbomb.events` is not only marked as sharded, but is physically split into chunks owned by all three shard replica sets. Showing the hashed lower and upper bounds per shard makes the distribution more concrete than a simple `sh.status()` output.
 
-### Query 26: Database statistics summary
+### Query 26: Chunk balance deviation from the ideal equal distribution
 Task:
-Show a compact summary of database-level statistics for the `statsbomb` database.
+Measure how evenly the `statsbomb.events` chunks are distributed by shard and compute each shard's percentage share and deviation from the ideal equal distribution.
 
 Command:
 ```javascript
-const s = db.getSiblingDB("statsbomb").stats();
-
-printjson({
-  db: s.db,
-  collections: s.collections,
-  objects: s.objects,
-  avgObjSize: s.avgObjSize,
-  dataSize: s.dataSize,
-  storageSize: s.storageSize,
-  indexes: s.indexes,
-  indexSize: s.indexSize,
-  totalSize: s.totalSize
-});
+db.getSiblingDB("config").collections.aggregate([
+  { $match: { _id: "statsbomb.events", dropped: { $ne: true } } },
+  {
+    $lookup: {
+      from: "chunks",
+      localField: "uuid",
+      foreignField: "uuid",
+      as: "chunks"
+    }
+  },
+  { $unwind: "$chunks" },
+  { $group: { _id: "$chunks.shard", chunk_count: { $sum: 1 } } },
+  {
+    $group: {
+      _id: null,
+      total_chunks: { $sum: "$chunk_count" },
+      shard_count: { $sum: 1 },
+      shard_stats: {
+        $push: {
+          shard: "$_id",
+          chunk_count: "$chunk_count"
+        }
+      }
+    }
+  },
+  { $unwind: "$shard_stats" },
+  {
+    $project: {
+      _id: 0,
+      shard: "$shard_stats.shard",
+      chunk_count: "$shard_stats.chunk_count",
+      total_chunks: 1,
+      ideal_chunks_per_shard: {
+        $round: [{ $divide: ["$total_chunks", "$shard_count"] }, 2]
+      },
+      share_pct: {
+        $round: [
+          {
+            $multiply: [
+              { $divide: ["$shard_stats.chunk_count", "$total_chunks"] },
+              100
+            ]
+          },
+          2
+        ]
+      },
+      deviation_from_ideal_pct: {
+        $round: [
+          {
+            $multiply: [
+              {
+                $divide: [
+                  {
+                    $subtract: [
+                      "$shard_stats.chunk_count",
+                      { $divide: ["$total_chunks", "$shard_count"] }
+                    ]
+                  },
+                  { $divide: ["$total_chunks", "$shard_count"] }
+                ]
+              },
+              100
+            ]
+          },
+          2
+        ]
+      }
+    }
+  },
+  { $sort: { chunk_count: -1, shard: 1 } }
+])
 ```
 
 Comment:
-In general, `db.stats()` provides database-level storage and object statistics aggregated over the whole database.
-In this project, the command is useful for proving the overall scale of the loaded data and for documenting how much storage and indexing overhead the deployed solution currently uses.
+In general, this is a two-level administrative aggregation built on top of collection UUID to chunk metadata resolution. First it counts chunks per shard, then it computes the global denominator and derives normalized balance metrics for each shard.
+In this project, the query is stronger than simply listing shard ownership because it quantifies whether the balancer and hashed shard key produce a near-even chunk layout. This is exactly the kind of evidence that supports the sharding design choices described in the architecture chapter.
 
-### Query 27: Shard key metadata from the config database
+### Query 27: Cluster operation history for collection lifecycle and sharding events
 Task:
-Read shard key metadata for sharded collections from the `config.collections` metadata collection.
+Aggregate the operational history stored in `config.changelog` and summarize how often key events such as sharding a collection and dropping collections occurred for the project datasets.
 
 Command:
 ```javascript
-db.getSiblingDB("config")
-  .collections
-  .find(
-    {},
-    { _id: 1, key: 1, unique: 1, lastmodEpoch: 1 }
-  )
-  .toArray()
+db.getSiblingDB("config").changelog.aggregate([
+  {
+    $match: {
+      what: {
+        $in: [
+          "addShard",
+          "shardCollection.start",
+          "shardCollection.end",
+          "dropCollection.start",
+          "dropCollection"
+        ]
+      },
+      ns: { $in: ["statsbomb.events", "statsbomb.players", "statsbomb.matches"] }
+    }
+  },
+  {
+    $group: {
+      _id: {
+        operation: "$what",
+        server: "$server"
+      },
+      operations: { $sum: 1 },
+      first_seen: { $min: "$time" },
+      last_seen: { $max: "$time" },
+      namespaces: { $addToSet: "$ns" }
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      operation: "$_id.operation",
+      server: "$_id.server",
+      operations: 1,
+      first_seen: 1,
+      last_seen: 1,
+      namespaces: 1
+    }
+  },
+  { $sort: { last_seen: -1, operations: -1, operation: 1 } }
+])
 ```
 
 Comment:
-In general, the `config` database stores cluster metadata, and `config.collections` contains the shard-key definitions for sharded collections.
-In this project, the command confirms that `statsbomb.events` is sharded by `{ event_id: "hashed" }`. This is an important administrative proof that the actual cluster metadata matches the intended architecture described in the documentation.
+In general, `config.changelog` is an operational history collection for cluster administration. This query filters the events that are actually present in the current MongoDB 8.0 cluster metadata and then groups them by operation type and server to reconstruct what happened during dataset import and sharding setup.
+In this project, the output documents that the cluster really performed administrative actions such as dropping collections during reload and creating the sharded `statsbomb.events` collection. That makes the deployment more auditable and gives stronger evidence than a static snapshot command.
 
-### Query 28: Document distribution across shards
+### Query 28: Replication lag and sync-source analysis inside `shard01rs`
 Task:
-Display how the `events` collection is physically distributed across the shards.
+Compute a concise replication health view for all replica set members of `shard01rs`, including replication lag against the current primary and the sync source used by each secondary.
 
 Command:
 ```javascript
-db.getSiblingDB("statsbomb").events.getShardDistribution()
+const status = rs.status();
+const primary = status.members.find(member => member.stateStr === "PRIMARY");
+
+status.members
+  .filter(member => ["PRIMARY", "SECONDARY"].includes(member.stateStr))
+  .map(member => ({
+    name: member.name,
+    state: member.stateStr,
+    health: member.health,
+    sync_source: member.syncSourceHost || null,
+    optimeDate: member.optimeDate,
+    replication_lag_seconds:
+      primary && member.optimeDate
+        ? Math.max(0, Math.round((primary.optimeDate - member.optimeDate) / 1000))
+        : null
+  }))
+  .sort((a, b) =>
+    a.replication_lag_seconds === b.replication_lag_seconds
+      ? a.name.localeCompare(b.name)
+      : a.replication_lag_seconds - b.replication_lag_seconds
+  );
 ```
 
 Comment:
-In general, `getShardDistribution()` summarizes how many documents and how much data each shard owns for the selected sharded collection.
-In this project, the result shows that the `events` collection is distributed almost evenly across all three shards, with about one third of the documents on each shard. That is exactly the kind of balance expected from a hashed shard key.
+In general, this command transforms the verbose result of `rs.status()` into an analytical summary. Instead of only listing states, it computes a derived metric, namely replication lag in seconds relative to the current primary.
+In this project, the query should be executed on the primary of `shard01rs`. It is much stronger than a basic replica-set status dump because it directly shows whether secondaries are catching up correctly and from which source they replicate, which is useful both for the replication chapter and for a failover demonstration.
 
-### Query 29: Replica set member states on a shard
+### Query 29: Validation schema audit for all application collections
 Task:
-Inspect the state of all members of the `shard01rs` replica set.
+Inspect all main project collections and summarize whether strict validation is enabled, how many required fields each validator contains, and how many properties are governed by the schema.
 
 Command:
 ```javascript
-rs.status().members.map(member => ({
-  name: member.name,
-  stateStr: member.stateStr,
-  health: member.health,
-  uptime: member.uptime
-}))
+const collInfos = db.getSiblingDB("statsbomb").runCommand({
+  listCollections: 1,
+  filter: { name: { $in: ["matches", "players", "events"] } }
+}).cursor.firstBatch;
+
+collInfos
+  .map(function(collection) {
+    const schema =
+      (collection.options &&
+        collection.options.validator &&
+        collection.options.validator.$jsonSchema) || {};
+    const required = schema.required || [];
+    const properties = schema.properties || {};
+
+    return {
+      name: collection.name,
+      validationLevel: collection.options.validationLevel,
+      validationAction: collection.options.validationAction,
+      required_fields: required,
+      required_field_count: required.length,
+      validated_property_count: Object.keys(properties).length
+    };
+  })
+  .sort(function(a, b) {
+    return (
+      b.required_field_count - a.required_field_count ||
+      a.name.localeCompare(b.name)
+    );
+  });
 ```
 
 Comment:
-In general, `rs.status()` is the main command for checking replica set health, role assignment, and node availability.
-In this project, the query was executed on the primary of `shard01rs` and showed one `PRIMARY` and two `SECONDARY` members, all with `health: 1`. This is a direct proof that shard replication is configured and functioning correctly.
+In general, this command reads collection metadata rather than business data and then reshapes the nested validator definition into a compact audit view. It is an administrative query focused on schema governance.
+In this project, the assignment explicitly requires MongoDB validation schema. This query proves that `matches`, `players`, and `events` are all protected by validators applied through `collMod`, and it also shows that validation runs in strict/error mode instead of being merely decorative.
 
-### Query 30: Administrative users and roles
+### Query 30: Administrative users expanded into a role matrix
 Task:
-List users defined in the `admin` database together with their assigned roles.
+Expand the internal user definitions in `admin.system.users` and show a normalized user-role matrix with the number of roles assigned to each user.
 
 Command:
 ```javascript
-db.getSiblingDB("admin").getUsers()
+db.getSiblingDB("admin").system.users.aggregate([
+  { $unwind: "$roles" },
+  {
+    $group: {
+      _id: {
+        user: "$user",
+        auth_db: "$db"
+      },
+      roles: {
+        $addToSet: {
+          role: "$roles.role",
+          db: "$roles.db"
+        }
+      },
+      role_count: { $sum: 1 }
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      user: "$_id.user",
+      auth_db: "$_id.auth_db",
+      role_count: 1,
+      roles: 1
+    }
+  },
+  { $sort: { role_count: -1, user: 1 } }
+])
 ```
 
 Comment:
-In general, `getUsers()` is an administrative security command that shows which users exist in the selected database and which roles they hold.
-In this project, the command confirms that an administrative user exists and that authentication and authorization are active in the cluster. This is relevant because the assignment explicitly requires MongoDB security to be configured.
+In general, this aggregation normalizes MongoDB user metadata by expanding the embedded `roles` array and regrouping the result into one readable record per user.
+In this project, the query is a stronger replacement for `getUsers()` because it explicitly demonstrates role expansion and aggregation over security metadata. It is also useful for documenting that authentication and authorization are active and that the administrative user has the expected privileges.
