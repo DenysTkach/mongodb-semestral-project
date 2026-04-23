@@ -1,7 +1,7 @@
-﻿# Mongo Query Outputs
+# Mongo Query Outputs
 
-Source: `c:\Users\deniz\Desktop\mongodb-semestral-project\Dotazy\mongo_queries.md`
-Total queries executed: `31`
+Source: `Dotazy/mongo_queries.md`
+Total queries executed: `30`
 
 ## Query 1: Players with the highest number of pass events
 
@@ -683,7 +683,7 @@ Total queries executed: `31`
 ]
 ```
 
-## Query 13: Pass events reshaped into nested documents
+## Query 13: Match passing leaders as embedded team documents
 
 - Category: `Category 3: Nested / embedded documents`
 - Exit code: `0`
@@ -692,244 +692,604 @@ Total queries executed: `31`
 ```text
 [
   {
-    event_id: 'f482387a-fce6-41b2-8cbc-326acbf78030',
-    match_context: {
-      match_id: 303707,
-      season: '2019/2020',
-      period: 1,
-      minute: 7,
-      second: 15
+    match_id: 303377,
+    match_summary: {
+      match_date: '2020-02-15',
+      home_team: 'Barcelona',
+      away_team: 'Getafe'
     },
-    player_info: {
-      player_id: 2948,
-      player_name: 'Nabil Fekir',
-      team_id: 218,
-      team_name: 'Real Betis',
-      position_name: 'Left Midfield'
-    },
-    pass_context: {
-      recipient_id: 11538,
-      recipient_name: 'Alejandro Moreno Lopera',
-      play_pattern_name: 'Regular Play',
-      duration: 0.351893
-    },
-    location: { x: 39.6, y: 3.4 }
+    team: {
+      team_id: 217,
+      team_name: 'Barcelona',
+      total_team_passes: 718,
+      top_passers: [
+        {
+          player_id: 5203,
+          player_name: 'Sergio Busquets i Burgos',
+          country: 'Spain',
+          position: 'Center Defensive Midfield',
+          pass_count: 119,
+          avg_pass_minute: 42.23,
+          distinct_recipient_count: 13
+        },
+        {
+          player_id: 5492,
+          player_name: 'Samuel Yves Umtiti',
+          country: 'France',
+          position: 'Right Center Back',
+          pass_count: 84,
+          avg_pass_minute: 40.12,
+          distinct_recipient_count: 11
+        },
+        {
+          player_id: 5213,
+          player_name: 'Gerard Piqué Bernabéu',
+          country: 'Spain',
+          position: 'Right Center Back',
+          pass_count: 82,
+          avg_pass_minute: 43.02,
+          distinct_recipient_count: 10
+        },
+        {
+          player_id: 20055,
+          player_name: 'Marc-André ter Stegen',
+          country: 'Germany',
+          position: 'Goalkeeper',
+          pass_count: 70,
+          avg_pass_minute: 43.03,
+          distinct_recipient_count: 11
+        },
+        {
+          player_id: 11392,
+          player_name: 'Arthur Henrique Ramos de Oliveira Melo',
+          country: 'Brazil',
+          position: 'Left Center Midfield',
+          pass_count: 68,
+          avg_pass_minute: 35.32,
+          distinct_recipient_count: 11
+        }
+      ]
+    }
   },
   {
-    event_id: '4cd5c32d-71c4-4979-8eb9-6c42899c4bbb',
-    match_context: {
-      match_id: 303707,
-      season: '2019/2020',
-      period: 1,
-      minute: 15,
-      second: 53
+    match_id: 303377,
+    match_summary: {
+      match_date: '2020-02-15',
+      home_team: 'Barcelona',
+      away_team: 'Getafe'
     },
-    player_info: {
-      player_id: 2948,
-      player_name: 'Nabil Fekir',
-      team_id: 218,
-      team_name: 'Real Betis',
-      position_name: 'Left Midfield'
-    },
-    pass_context: {
-      recipient_id: 23522,
-      recipient_name: 'Emerson Aparecido Leite de Souza Junior',
-      play_pattern_name: 'From Throw In',
-      duration: 0.587587
-    },
-    location: { x: 55.7, y: 69.7 }
+    team: {
+      team_id: 216,
+      team_name: 'Getafe',
+      total_team_passes: 243,
+      top_passers: [
+        {
+          player_id: 17620,
+          player_name: 'Marc Cucurella Saseta',
+          country: 'Spain',
+          position: 'Left Midfield',
+          pass_count: 35,
+          avg_pass_minute: 53.4,
+          distinct_recipient_count: 11
+        },
+        {
+          player_id: 6634,
+          player_name: 'Djené Dakonam Ortega',
+          country: 'Togo',
+          position: 'Right Center Back',
+          pass_count: 27,
+          avg_pass_minute: 47.93,
+          distinct_recipient_count: 9
+        },
+        {
+          player_id: 6722,
+          player_name: 'David Soria Solís',
+          country: 'Spain',
+          position: 'Goalkeeper',
+          pass_count: 26,
+          avg_pass_minute: 50.85,
+          distinct_recipient_count: 9
+        },
+        {
+          player_id: 6863,
+          player_name: 'Mauro Wilney Arambarri Rosa',
+          country: 'Uruguay',
+          position: 'Right Defensive Midfield',
+          pass_count: 26,
+          avg_pass_minute: 49.12,
+          distinct_recipient_count: 12
+        },
+        {
+          player_id: 3991,
+          player_name: 'Allan Romeo Nyom',
+          country: 'Cameroon',
+          position: 'Right Back',
+          pass_count: 22,
+          avg_pass_minute: 39.64,
+          distinct_recipient_count: 6
+        }
+      ]
+    }
   },
   {
-    event_id: '4d7ed2b0-c99a-46bb-9935-25acc2a27236',
-    match_context: {
-      match_id: 303707,
-      season: '2019/2020',
-      period: 1,
-      minute: 18,
-      second: 1
+    match_id: 303400,
+    match_summary: {
+      match_date: '2020-01-25',
+      home_team: 'Valencia',
+      away_team: 'Barcelona'
     },
-    player_info: {
-      player_id: 2948,
-      player_name: 'Nabil Fekir',
-      team_id: 218,
-      team_name: 'Real Betis',
-      position_name: 'Left Midfield'
-    },
-    pass_context: {
-      recipient_id: 6673,
-      recipient_name: 'Sergio Canales Madrazo',
-      play_pattern_name: 'From Free Kick',
-      duration: 0.802897
-    },
-    location: { x: 47.3, y: 73.7 }
+    team: {
+      team_id: 217,
+      team_name: 'Barcelona',
+      total_team_passes: 877,
+      top_passers: [
+        {
+          player_id: 5203,
+          player_name: 'Sergio Busquets i Burgos',
+          country: 'Spain',
+          position: 'Center Defensive Midfield',
+          pass_count: 128,
+          avg_pass_minute: 43.55,
+          distinct_recipient_count: 11
+        },
+        {
+          player_id: 6379,
+          player_name: 'Sergi Roberto Carnicer',
+          country: 'Spain',
+          position: 'Right Back',
+          pass_count: 113,
+          avg_pass_minute: 42.3,
+          distinct_recipient_count: 11
+        },
+        {
+          player_id: 5211,
+          player_name: 'Jordi Alba Ramos',
+          country: 'Spain',
+          position: 'Left Back',
+          pass_count: 95,
+          avg_pass_minute: 41.13,
+          distinct_recipient_count: 11
+        },
+        {
+          player_id: 5492,
+          player_name: 'Samuel Yves Umtiti',
+          country: 'France',
+          position: 'Right Center Back',
+          pass_count: 90,
+          avg_pass_minute: 42.26,
+          distinct_recipient_count: 10
+        },
+        {
+          player_id: 5213,
+          player_name: 'Gerard Piqué Bernabéu',
+          country: 'Spain',
+          position: 'Right Center Back',
+          pass_count: 89,
+          avg_pass_minute: 40.52,
+          distinct_recipient_count: 11
+        }
+      ]
+    }
   },
   {
-    event_id: '2fb0df6f-3d46-433c-9aea-0512c80027e0',
-    match_context: {
-      match_id: 303707,
-      season: '2019/2020',
-      period: 1,
-      minute: 24,
-      second: 36
+    match_id: 303400,
+    match_summary: {
+      match_date: '2020-01-25',
+      home_team: 'Valencia',
+      away_team: 'Barcelona'
     },
-    player_info: {
-      player_id: 2948,
-      player_name: 'Nabil Fekir',
-      team_id: 218,
-      team_name: 'Real Betis',
-      position_name: 'Left Midfield'
-    },
-    pass_context: {
-      recipient_id: 26404,
-      recipient_name: 'Guido Rodríguez',
-      play_pattern_name: 'From Free Kick',
-      duration: 1.046214
-    },
-    location: { x: 75.4, y: 18.8 }
+    team: {
+      team_id: 207,
+      team_name: 'Valencia',
+      total_team_passes: 325,
+      top_passers: [
+        {
+          player_id: 6891,
+          player_name: 'Ezequiel Marcelo Garay',
+          country: 'Argentina',
+          position: 'Right Center Back',
+          pass_count: 50,
+          avg_pass_minute: 40.16,
+          distinct_recipient_count: 10
+        },
+        {
+          player_id: 6797,
+          player_name: 'Daniel Wass',
+          country: 'Denmark',
+          position: 'Right Back',
+          pass_count: 42,
+          avg_pass_minute: 35.38,
+          distinct_recipient_count: 5
+        },
+        {
+          player_id: 6589,
+          player_name: 'Geoffrey Kondogbia',
+          country: 'Central African Republic',
+          position: 'Left Center Midfield',
+          pass_count: 41,
+          avg_pass_minute: 38.63,
+          distinct_recipient_count: 10
+        },
+        {
+          player_id: 6746,
+          player_name: 'Gabriel Armando de Abreu',
+          country: 'Brazil',
+          position: 'Left Center Back',
+          pass_count: 39,
+          avg_pass_minute: 35.28,
+          distinct_recipient_count: 8
+        },
+        {
+          player_id: 6596,
+          player_name: 'José Luis Gayà Peña',
+          country: 'Spain',
+          position: 'Left Back',
+          pass_count: 29,
+          avg_pass_minute: 41.72,
+          distinct_recipient_count: 9
+        }
+      ]
+    }
   },
   {
-    event_id: 'ef14ec20-b423-400c-84e0-50ff12dcc649',
-    match_context: {
-      match_id: 303707,
-      season: '2019/2020',
-      period: 1,
-      minute: 24,
-      second: 45
+    match_id: 303421,
+    match_summary: {
+      match_date: '2020-07-19',
+      home_team: 'Deportivo Alavés',
+      away_team: 'Barcelona'
     },
-    player_info: {
-      player_id: 2948,
-      player_name: 'Nabil Fekir',
-      team_id: 218,
-      team_name: 'Real Betis',
-      position_name: 'Left Midfield'
-    },
-    pass_context: {
-      recipient_id: 13599,
-      recipient_name: 'Carles Aleña Castillo',
-      play_pattern_name: 'From Free Kick',
-      duration: 0.886468
-    },
-    location: { x: 77.5, y: 48.3 }
+    team: {
+      team_id: 217,
+      team_name: 'Barcelona',
+      total_team_passes: 792,
+      top_passers: [
+        {
+          player_id: 5211,
+          player_name: 'Jordi Alba Ramos',
+          country: 'Spain',
+          position: 'Left Back',
+          pass_count: 106,
+          avg_pass_minute: 45.61,
+          distinct_recipient_count: 12
+        },
+        {
+          player_id: 8206,
+          player_name: 'Arturo Erasmo Vidal Pardo',
+          country: 'Chile',
+          position: 'Left Wing',
+          pass_count: 89,
+          avg_pass_minute: 49.83,
+          distinct_recipient_count: 13
+        },
+        {
+          player_id: 6379,
+          player_name: 'Sergi Roberto Carnicer',
+          country: 'Spain',
+          position: 'Right Back',
+          pass_count: 84,
+          avg_pass_minute: 47.08,
+          distinct_recipient_count: 12
+        },
+        {
+          player_id: 32480,
+          player_name: 'Ronald Federico Araújo da Silva',
+          country: 'Uruguay',
+          position: 'Right Center Back',
+          pass_count: 78,
+          avg_pass_minute: 45.4,
+          distinct_recipient_count: 10
+        },
+        {
+          player_id: 24841,
+          player_name: 'Ricard Puig Martí',
+          country: 'Spain',
+          position: 'Left Center Midfield',
+          pass_count: 75,
+          avg_pass_minute: 51.2,
+          distinct_recipient_count: 12
+        }
+      ]
+    }
   },
   {
-    event_id: '430f0604-d10c-4329-9e98-2ca2be96949d',
-    match_context: {
-      match_id: 303707,
-      season: '2019/2020',
-      period: 1,
-      minute: 25,
-      second: 11
+    match_id: 303421,
+    match_summary: {
+      match_date: '2020-07-19',
+      home_team: 'Deportivo Alavés',
+      away_team: 'Barcelona'
     },
-    player_info: {
-      player_id: 2948,
-      player_name: 'Nabil Fekir',
-      team_id: 218,
-      team_name: 'Real Betis',
-      position_name: 'Left Midfield'
-    },
-    pass_context: {
-      recipient_id: 13599,
-      recipient_name: 'Carles Aleña Castillo',
-      play_pattern_name: 'From Throw In',
-      duration: 0.479623
-    },
-    location: { x: 94.4, y: 62.6 }
+    team: {
+      team_id: 206,
+      team_name: 'Deportivo Alavés',
+      total_team_passes: 376,
+      top_passers: [
+        {
+          player_id: 6618,
+          player_name: 'Martín Aguirregabiria Padilla',
+          country: 'Spain',
+          position: 'Right Back',
+          pass_count: 49,
+          avg_pass_minute: 40.8,
+          distinct_recipient_count: 14
+        },
+        {
+          player_id: 6659,
+          player_name: 'Víctor Camarasa Ferrando',
+          country: 'Spain',
+          position: 'Right Center Midfield',
+          pass_count: 39,
+          avg_pass_minute: 38.08,
+          distinct_recipient_count: 12
+        },
+        {
+          player_id: 3265,
+          player_name: 'José Luis Sanmartín Mato',
+          country: 'Spain',
+          position: 'Left Center Forward',
+          pass_count: 36,
+          avg_pass_minute: 39.94,
+          distinct_recipient_count: 11
+        },
+        {
+          player_id: 26387,
+          player_name: 'Edgar Antonio Méndez Ortega',
+          country: 'Spain',
+          position: 'Right Midfield',
+          pass_count: 31,
+          avg_pass_minute: 42.23,
+          distinct_recipient_count: 10
+        },
+        {
+          player_id: 6571,
+          player_name: 'Roberto Jiménez Gago',
+          country: 'Spain',
+          position: 'Goalkeeper',
+          pass_count: 30,
+          avg_pass_minute: 45.03,
+          distinct_recipient_count: 10
+        }
+      ]
+    }
   },
   {
-    event_id: 'a7073dbb-9234-456d-b30b-1cf240e0494a',
-    match_context: {
-      match_id: 303707,
-      season: '2019/2020',
-      period: 1,
-      minute: 39,
-      second: 47
+    match_id: 303430,
+    match_summary: {
+      match_date: '2019-09-24',
+      home_team: 'Barcelona',
+      away_team: 'Villarreal'
     },
-    player_info: {
-      player_id: 2948,
-      player_name: 'Nabil Fekir',
-      team_id: 218,
-      team_name: 'Real Betis',
-      position_name: 'Left Midfield'
-    },
-    pass_context: {
-      recipient_id: 11538,
-      recipient_name: 'Alejandro Moreno Lopera',
-      play_pattern_name: 'From Throw In',
-      duration: 1.650838
-    },
-    location: { x: 117.1, y: 3.8 }
+    team: {
+      team_id: 217,
+      team_name: 'Barcelona',
+      total_team_passes: 679,
+      top_passers: [
+        {
+          player_id: 11392,
+          player_name: 'Arthur Henrique Ramos de Oliveira Melo',
+          country: 'Brazil',
+          position: 'Left Center Midfield',
+          pass_count: 80,
+          avg_pass_minute: 46.79,
+          distinct_recipient_count: 12
+        },
+        {
+          player_id: 6826,
+          player_name: 'Clément Lenglet',
+          country: 'France',
+          position: 'Left Center Back',
+          pass_count: 76,
+          avg_pass_minute: 42.41,
+          distinct_recipient_count: 9
+        },
+        {
+          player_id: 5203,
+          player_name: 'Sergio Busquets i Burgos',
+          country: 'Spain',
+          position: 'Center Defensive Midfield',
+          pass_count: 73,
+          avg_pass_minute: 41.66,
+          distinct_recipient_count: 12
+        },
+        {
+          player_id: 6374,
+          player_name: 'Nélson Cabral Semedo',
+          country: 'Portugal',
+          position: 'Right Back',
+          pass_count: 69,
+          avg_pass_minute: 43.75,
+          distinct_recipient_count: 11
+        },
+        {
+          player_id: 5213,
+          player_name: 'Gerard Piqué Bernabéu',
+          country: 'Spain',
+          position: 'Right Center Back',
+          pass_count: 68,
+          avg_pass_minute: 38.93,
+          distinct_recipient_count: 12
+        }
+      ]
+    }
   },
   {
-    event_id: 'de09d35e-2493-4f73-afcf-87448d8ee305',
-    match_context: {
-      match_id: 303707,
-      season: '2019/2020',
-      period: 1,
-      minute: 40,
-      second: 28
+    match_id: 303430,
+    match_summary: {
+      match_date: '2019-09-24',
+      home_team: 'Barcelona',
+      away_team: 'Villarreal'
     },
-    player_info: {
-      player_id: 2948,
-      player_name: 'Nabil Fekir',
-      team_id: 218,
-      team_name: 'Real Betis',
-      position_name: 'Left Midfield'
-    },
-    pass_context: {
-      recipient_id: 11391,
-      recipient_name: 'Borja Iglesias Quintas',
-      play_pattern_name: 'Regular Play',
-      duration: 1.54499
-    },
-    location: { x: 105.3, y: 20.9 }
+    team: {
+      team_id: 222,
+      team_name: 'Villarreal',
+      total_team_passes: 515,
+      top_passers: [
+        {
+          player_id: 24729,
+          player_name: 'Xavier Quintillà Guasch',
+          country: 'Spain',
+          position: 'Left Back',
+          pass_count: 66,
+          avg_pass_minute: 37.14,
+          distinct_recipient_count: 11
+        },
+        {
+          player_id: 6892,
+          player_name: 'Pau Francisco Torres',
+          country: 'Spain',
+          position: 'Left Center Back',
+          pass_count: 61,
+          avg_pass_minute: 39.26,
+          distinct_recipient_count: 12
+        },
+        {
+          player_id: 3497,
+          player_name: 'Vicente Iborra De La Fuente',
+          country: 'Spain',
+          position: 'Left Center Midfield',
+          pass_count: 60,
+          avg_pass_minute: 41.58,
+          distinct_recipient_count: 11
+        },
+        {
+          player_id: 3141,
+          player_name: 'André-Frank Zambo Anguissa',
+          country: 'Cameroon',
+          position: 'Right Center Midfield',
+          pass_count: 58,
+          avg_pass_minute: 37.36,
+          distinct_recipient_count: 9
+        },
+        {
+          player_id: 6710,
+          player_name: 'Rubén Peña Jiménez',
+          country: 'Spain',
+          position: 'Right Back',
+          pass_count: 57,
+          avg_pass_minute: 36.63,
+          distinct_recipient_count: 9
+        }
+      ]
+    }
   },
   {
-    event_id: 'b6031500-a90d-415f-8ef8-734365767a55',
-    match_context: {
-      match_id: 303707,
-      season: '2019/2020',
-      period: 1,
-      minute: 41,
-      second: 23
+    match_id: 303451,
+    match_summary: {
+      match_date: '2019-12-07',
+      home_team: 'Barcelona',
+      away_team: 'Mallorca'
     },
-    player_info: {
-      player_id: 2948,
-      player_name: 'Nabil Fekir',
-      team_id: 218,
-      team_name: 'Real Betis',
-      position_name: 'Left Midfield'
-    },
-    pass_context: {
-      recipient_id: 13599,
-      recipient_name: 'Carles Aleña Castillo',
-      play_pattern_name: 'Regular Play',
-      duration: 0.60823
-    },
-    location: { x: 77.1, y: 1.9 }
+    team: {
+      team_id: 217,
+      team_name: 'Barcelona',
+      total_team_passes: 746,
+      top_passers: [
+        {
+          player_id: 6379,
+          player_name: 'Sergi Roberto Carnicer',
+          country: 'Spain',
+          position: 'Right Back',
+          pass_count: 99,
+          avg_pass_minute: 43.76,
+          distinct_recipient_count: 13
+        },
+        {
+          player_id: 5203,
+          player_name: 'Sergio Busquets i Burgos',
+          country: 'Spain',
+          position: 'Center Defensive Midfield',
+          pass_count: 89,
+          avg_pass_minute: 45.88,
+          distinct_recipient_count: 12
+        },
+        {
+          player_id: 5503,
+          player_name: 'Lionel Andrés Messi Cuccittini',
+          country: 'Argentina',
+          position: 'Right Wing',
+          pass_count: 76,
+          avg_pass_minute: 44.62,
+          distinct_recipient_count: 12
+        },
+        {
+          player_id: 6826,
+          player_name: 'Clément Lenglet',
+          country: 'France',
+          position: 'Left Center Back',
+          pass_count: 74,
+          avg_pass_minute: 41.04,
+          distinct_recipient_count: 11
+        },
+        {
+          player_id: 5470,
+          player_name: 'Ivan Rakitić',
+          country: 'Croatia',
+          position: 'Right Center Midfield',
+          pass_count: 69,
+          avg_pass_minute: 31.68,
+          distinct_recipient_count: 9
+        }
+      ]
+    }
   },
   {
-    event_id: 'e64300dd-d79d-4a2b-b2c4-1ed12de9c04d',
-    match_context: {
-      match_id: 303707,
-      season: '2019/2020',
-      period: 2,
-      minute: 45,
-      second: 19
+    match_id: 303451,
+    match_summary: {
+      match_date: '2019-12-07',
+      home_team: 'Barcelona',
+      away_team: 'Mallorca'
     },
-    player_info: {
-      player_id: 2948,
-      player_name: 'Nabil Fekir',
-      team_id: 218,
-      team_name: 'Real Betis',
-      position_name: 'Left Midfield'
-    },
-    pass_context: {
-      recipient_id: 6673,
-      recipient_name: 'Sergio Canales Madrazo',
-      play_pattern_name: 'From Kick Off',
-      duration: 1.788192
-    },
-    location: { x: 56, y: 7.1 }
+    team: {
+      team_id: 1043,
+      team_name: 'Mallorca',
+      total_team_passes: 397,
+      top_passers: [
+        {
+          player_id: 24072,
+          player_name: 'Salvador Sevilla López',
+          country: 'Spain',
+          position: 'Left Center Midfield',
+          pass_count: 45,
+          avg_pass_minute: 28.13,
+          distinct_recipient_count: 10
+        },
+        {
+          player_id: 24089,
+          player_name: 'Joan Sastre Vanrell',
+          country: 'Spain',
+          position: 'Left Back',
+          pass_count: 40,
+          avg_pass_minute: 40.8,
+          distinct_recipient_count: 11
+        },
+        {
+          player_id: 24088,
+          player_name: 'Daniel José Rodríguez Vázquez',
+          country: 'Spain',
+          position: 'Left Midfield',
+          pass_count: 39,
+          avg_pass_minute: 46.72,
+          distinct_recipient_count: 9
+        },
+        {
+          player_id: 24083,
+          player_name: 'Manuel Reina Rodríguez',
+          country: 'Spain',
+          position: 'Goalkeeper',
+          pass_count: 38,
+          avg_pass_minute: 44.95,
+          distinct_recipient_count: 11
+        },
+        {
+          player_id: 23986,
+          player_name: 'Aleix Febas Pérez',
+          country: 'Spain',
+          position: 'Right Center Forward',
+          pass_count: 37,
+          avg_pass_minute: 48.35,
+          distinct_recipient_count: 12
+        }
+      ]
+    }
   }
 ]
 ```
@@ -1065,7 +1425,7 @@ Total queries executed: `31`
 ]
 ```
 
-## Query 15: Teams with embedded disciplinary summaries
+## Query 15: Teams with embedded disciplinary profiles by venue and card type
 
 - Category: `Category 3: Nested / embedded documents`
 - Exit code: `0`
@@ -1074,44 +1434,194 @@ Total queries executed: `31`
 ```text
 [
   {
-    team_name: 'Barcelona',
-    card_summary: { yellow_cards: 20, red_cards: 1, total_cards: 21 }
+    team: { team_id: 217, team_name: 'Barcelona' },
+    disciplinary_profile: {
+      total_cards: 21,
+      yellow_cards: 20,
+      red_cards: 1,
+      venue_profiles: [
+        {
+          venue: 'home',
+          total_cards: 14,
+          yellow_cards: 13,
+          red_cards: 1,
+          card_breakdown: [
+            { card_name: 'Yellow Card', card_events: 13 },
+            { card_name: 'Red Card', card_events: 1 }
+          ]
+        },
+        {
+          venue: 'away',
+          total_cards: 7,
+          yellow_cards: 7,
+          red_cards: 0,
+          card_breakdown: [ { card_name: 'Yellow Card', card_events: 7 } ]
+        }
+      ]
+    }
   },
   {
-    team_name: 'Deportivo Alavés',
-    card_summary: { yellow_cards: 2, red_cards: 0, total_cards: 2 }
+    team: { team_id: 206, team_name: 'Deportivo Alavés' },
+    disciplinary_profile: {
+      total_cards: 2,
+      yellow_cards: 2,
+      red_cards: 0,
+      venue_profiles: [
+        {
+          venue: 'away',
+          total_cards: 2,
+          yellow_cards: 2,
+          red_cards: 0,
+          card_breakdown: [ { card_name: 'Yellow Card', card_events: 2 } ]
+        }
+      ]
+    }
   },
   {
-    team_name: 'Eibar',
-    card_summary: { yellow_cards: 2, red_cards: 0, total_cards: 2 }
+    team: { team_id: 322, team_name: 'Eibar' },
+    disciplinary_profile: {
+      total_cards: 2,
+      yellow_cards: 2,
+      red_cards: 0,
+      venue_profiles: [
+        {
+          venue: 'away',
+          total_cards: 1,
+          yellow_cards: 1,
+          red_cards: 0,
+          card_breakdown: [ { card_name: 'Yellow Card', card_events: 1 } ]
+        },
+        {
+          venue: 'home',
+          total_cards: 1,
+          yellow_cards: 1,
+          red_cards: 0,
+          card_breakdown: [ { card_name: 'Yellow Card', card_events: 1 } ]
+        }
+      ]
+    }
   },
   {
-    team_name: 'Espanyol',
-    card_summary: { yellow_cards: 2, red_cards: 0, total_cards: 2 }
+    team: { team_id: 214, team_name: 'Espanyol' },
+    disciplinary_profile: {
+      total_cards: 2,
+      yellow_cards: 2,
+      red_cards: 0,
+      venue_profiles: [
+        {
+          venue: 'away',
+          total_cards: 2,
+          yellow_cards: 2,
+          red_cards: 0,
+          card_breakdown: [ { card_name: 'Yellow Card', card_events: 2 } ]
+        }
+      ]
+    }
   },
   {
-    team_name: 'Real Betis',
-    card_summary: { yellow_cards: 1, red_cards: 1, total_cards: 2 }
+    team: { team_id: 218, team_name: 'Real Betis' },
+    disciplinary_profile: {
+      total_cards: 2,
+      yellow_cards: 1,
+      red_cards: 1,
+      venue_profiles: [
+        {
+          venue: 'home',
+          total_cards: 2,
+          yellow_cards: 1,
+          red_cards: 1,
+          card_breakdown: [
+            { card_name: 'Second Yellow', card_events: 1 },
+            { card_name: 'Yellow Card', card_events: 1 }
+          ]
+        }
+      ]
+    }
   },
   {
-    team_name: 'Celta Vigo',
-    card_summary: { yellow_cards: 1, red_cards: 0, total_cards: 1 }
+    team: { team_id: 209, team_name: 'Celta Vigo' },
+    disciplinary_profile: {
+      total_cards: 1,
+      yellow_cards: 1,
+      red_cards: 0,
+      venue_profiles: [
+        {
+          venue: 'home',
+          total_cards: 1,
+          yellow_cards: 1,
+          red_cards: 0,
+          card_breakdown: [ { card_name: 'Yellow Card', card_events: 1 } ]
+        }
+      ]
+    }
   },
   {
-    team_name: 'Granada',
-    card_summary: { yellow_cards: 1, red_cards: 0, total_cards: 1 }
+    team: { team_id: 1049, team_name: 'Granada' },
+    disciplinary_profile: {
+      total_cards: 1,
+      yellow_cards: 1,
+      red_cards: 0,
+      venue_profiles: [
+        {
+          venue: 'away',
+          total_cards: 1,
+          yellow_cards: 1,
+          red_cards: 0,
+          card_breakdown: [ { card_name: 'Yellow Card', card_events: 1 } ]
+        }
+      ]
+    }
   },
   {
-    team_name: 'Leganés',
-    card_summary: { yellow_cards: 1, red_cards: 0, total_cards: 1 }
+    team: { team_id: 205, team_name: 'Leganés' },
+    disciplinary_profile: {
+      total_cards: 1,
+      yellow_cards: 1,
+      red_cards: 0,
+      venue_profiles: [
+        {
+          venue: 'away',
+          total_cards: 1,
+          yellow_cards: 1,
+          red_cards: 0,
+          card_breakdown: [ { card_name: 'Yellow Card', card_events: 1 } ]
+        }
+      ]
+    }
   },
   {
-    team_name: 'Osasuna',
-    card_summary: { yellow_cards: 1, red_cards: 0, total_cards: 1 }
+    team: { team_id: 422, team_name: 'Osasuna' },
+    disciplinary_profile: {
+      total_cards: 1,
+      yellow_cards: 1,
+      red_cards: 0,
+      venue_profiles: [
+        {
+          venue: 'away',
+          total_cards: 1,
+          yellow_cards: 1,
+          red_cards: 0,
+          card_breakdown: [ { card_name: 'Yellow Card', card_events: 1 } ]
+        }
+      ]
+    }
   },
   {
-    team_name: 'Real Madrid',
-    card_summary: { yellow_cards: 1, red_cards: 0, total_cards: 1 }
+    team: { team_id: 220, team_name: 'Real Madrid' },
+    disciplinary_profile: {
+      total_cards: 1,
+      yellow_cards: 1,
+      red_cards: 0,
+      venue_profiles: [
+        {
+          venue: 'home',
+          total_cards: 1,
+          yellow_cards: 1,
+          red_cards: 0,
+          card_breakdown: [ { card_name: 'Yellow Card', card_events: 1 } ]
+        }
+      ]
+    }
   }
 ]
 ```
@@ -1448,8 +1958,8 @@ Total queries executed: `31`
 [
   {
     period_stats: [
-      { period: 2, shots: 19, fouls_committed: 15, cards: 0 },
-      { period: 1, shots: 15, fouls_committed: 14, cards: 0 }
+      { period: 1, shots: 15, fouls_committed: 14, cards: 0 },
+      { period: 2, shots: 19, fouls_committed: 15, cards: 0 }
     ],
     total_shots: 34,
     match_id: 303451
@@ -1464,8 +1974,8 @@ Total queries executed: `31`
   },
   {
     period_stats: [
-      { period: 1, shots: 15, fouls_committed: 11, cards: 0 },
-      { period: 2, shots: 16, fouls_committed: 15, cards: 5 }
+      { period: 2, shots: 16, fouls_committed: 15, cards: 5 },
+      { period: 1, shots: 15, fouls_committed: 11, cards: 0 }
     ],
     total_shots: 31,
     match_id: 303473
@@ -1512,16 +2022,16 @@ Total queries executed: `31`
   },
   {
     period_stats: [
-      { period: 1, shots: 13, fouls_committed: 6, cards: 0 },
-      { period: 2, shots: 14, fouls_committed: 16, cards: 3 }
+      { period: 2, shots: 14, fouls_committed: 16, cards: 3 },
+      { period: 1, shots: 13, fouls_committed: 6, cards: 0 }
     ],
     total_shots: 27,
     match_id: 303634
   },
   {
     period_stats: [
-      { period: 2, shots: 11, fouls_committed: 17, cards: 0 },
-      { period: 1, shots: 15, fouls_committed: 13, cards: 0 }
+      { period: 1, shots: 15, fouls_committed: 13, cards: 0 },
+      { period: 2, shots: 11, fouls_committed: 17, cards: 0 }
     ],
     total_shots: 26,
     match_id: 303596
@@ -1529,32 +2039,7 @@ Total queries executed: `31`
 ]
 ```
 
-## Query 19: Overview of indexes on the events collection
-
-- Category: `Category 4: Indexes / performance`
-- Exit code: `0`
-
-### Output
-```text
-[
-  { name: '_id_', key: { _id: 1 }, version: 2 },
-  { name: 'event_id_hashed', key: { event_id: 'hashed' }, version: 2 },
-  { name: 'ix_events_match_id', key: { match_id: 1 }, version: 2 },
-  { name: 'ix_events_player_id', key: { player_id: 1 }, version: 2 },
-  {
-    name: 'ix_events_team_type',
-    key: { team_id: 1, event_type_name: 1 },
-    version: 2
-  },
-  {
-    name: 'ix_events_season_minute',
-    key: { season: 1, minute: 1 },
-    version: 2
-  }
-]
-```
-
-## Query 20: Index usage statistics across shards
+## Query 19: Consolidated index catalog with usage totals across all shards
 
 - Category: `Category 4: Indexes / performance`
 - Exit code: `0`
@@ -1563,937 +2048,251 @@ Total queries executed: `31`
 ```text
 [
   {
-    name: 'ix_events_player_id',
+    total_access_ops: Long('75'),
+    shards_reporting: [ 'shard01rs', 'shard03rs', 'shard02rs' ],
+    first_tracked: ISODate('2026-04-20T20:44:46.295Z'),
+    index_name: 'ix_events_player_id',
     key: { player_id: 1 },
-    host: 'shard01a:27018',
-    shard: 'shard01rs',
-    access_ops: Long('13'),
-    tracked_since: ISODate('2026-04-20T12:34:47.270Z')
+    shard_count: 3,
+    host_count: 3
   },
   {
-    name: 'ix_events_player_id',
-    key: { player_id: 1 },
-    host: 'shard02c:27018',
-    shard: 'shard02rs',
-    access_ops: Long('13'),
-    tracked_since: ISODate('2026-04-20T12:34:47.272Z')
-  },
-  {
-    name: 'ix_events_player_id',
-    key: { player_id: 1 },
-    host: 'shard03c:27018',
-    shard: 'shard03rs',
-    access_ops: Long('13'),
-    tracked_since: ISODate('2026-04-20T12:34:47.278Z')
-  },
-  {
-    name: 'ix_events_match_id',
+    total_access_ops: Long('45'),
+    shards_reporting: [ 'shard01rs', 'shard03rs', 'shard02rs' ],
+    first_tracked: ISODate('2026-04-20T20:44:45.850Z'),
+    index_name: 'ix_events_match_id',
     key: { match_id: 1 },
-    host: 'shard01a:27018',
-    shard: 'shard01rs',
-    access_ops: Long('6'),
-    tracked_since: ISODate('2026-04-20T12:34:47.085Z')
+    shard_count: 3,
+    host_count: 3
   },
   {
-    name: 'ix_events_match_id',
-    key: { match_id: 1 },
-    host: 'shard02c:27018',
-    shard: 'shard02rs',
-    access_ops: Long('6'),
-    tracked_since: ISODate('2026-04-20T12:34:47.089Z')
-  },
-  {
-    name: 'ix_events_match_id',
-    key: { match_id: 1 },
-    host: 'shard03c:27018',
-    shard: 'shard03rs',
-    access_ops: Long('6'),
-    tracked_since: ISODate('2026-04-20T12:34:47.089Z')
-  },
-  {
-    name: 'ix_events_team_type',
+    total_access_ops: Long('45'),
+    shards_reporting: [ 'shard02rs', 'shard03rs', 'shard01rs' ],
+    first_tracked: ISODate('2026-04-20T20:44:46.755Z'),
+    index_name: 'ix_events_team_type',
     key: { team_id: 1, event_type_name: 1 },
-    host: 'shard01a:27018',
-    shard: 'shard01rs',
-    access_ops: Long('2'),
-    tracked_since: ISODate('2026-04-20T12:34:47.463Z')
+    shard_count: 3,
+    host_count: 3
   },
   {
-    name: 'ix_events_team_type',
-    key: { team_id: 1, event_type_name: 1 },
-    host: 'shard02c:27018',
-    shard: 'shard02rs',
-    access_ops: Long('2'),
-    tracked_since: ISODate('2026-04-20T12:34:47.460Z')
-  },
-  {
-    name: 'ix_events_team_type',
-    key: { team_id: 1, event_type_name: 1 },
-    host: 'shard03c:27018',
-    shard: 'shard03rs',
-    access_ops: Long('2'),
-    tracked_since: ISODate('2026-04-20T12:34:47.466Z')
-  },
-  {
-    name: '_id_',
+    total_access_ops: Long('0'),
+    shards_reporting: [ 'shard01rs', 'shard03rs', 'shard02rs' ],
+    first_tracked: ISODate('2026-04-20T20:44:27.701Z'),
+    index_name: '_id_',
     key: { _id: 1 },
-    host: 'shard01a:27018',
-    shard: 'shard01rs',
-    access_ops: Long('0'),
-    tracked_since: ISODate('2026-04-20T12:34:33.763Z')
+    shard_count: 3,
+    host_count: 3
   },
   {
-    name: '_id_',
-    key: { _id: 1 },
-    host: 'shard02c:27018',
-    shard: 'shard02rs',
-    access_ops: Long('0'),
-    tracked_since: ISODate('2026-04-20T12:34:33.920Z')
-  },
-  {
-    name: '_id_',
-    key: { _id: 1 },
-    host: 'shard03c:27018',
-    shard: 'shard03rs',
-    access_ops: Long('0'),
-    tracked_since: ISODate('2026-04-20T12:34:33.922Z')
-  },
-  {
-    name: 'event_id_hashed',
+    total_access_ops: Long('0'),
+    shards_reporting: [ 'shard02rs', 'shard03rs', 'shard01rs' ],
+    first_tracked: ISODate('2026-04-20T20:44:27.722Z'),
+    index_name: 'event_id_hashed',
     key: { event_id: 'hashed' },
-    host: 'shard01a:27018',
-    shard: 'shard01rs',
-    access_ops: Long('0'),
-    tracked_since: ISODate('2026-04-20T12:34:33.785Z')
+    shard_count: 3,
+    host_count: 3
   },
   {
-    name: 'event_id_hashed',
-    key: { event_id: 'hashed' },
-    host: 'shard02c:27018',
-    shard: 'shard02rs',
-    access_ops: Long('0'),
-    tracked_since: ISODate('2026-04-20T12:34:33.958Z')
-  },
-  {
-    name: 'event_id_hashed',
-    key: { event_id: 'hashed' },
-    host: 'shard03c:27018',
-    shard: 'shard03rs',
-    access_ops: Long('0'),
-    tracked_since: ISODate('2026-04-20T12:34:33.944Z')
-  },
-  {
-    name: 'ix_events_season_minute',
+    total_access_ops: Long('0'),
+    shards_reporting: [ 'shard01rs', 'shard03rs', 'shard02rs' ],
+    first_tracked: ISODate('2026-04-20T20:44:47.165Z'),
+    index_name: 'ix_events_season_minute',
     key: { season: 1, minute: 1 },
-    host: 'shard01a:27018',
-    shard: 'shard01rs',
-    access_ops: Long('0'),
-    tracked_since: ISODate('2026-04-20T12:34:47.672Z')
-  },
-  {
-    name: 'ix_events_season_minute',
-    key: { season: 1, minute: 1 },
-    host: 'shard02c:27018',
-    shard: 'shard02rs',
-    access_ops: Long('0'),
-    tracked_since: ISODate('2026-04-20T12:34:47.673Z')
-  },
-  {
-    name: 'ix_events_season_minute',
-    key: { season: 1, minute: 1 },
-    host: 'shard03c:27018',
-    shard: 'shard03rs',
-    access_ops: Long('0'),
-    tracked_since: ISODate('2026-04-20T12:34:47.674Z')
+    shard_count: 3,
+    host_count: 3
   }
 ]
 ```
 
-## Query 21: Execution plan for filtering by match id
+## Query 20: Unused indexes since statistics tracking started
 
 - Category: `Category 4: Indexes / performance`
 - Exit code: `0`
 
 ### Output
 ```text
-{
-  winningPlan: {
-    stage: 'SHARD_MERGE',
-    shards: [
-      {
-        explainVersion: '1',
-        shardName: 'shard02rs',
-        connectionString: 'shard02rs/shard02a:27018,shard02b:27018,shard02c:27018',
-        serverInfo: {
-          host: 'shard02c',
-          port: 27018,
-          version: '8.0.20',
-          gitVersion: '28927c60881a488fcbc5fd4d925b410f33258827'
-        },
-        namespace: 'statsbomb.events',
-        parsedQuery: {
-          match_id: {
-            '$eq': 303451
-          }
-        },
-        indexFilterSet: false,
-        queryHash: '18F01999',
-        planCacheShapeHash: '18F01999',
-        planCacheKey: 'E34ACC34',
-        optimizationTimeMillis: 0,
-        maxIndexedOrSolutionsReached: false,
-        maxIndexedAndSolutionsReached: false,
-        maxScansToExplodeReached: false,
-        prunedSimilarIndexes: false,
-        winningPlan: {
-          isCached: false,
-          stage: 'SHARDING_FILTER',
-          inputStage: {
-            stage: 'FETCH',
-            inputStage: {
-              stage: 'IXSCAN',
-              keyPattern: {
-                match_id: 1
-              },
-              indexName: 'ix_events_match_id',
-              isMultiKey: false,
-              multiKeyPaths: {
-                match_id: []
-              },
-              isUnique: false,
-              isSparse: false,
-              isPartial: false,
-              indexVersion: 2,
-              direction: 'forward',
-              indexBounds: {
-                match_id: [
-                  '[303451, 303451]'
-                ]
-              }
-            }
-          }
-        },
-        rejectedPlans: []
-      },
-      {
-        explainVersion: '1',
-        shardName: 'shard01rs',
-        connectionString: 'shard01rs/shard01a:27018,shard01b:27018,shard01c:27018',
-        serverInfo: {
-          host: 'shard01a',
-          port: 27018,
-          version: '8.0.20',
-          gitVersion: '28927c60881a488fcbc5fd4d925b410f33258827'
-        },
-        namespace: 'statsbomb.events',
-        parsedQuery: {
-          match_id: {
-            '$eq': 303451
-          }
-        },
-        indexFilterSet: false,
-        queryHash: '18F01999',
-        planCacheShapeHash: '18F01999',
-        planCacheKey: 'E34ACC34',
-        optimizationTimeMillis: 0,
-        maxIndexedOrSolutionsReached: false,
-        maxIndexedAndSolutionsReached: false,
-        maxScansToExplodeReached: false,
-        prunedSimilarIndexes: false,
-        winningPlan: {
-          isCached: false,
-          stage: 'SHARDING_FILTER',
-          inputStage: {
-            stage: 'FETCH',
-            inputStage: {
-              stage: 'IXSCAN',
-              keyPattern: {
-                match_id: 1
-              },
-              indexName: 'ix_events_match_id',
-              isMultiKey: false,
-              multiKeyPaths: {
-                match_id: []
-              },
-              isUnique: false,
-              isSparse: false,
-              isPartial: false,
-              indexVersion: 2,
-              direction: 'forward',
-              indexBounds: {
-                match_id: [
-                  '[303451, 303451]'
-                ]
-              }
-            }
-          }
-        },
-        rejectedPlans: []
-      },
-      {
-        explainVersion: '1',
-        shardName: 'shard03rs',
-        connectionString: 'shard03rs/shard03a:27018,shard03b:27018,shard03c:27018',
-        serverInfo: {
-          host: 'shard03c',
-          port: 27018,
-          version: '8.0.20',
-          gitVersion: '28927c60881a488fcbc5fd4d925b410f33258827'
-        },
-        namespace: 'statsbomb.events',
-        parsedQuery: {
-          match_id: {
-            '$eq': 303451
-          }
-        },
-        indexFilterSet: false,
-        queryHash: '18F01999',
-        planCacheShapeHash: '18F01999',
-        planCacheKey: 'E34ACC34',
-        optimizationTimeMillis: 0,
-        maxIndexedOrSolutionsReached: false,
-        maxIndexedAndSolutionsReached: false,
-        maxScansToExplodeReached: false,
-        prunedSimilarIndexes: false,
-        winningPlan: {
-          isCached: false,
-          stage: 'SHARDING_FILTER',
-          inputStage: {
-            stage: 'FETCH',
-            inputStage: {
-              stage: 'IXSCAN',
-              keyPattern: {
-                match_id: 1
-              },
-              indexName: 'ix_events_match_id',
-              isMultiKey: false,
-              multiKeyPaths: {
-                match_id: []
-              },
-              isUnique: false,
-              isSparse: false,
-              isPartial: false,
-              indexVersion: 2,
-              direction: 'forward',
-              indexBounds: {
-                match_id: [
-                  '[303451, 303451]'
-                ]
-              }
-            }
-          }
-        },
-        rejectedPlans: []
-      }
-    ]
+[
+  {
+    total_access_ops: Long('0'),
+    first_tracked: ISODate('2026-04-20T20:44:27.701Z'),
+    index_name: '_id_',
+    key: { _id: 1 },
+    shard_count: 3,
+    is_unused_since_tracking_started: true
   },
-  totalDocsExamined: 4068,
-  totalKeysExamined: 4068,
-  nReturned: 4068
-}
+  {
+    total_access_ops: Long('0'),
+    first_tracked: ISODate('2026-04-20T20:44:27.722Z'),
+    index_name: 'event_id_hashed',
+    key: { event_id: 'hashed' },
+    shard_count: 3,
+    is_unused_since_tracking_started: true
+  },
+  {
+    total_access_ops: Long('0'),
+    first_tracked: ISODate('2026-04-20T20:44:47.165Z'),
+    index_name: 'ix_events_season_minute',
+    key: { season: 1, minute: 1 },
+    shard_count: 3,
+    is_unused_since_tracking_started: true
+  }
+]
 ```
 
-## Query 22: Execution plan for the compound team and event-type index
+## Query 21: Comparative benchmark of the main analytical indexes
 
 - Category: `Category 4: Indexes / performance`
 - Exit code: `0`
 
 ### Output
 ```text
-{
-  winningPlan: {
-    stage: 'SHARD_MERGE',
-    shards: [
-      {
-        explainVersion: '1',
-        shardName: 'shard02rs',
-        connectionString: 'shard02rs/shard02a:27018,shard02b:27018,shard02c:27018',
-        serverInfo: {
-          host: 'shard02c',
-          port: 27018,
-          version: '8.0.20',
-          gitVersion: '28927c60881a488fcbc5fd4d925b410f33258827'
-        },
-        namespace: 'statsbomb.events',
-        parsedQuery: {
-          '$and': [
-            {
-              event_type_name: {
-                '$eq': 'Pass'
-              }
-            },
-            {
-              team_id: {
-                '$eq': 217
-              }
-            }
-          ]
-        },
-        indexFilterSet: false,
-        queryHash: '57BF4386',
-        planCacheShapeHash: '57BF4386',
-        planCacheKey: 'DAF189E5',
-        optimizationTimeMillis: 0,
-        maxIndexedOrSolutionsReached: false,
-        maxIndexedAndSolutionsReached: false,
-        maxScansToExplodeReached: false,
-        prunedSimilarIndexes: false,
-        winningPlan: {
-          isCached: false,
-          stage: 'SHARDING_FILTER',
-          inputStage: {
-            stage: 'FETCH',
-            inputStage: {
-              stage: 'IXSCAN',
-              keyPattern: {
-                team_id: 1,
-                event_type_name: 1
-              },
-              indexName: 'ix_events_team_type',
-              isMultiKey: false,
-              multiKeyPaths: {
-                team_id: [],
-                event_type_name: []
-              },
-              isUnique: false,
-              isSparse: false,
-              isPartial: false,
-              indexVersion: 2,
-              direction: 'forward',
-              indexBounds: {
-                team_id: [
-                  '[217, 217]'
-                ],
-                event_type_name: [
-                  '["Pass", "Pass"]'
-                ]
-              }
-            }
-          }
-        },
-        rejectedPlans: []
-      },
-      {
-        explainVersion: '1',
-        shardName: 'shard03rs',
-        connectionString: 'shard03rs/shard03a:27018,shard03b:27018,shard03c:27018',
-        serverInfo: {
-          host: 'shard03c',
-          port: 27018,
-          version: '8.0.20',
-          gitVersion: '28927c60881a488fcbc5fd4d925b410f33258827'
-        },
-        namespace: 'statsbomb.events',
-        parsedQuery: {
-          '$and': [
-            {
-              event_type_name: {
-                '$eq': 'Pass'
-              }
-            },
-            {
-              team_id: {
-                '$eq': 217
-              }
-            }
-          ]
-        },
-        indexFilterSet: false,
-        queryHash: '57BF4386',
-        planCacheShapeHash: '57BF4386',
-        planCacheKey: 'DAF189E5',
-        optimizationTimeMillis: 0,
-        maxIndexedOrSolutionsReached: false,
-        maxIndexedAndSolutionsReached: false,
-        maxScansToExplodeReached: false,
-        prunedSimilarIndexes: false,
-        winningPlan: {
-          isCached: false,
-          stage: 'SHARDING_FILTER',
-          inputStage: {
-            stage: 'FETCH',
-            inputStage: {
-              stage: 'IXSCAN',
-              keyPattern: {
-                team_id: 1,
-                event_type_name: 1
-              },
-              indexName: 'ix_events_team_type',
-              isMultiKey: false,
-              multiKeyPaths: {
-                team_id: [],
-                event_type_name: []
-              },
-              isUnique: false,
-              isSparse: false,
-              isPartial: false,
-              indexVersion: 2,
-              direction: 'forward',
-              indexBounds: {
-                team_id: [
-                  '[217, 217]'
-                ],
-                event_type_name: [
-                  '["Pass", "Pass"]'
-                ]
-              }
-            }
-          }
-        },
-        rejectedPlans: []
-      },
-      {
-        explainVersion: '1',
-        shardName: 'shard01rs',
-        connectionString: 'shard01rs/shard01a:27018,shard01b:27018,shard01c:27018',
-        serverInfo: {
-          host: 'shard01a',
-          port: 27018,
-          version: '8.0.20',
-          gitVersion: '28927c60881a488fcbc5fd4d925b410f33258827'
-        },
-        namespace: 'statsbomb.events',
-        parsedQuery: {
-          '$and': [
-            {
-              event_type_name: {
-                '$eq': 'Pass'
-              }
-            },
-            {
-              team_id: {
-                '$eq': 217
-              }
-            }
-          ]
-        },
-        indexFilterSet: false,
-        queryHash: '57BF4386',
-        planCacheShapeHash: '57BF4386',
-        planCacheKey: 'DAF189E5',
-        optimizationTimeMillis: 0,
-        maxIndexedOrSolutionsReached: false,
-        maxIndexedAndSolutionsReached: false,
-        maxScansToExplodeReached: false,
-        prunedSimilarIndexes: false,
-        winningPlan: {
-          isCached: false,
-          stage: 'SHARDING_FILTER',
-          inputStage: {
-            stage: 'FETCH',
-            inputStage: {
-              stage: 'IXSCAN',
-              keyPattern: {
-                team_id: 1,
-                event_type_name: 1
-              },
-              indexName: 'ix_events_team_type',
-              isMultiKey: false,
-              multiKeyPaths: {
-                team_id: [],
-                event_type_name: []
-              },
-              isUnique: false,
-              isSparse: false,
-              isPartial: false,
-              indexVersion: 2,
-              direction: 'forward',
-              indexBounds: {
-                team_id: [
-                  '[217, 217]'
-                ],
-                event_type_name: [
-                  '["Pass", "Pass"]'
-                ]
-              }
-            }
-          }
-        },
-        rejectedPlans: []
-      }
-    ]
+[
+  {
+    scenario: 'match_id exact filter',
+    leaf_stage: 'IXSCAN',
+    index_name: 'ix_events_match_id',
+    totalDocsExamined: 4068,
+    totalKeysExamined: 4068,
+    nReturned: 4068,
+    keys_per_returned: 1,
+    docs_per_returned: 1
   },
-  totalDocsExamined: 24618,
-  totalKeysExamined: 24618,
-  nReturned: 24618
-}
+  {
+    scenario: 'player_id exact filter',
+    leaf_stage: 'IXSCAN',
+    index_name: 'ix_events_player_id',
+    totalDocsExamined: 8137,
+    totalKeysExamined: 8137,
+    nReturned: 8137,
+    keys_per_returned: 1,
+    docs_per_returned: 1
+  },
+  {
+    scenario: 'team_id + event_type_name',
+    leaf_stage: 'IXSCAN',
+    index_name: 'ix_events_team_type',
+    totalDocsExamined: 24618,
+    totalKeysExamined: 24618,
+    nReturned: 24618,
+    keys_per_returned: 1,
+    docs_per_returned: 1
+  },
+  {
+    scenario: 'season + minute with sort',
+    leaf_stage: 'IXSCAN',
+    index_name: 'ix_events_season_minute',
+    totalDocsExamined: 60,
+    totalKeysExamined: 60,
+    nReturned: 60,
+    keys_per_returned: 1,
+    docs_per_returned: 1
+  }
+]
 ```
 
-## Query 23: Execution plan for season filtering with minute sorting
+## Query 22: Prefix behavior of the compound `team_id + event_type_name` index
 
 - Category: `Category 4: Indexes / performance`
 - Exit code: `0`
 
 ### Output
 ```text
-{
-  winningPlan: {
-    stage: 'SHARD_MERGE_SORT',
-    shards: [
-      {
-        explainVersion: '1',
-        shardName: 'shard02rs',
-        connectionString: 'shard02rs/shard02a:27018,shard02b:27018,shard02c:27018',
-        serverInfo: {
-          host: 'shard02c',
-          port: 27018,
-          version: '8.0.20',
-          gitVersion: '28927c60881a488fcbc5fd4d925b410f33258827'
-        },
-        namespace: 'statsbomb.events',
-        parsedQuery: {
-          '$and': [
-            {
-              season: {
-                '$eq': '2019/2020'
-              }
-            },
-            {
-              minute: {
-                '$gte': 75
-              }
-            }
-          ]
-        },
-        indexFilterSet: false,
-        queryHash: '71E7FA4B',
-        planCacheShapeHash: '71E7FA4B',
-        planCacheKey: '536F5C36',
-        optimizationTimeMillis: 0,
-        maxIndexedOrSolutionsReached: false,
-        maxIndexedAndSolutionsReached: false,
-        maxScansToExplodeReached: false,
-        prunedSimilarIndexes: false,
-        winningPlan: {
-          isCached: false,
-          stage: 'LIMIT',
-          limitAmount: 20,
-          inputStage: {
-            stage: 'SHARDING_FILTER',
-            inputStage: {
-              stage: 'FETCH',
-              inputStage: {
-                stage: 'IXSCAN',
-                keyPattern: {
-                  season: 1,
-                  minute: 1
-                },
-                indexName: 'ix_events_season_minute',
-                isMultiKey: false,
-                multiKeyPaths: {
-                  season: [],
-                  minute: []
-                },
-                isUnique: false,
-                isSparse: false,
-                isPartial: false,
-                indexVersion: 2,
-                direction: 'forward',
-                indexBounds: {
-                  season: [
-                    '["2019/2020", "2019/2020"]'
-                  ],
-                  minute: [
-                    '[75, inf.0]'
-                  ]
-                }
-              }
-            }
-          }
-        },
-        rejectedPlans: []
-      },
-      {
-        explainVersion: '1',
-        shardName: 'shard01rs',
-        connectionString: 'shard01rs/shard01a:27018,shard01b:27018,shard01c:27018',
-        serverInfo: {
-          host: 'shard01a',
-          port: 27018,
-          version: '8.0.20',
-          gitVersion: '28927c60881a488fcbc5fd4d925b410f33258827'
-        },
-        namespace: 'statsbomb.events',
-        parsedQuery: {
-          '$and': [
-            {
-              season: {
-                '$eq': '2019/2020'
-              }
-            },
-            {
-              minute: {
-                '$gte': 75
-              }
-            }
-          ]
-        },
-        indexFilterSet: false,
-        queryHash: '71E7FA4B',
-        planCacheShapeHash: '71E7FA4B',
-        planCacheKey: '536F5C36',
-        optimizationTimeMillis: 0,
-        maxIndexedOrSolutionsReached: false,
-        maxIndexedAndSolutionsReached: false,
-        maxScansToExplodeReached: false,
-        prunedSimilarIndexes: false,
-        winningPlan: {
-          isCached: false,
-          stage: 'LIMIT',
-          limitAmount: 20,
-          inputStage: {
-            stage: 'SHARDING_FILTER',
-            inputStage: {
-              stage: 'FETCH',
-              inputStage: {
-                stage: 'IXSCAN',
-                keyPattern: {
-                  season: 1,
-                  minute: 1
-                },
-                indexName: 'ix_events_season_minute',
-                isMultiKey: false,
-                multiKeyPaths: {
-                  season: [],
-                  minute: []
-                },
-                isUnique: false,
-                isSparse: false,
-                isPartial: false,
-                indexVersion: 2,
-                direction: 'forward',
-                indexBounds: {
-                  season: [
-                    '["2019/2020", "2019/2020"]'
-                  ],
-                  minute: [
-                    '[75, inf.0]'
-                  ]
-                }
-              }
-            }
-          }
-        },
-        rejectedPlans: []
-      },
-      {
-        explainVersion: '1',
-        shardName: 'shard03rs',
-        connectionString: 'shard03rs/shard03a:27018,shard03b:27018,shard03c:27018',
-        serverInfo: {
-          host: 'shard03c',
-          port: 27018,
-          version: '8.0.20',
-          gitVersion: '28927c60881a488fcbc5fd4d925b410f33258827'
-        },
-        namespace: 'statsbomb.events',
-        parsedQuery: {
-          '$and': [
-            {
-              season: {
-                '$eq': '2019/2020'
-              }
-            },
-            {
-              minute: {
-                '$gte': 75
-              }
-            }
-          ]
-        },
-        indexFilterSet: false,
-        queryHash: '71E7FA4B',
-        planCacheShapeHash: '71E7FA4B',
-        planCacheKey: '536F5C36',
-        optimizationTimeMillis: 0,
-        maxIndexedOrSolutionsReached: false,
-        maxIndexedAndSolutionsReached: false,
-        maxScansToExplodeReached: false,
-        prunedSimilarIndexes: false,
-        winningPlan: {
-          isCached: false,
-          stage: 'LIMIT',
-          limitAmount: 20,
-          inputStage: {
-            stage: 'SHARDING_FILTER',
-            inputStage: {
-              stage: 'FETCH',
-              inputStage: {
-                stage: 'IXSCAN',
-                keyPattern: {
-                  season: 1,
-                  minute: 1
-                },
-                indexName: 'ix_events_season_minute',
-                isMultiKey: false,
-                multiKeyPaths: {
-                  season: [],
-                  minute: []
-                },
-                isUnique: false,
-                isSparse: false,
-                isPartial: false,
-                indexVersion: 2,
-                direction: 'forward',
-                indexBounds: {
-                  season: [
-                    '["2019/2020", "2019/2020"]'
-                  ],
-                  minute: [
-                    '[75, inf.0]'
-                  ]
-                }
-              }
-            }
-          }
-        },
-        rejectedPlans: []
-      }
-    ]
+[
+  {
+    scenario: 'team_id only',
+    leaf_stage: 'IXSCAN',
+    index_name: 'ix_events_team_type',
+    totalDocsExamined: 60,
+    totalKeysExamined: 60,
+    nReturned: 60
   },
-  totalDocsExamined: 60,
-  totalKeysExamined: 60,
-  nReturned: 60
-}
+  {
+    scenario: 'team_id + event_type_name',
+    leaf_stage: 'IXSCAN',
+    index_name: 'ix_events_team_type',
+    totalDocsExamined: 60,
+    totalKeysExamined: 60,
+    nReturned: 60
+  },
+  {
+    scenario: 'event_type_name only',
+    leaf_stage: 'COLLSCAN',
+    index_name: null,
+    totalDocsExamined: 228,
+    totalKeysExamined: 0,
+    nReturned: 60
+  }
+]
 ```
 
-## Query 24: Execution plan for a non-indexed field
+## Query 23: Comparison of indexed sorting versus blocking sort
 
 - Category: `Category 4: Indexes / performance`
 - Exit code: `0`
 
 ### Output
 ```text
-{
-  winningPlan: {
-    stage: 'SHARD_MERGE',
-    shards: [
-      {
-        explainVersion: '1',
-        shardName: 'shard02rs',
-        connectionString: 'shard02rs/shard02a:27018,shard02b:27018,shard02c:27018',
-        serverInfo: {
-          host: 'shard02c',
-          port: 27018,
-          version: '8.0.20',
-          gitVersion: '28927c60881a488fcbc5fd4d925b410f33258827'
-        },
-        namespace: 'statsbomb.events',
-        parsedQuery: {
-          team_name: {
-            '$eq': 'Barcelona'
-          }
-        },
-        indexFilterSet: false,
-        queryHash: 'C9D5779B',
-        planCacheShapeHash: 'C9D5779B',
-        planCacheKey: '09D08647',
-        optimizationTimeMillis: 0,
-        maxIndexedOrSolutionsReached: false,
-        maxIndexedAndSolutionsReached: false,
-        maxScansToExplodeReached: false,
-        prunedSimilarIndexes: false,
-        winningPlan: {
-          isCached: false,
-          stage: 'SHARDING_FILTER',
-          inputStage: {
-            stage: 'COLLSCAN',
-            filter: {
-              team_name: {
-                '$eq': 'Barcelona'
-              }
-            },
-            direction: 'forward'
-          }
-        },
-        rejectedPlans: []
-      },
-      {
-        explainVersion: '1',
-        shardName: 'shard03rs',
-        connectionString: 'shard03rs/shard03a:27018,shard03b:27018,shard03c:27018',
-        serverInfo: {
-          host: 'shard03c',
-          port: 27018,
-          version: '8.0.20',
-          gitVersion: '28927c60881a488fcbc5fd4d925b410f33258827'
-        },
-        namespace: 'statsbomb.events',
-        parsedQuery: {
-          team_name: {
-            '$eq': 'Barcelona'
-          }
-        },
-        indexFilterSet: false,
-        queryHash: 'C9D5779B',
-        planCacheShapeHash: 'C9D5779B',
-        planCacheKey: '09D08647',
-        optimizationTimeMillis: 0,
-        maxIndexedOrSolutionsReached: false,
-        maxIndexedAndSolutionsReached: false,
-        maxScansToExplodeReached: false,
-        prunedSimilarIndexes: false,
-        winningPlan: {
-          isCached: false,
-          stage: 'SHARDING_FILTER',
-          inputStage: {
-            stage: 'COLLSCAN',
-            filter: {
-              team_name: {
-                '$eq': 'Barcelona'
-              }
-            },
-            direction: 'forward'
-          }
-        },
-        rejectedPlans: []
-      },
-      {
-        explainVersion: '1',
-        shardName: 'shard01rs',
-        connectionString: 'shard01rs/shard01a:27018,shard01b:27018,shard01c:27018',
-        serverInfo: {
-          host: 'shard01a',
-          port: 27018,
-          version: '8.0.20',
-          gitVersion: '28927c60881a488fcbc5fd4d925b410f33258827'
-        },
-        namespace: 'statsbomb.events',
-        parsedQuery: {
-          team_name: {
-            '$eq': 'Barcelona'
-          }
-        },
-        indexFilterSet: false,
-        queryHash: 'C9D5779B',
-        planCacheShapeHash: 'C9D5779B',
-        planCacheKey: '09D08647',
-        optimizationTimeMillis: 0,
-        maxIndexedOrSolutionsReached: false,
-        maxIndexedAndSolutionsReached: false,
-        maxScansToExplodeReached: false,
-        prunedSimilarIndexes: false,
-        winningPlan: {
-          isCached: false,
-          stage: 'SHARDING_FILTER',
-          inputStage: {
-            stage: 'COLLSCAN',
-            filter: {
-              team_name: {
-                '$eq': 'Barcelona'
-              }
-            },
-            direction: 'forward'
-          }
-        },
-        rejectedPlans: []
-      }
-    ]
+[
+  {
+    scenario: 'indexed season filter + minute sort',
+    leaf_stage: 'IXSCAN',
+    index_name: 'ix_events_season_minute',
+    has_blocking_sort: false,
+    totalDocsExamined: 60,
+    totalKeysExamined: 60,
+    nReturned: 60
   },
-  totalDocsExamined: 129058,
-  totalKeysExamined: 0,
-  nReturned: 80857
-}
+  {
+    scenario: 'non-indexed team_name filter + minute sort',
+    leaf_stage: 'COLLSCAN',
+    index_name: null,
+    has_blocking_sort: true,
+    totalDocsExamined: 129058,
+    totalKeysExamined: 0,
+    nReturned: 60
+  }
+]
+```
+
+## Query 24: Per-shard index storage overhead on the `events` collection
+
+- Category: `Category 4: Indexes / performance`
+- Exit code: `0`
+
+### Output
+```text
+[
+  {
+    shard: 'shard03rs',
+    count: 43105,
+    size: 28312382,
+    avgObjSize: 656,
+    totalIndexSize: 5918720,
+    index_to_data_ratio_pct: 20.91,
+    largest_index_name: 'event_id_hashed',
+    largest_index_size: 2650112
+  },
+  {
+    shard: 'shard02rs',
+    count: 42589,
+    size: 27970848,
+    avgObjSize: 656,
+    totalIndexSize: 5574656,
+    index_to_data_ratio_pct: 19.93,
+    largest_index_name: 'event_id_hashed',
+    largest_index_size: 2461696
+  },
+  {
+    shard: 'shard01rs',
+    count: 43364,
+    size: 28476727,
+    avgObjSize: 656,
+    totalIndexSize: 5095424,
+    index_to_data_ratio_pct: 17.89,
+    largest_index_name: 'event_id_hashed',
+    largest_index_size: 2256896
+  }
+]
 ```
 
 ## Query 25: Chunk ownership by shard with representative hashed boundaries
@@ -2531,27 +2330,7 @@ Total queries executed: `31`
 ]
 ```
 
-## Query 26: Sharded collection metadata with chunk counts and shard coverage
-
-- Category: `Category 5: Cluster / sharding / admin`
-- Exit code: `0`
-
-### Output
-```text
-[
-  {
-    unique: false,
-    namespace: 'statsbomb.events',
-    shard_key: { event_id: 'hashed' },
-    balancing_enabled: true,
-    chunk_count: 3,
-    shards_involved: 3,
-    shard_names: [ 'shard01rs', 'shard02rs', 'shard03rs' ]
-  }
-]
-```
-
-## Query 27: Chunk balance deviation from the ideal equal distribution
+## Query 26: Chunk balance deviation from the ideal equal distribution
 
 - Category: `Category 5: Cluster / sharding / admin`
 - Exit code: `0`
@@ -2586,7 +2365,7 @@ Total queries executed: `31`
 ]
 ```
 
-## Query 28: Cluster operation history for collection lifecycle and sharding events
+## Query 27: Cluster operation history for collection lifecycle and sharding events
 
 - Category: `Category 5: Cluster / sharding / admin`
 - Exit code: `0`
@@ -2595,43 +2374,44 @@ Total queries executed: `31`
 ```text
 [
   {
-    operations: 1,
-    first_seen: ISODate('2026-04-20T12:34:34.119Z'),
-    last_seen: ISODate('2026-04-20T12:34:34.119Z'),
+    operations: 5,
+    first_seen: ISODate('2026-04-20T20:42:59.226Z'),
+    last_seen: ISODate('2026-04-20T20:44:28.418Z'),
+    namespaces: [ 'statsbomb.players', 'statsbomb.events', 'statsbomb.matches' ],
+    operation: 'dropCollection',
+    server: 'shard01a'
+  },
+  {
+    operations: 5,
+    first_seen: ISODate('2026-04-20T20:42:59.024Z'),
+    last_seen: ISODate('2026-04-20T20:44:28.295Z'),
+    namespaces: [ 'statsbomb.matches', 'statsbomb.players', 'statsbomb.events' ],
+    operation: 'dropCollection.start',
+    server: 'shard01a'
+  },
+  {
+    operations: 2,
+    first_seen: ISODate('2026-04-20T20:43:00.471Z'),
+    last_seen: ISODate('2026-04-20T20:44:27.890Z'),
     namespaces: [ 'statsbomb.events' ],
     operation: 'shardCollection.end',
     server: 'shard01a'
   },
   {
-    operations: 1,
-    first_seen: ISODate('2026-04-20T12:34:33.704Z'),
-    last_seen: ISODate('2026-04-20T12:34:33.704Z'),
+    operations: 2,
+    first_seen: ISODate('2026-04-20T20:43:00.279Z'),
+    last_seen: ISODate('2026-04-20T20:44:27.593Z'),
     namespaces: [ 'statsbomb.events' ],
     operation: 'shardCollection.start',
-    server: 'shard01a'
-  },
-  {
-    operations: 2,
-    first_seen: ISODate('2026-04-20T12:34:32.865Z'),
-    last_seen: ISODate('2026-04-20T12:34:33.651Z'),
-    namespaces: [ 'statsbomb.events', 'statsbomb.players' ],
-    operation: 'dropCollection',
-    server: 'shard01a'
-  },
-  {
-    operations: 2,
-    first_seen: ISODate('2026-04-20T12:34:32.547Z'),
-    last_seen: ISODate('2026-04-20T12:34:33.546Z'),
-    namespaces: [ 'statsbomb.players', 'statsbomb.events' ],
-    operation: 'dropCollection.start',
     server: 'shard01a'
   }
 ]
 ```
 
-## Query 29: Replication lag and sync-source analysis inside `shard01rs`
+## Query 28: Replication lag and sync-source analysis inside `shard01rs`
 
 - Category: `Category 5: Cluster / sharding / admin`
+- Executed on: `shard01b`
 - Exit code: `0`
 
 ### Output
@@ -2639,32 +2419,32 @@ Total queries executed: `31`
 [
   {
     name: 'shard01a:27018',
-    state: 'PRIMARY',
+    state: 'SECONDARY',
     health: 1,
-    sync_source: null,
-    optimeDate: ISODate('2026-04-20T12:47:04.000Z'),
+    sync_source: 'shard01b:27018',
+    optimeDate: ISODate('2026-04-20T21:21:02.000Z'),
     replication_lag_seconds: 0
   },
   {
     name: 'shard01b:27018',
-    state: 'SECONDARY',
+    state: 'PRIMARY',
     health: 1,
-    sync_source: 'shard01a:27018',
-    optimeDate: ISODate('2026-04-20T12:47:04.000Z'),
+    sync_source: null,
+    optimeDate: ISODate('2026-04-20T21:21:02.000Z'),
     replication_lag_seconds: 0
   },
   {
     name: 'shard01c:27018',
     state: 'SECONDARY',
     health: 1,
-    sync_source: 'shard01a:27018',
-    optimeDate: ISODate('2026-04-20T12:47:04.000Z'),
+    sync_source: 'shard01b:27018',
+    optimeDate: ISODate('2026-04-20T21:21:02.000Z'),
     replication_lag_seconds: 0
   }
 ]
 ```
 
-## Query 30: Validation schema audit for all application collections
+## Query 29: Validation schema audit for all application collections
 
 - Category: `Category 5: Cluster / sharding / admin`
 - Exit code: `0`
@@ -2727,7 +2507,7 @@ Total queries executed: `31`
 ]
 ```
 
-## Query 31: Administrative users expanded into a role matrix
+## Query 30: Administrative users expanded into a role matrix
 
 - Category: `Category 5: Cluster / sharding / admin`
 - Exit code: `0`
