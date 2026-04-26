@@ -11,6 +11,7 @@ This folder contains a sharded MongoDB setup for the semestral project.
 - `1` `mongos` router exposed on port `27030`
 - internal authentication via `keyFile` generated at runtime
 - external authentication via MongoDB users
+- MongoDB image `mongo:8.0.20` by default
 
 In total, the topology contains `13` containers:
 
@@ -39,6 +40,10 @@ docker compose up -d
 ```
 
 Docker Desktop must be running before these commands are executed.
+
+The compose file contains default values for all required variables. Optional
+local overrides can be placed in `.env`; `.env.example` shows the expected
+variables.
 
 The `cluster-setup` one-shot service now waits for all MongoDB containers,
 configures replica sets and shards, creates users, and imports the datasets

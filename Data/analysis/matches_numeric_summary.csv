@@ -1,0 +1,10 @@
+dataset,column,count,mean,std,min,median,max
+matches,match_id,33.0,303574.818,107.242,303377.0,303596.0,303731.0
+matches,competition_id,33.0,11.0,0.0,11.0,11.0,11.0
+matches,home_team_id,33.0,289.727,229.089,205.0,217.0,1049.0
+matches,away_team_id,33.0,296.121,229.762,205.0,217.0,1049.0
+matches,home_score,33.0,1.848,1.523,0.0,2.0,5.0
+matches,away_score,33.0,1.273,1.353,0.0,1.0,5.0
+matches,stadium_id,33.0,891.424,1441.803,342.0,342.0,5043.0
+matches,referee_id,7.0,185.286,11.427,180.0,180.0,211.0
+matches,competition_stage_id,33.0,1.0,0.0,1.0,1.0,1.0

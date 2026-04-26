@@ -260,9 +260,7 @@ try {
 sh.enableSharding(dbName);
 sh.shardCollection(
   dbName + '.events',
-  { event_id: 'hashed' },
-  false,
-  { numInitialChunks: 12 }
+  { event_id: 'hashed' }
 );
 EOF
 )"

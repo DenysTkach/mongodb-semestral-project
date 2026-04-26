@@ -1,5 +1,5 @@
 x-mongo-common: &mongo-common
-  image: mongo:${MONGO_IMAGE_TAG}
+  image: mongo:${MONGO_IMAGE_TAG:-8.0.20}
   networks:
     - mongo-cluster
 
@@ -197,7 +197,7 @@ services:
       exec mongos --config /etc/mongo/mongos.conf
       "
     ports:
-      - "${MONGOS_PORT}:27017"
+      - "${MONGOS_PORT:-27030}:27017"
     volumes:
       - mongo_keyfile:/run/secrets:ro
       - ./config/mongos.conf:/etc/mongo/mongos.conf:ro
@@ -224,11 +224,11 @@ services:
     command: ["sh", "/workspace/scripts/auto-setup.sh"]
     restart: "no"
     environment:
-      MONGO_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
-      MONGO_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
-      MONGO_APP_DB: ${MONGO_APP_DB}
-      MONGO_APP_USERNAME: ${MONGO_APP_USERNAME}
-      MONGO_APP_PASSWORD: ${MONGO_APP_PASSWORD}
+      MONGO_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:-admin}
+      MONGO_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-admin123}
+      MONGO_APP_DB: ${MONGO_APP_DB:-statsbomb}
+      MONGO_APP_USERNAME: ${MONGO_APP_USERNAME:-statsbomb_user}
+      MONGO_APP_PASSWORD: ${MONGO_APP_PASSWORD:-statsbomb_pass123}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./scripts:/workspace/scripts:ro

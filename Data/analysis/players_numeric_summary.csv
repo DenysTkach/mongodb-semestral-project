@@ -1,0 +1,4 @@
+dataset,column,count,mean,std,min,median,max
+players,player_id,476.0,14229.662,10814.89,2948.0,6958.5,41733.0
+players,jersey_number,476.0,15.561,9.384,1.0,15.0,43.0
+players,team_id,476.0,348.172,279.982,205.0,216.0,1049.0

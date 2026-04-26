@@ -1,0 +1,10 @@
+column,missing_count,missing_pct,dataset
+position,107,22.48,players
+player_nickname,79,16.6,players
+country,0,0.0,players
+jersey_number,0,0.0,players
+player_id,0,0.0,players
+player_name,0,0.0,players
+season,0,0.0,players
+team_id,0,0.0,players
+team_name,0,0.0,players

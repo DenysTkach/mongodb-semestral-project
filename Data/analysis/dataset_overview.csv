@@ -1,0 +1,4 @@
+dataset,rows,columns,total_missing_values,duplicate_rows,file
+events,129058,28,482946,0,events.csv
+players,476,9,186,0,players.csv
+matches,33,18,52,0,matches.csv
