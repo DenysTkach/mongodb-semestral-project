@@ -204,6 +204,21 @@ services:
       - ../Data/processed:/import:ro
       - ./scripts/mongo:/workspace/scripts/mongo:ro
 
+  mongo-express:
+    image: mongo-express:${MONGO_EXPRESS_IMAGE_TAG:-1.0.2-20}
+    container_name: mongo-express
+    depends_on:
+      - mongos
+    restart: unless-stopped
+    ports:
+      - "${MONGO_EXPRESS_PORT:-8081}:8081"
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT_USERNAME:-admin}:${MONGO_ROOT_PASSWORD:-admin123}@mongos:27017/?authSource=admin
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_EXPRESS_BASICAUTH_USERNAME:-admin}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_EXPRESS_BASICAUTH_PASSWORD:-admin123}
+    networks:
+      - mongo-cluster
+
   cluster-setup:
     image: docker:28-cli
     container_name: mongo-cluster-setup

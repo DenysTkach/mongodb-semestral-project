@@ -9,17 +9,25 @@ This folder contains a sharded MongoDB setup for the semestral project.
 - `3` shard replica sets: `shard01rs`, `shard02rs`, `shard03rs`
 - `3` nodes per shard replica set
 - `1` `mongos` router exposed on port `27030`
+- `1` `mongo-express` web interface exposed on port `8081`
 - internal authentication via `keyFile` generated at runtime
 - external authentication via MongoDB users
 - MongoDB image `mongo:8.0.20` by default
+- mongo-express image `mongo-express:1.0.2-20` by default
 
-In total, the topology contains `13` containers:
+The database topology contains `13` MongoDB containers:
 
 - `configsvr01`, `configsvr02`, `configsvr03`
 - `shard01a`, `shard01b`, `shard01c`
 - `shard02a`, `shard02b`, `shard02c`
 - `shard03a`, `shard03b`, `shard03c`
 - `mongos`
+
+The full Docker Compose solution also includes:
+
+- `mongo-express` as a browser-based administrative UI connected through `mongos`
+- `keyfile-setup` as a one-shot service for generating the internal MongoDB keyFile
+- `cluster-setup` as a one-shot service for automatic cluster initialization
 
 ## Data Model
 
@@ -49,6 +57,21 @@ The `cluster-setup` one-shot service now waits for all MongoDB containers,
 configures replica sets and shards, creates users, and imports the datasets
 automatically.
 
+The `mongo-express` web interface is available after startup at:
+
+```text
+http://localhost:8081
+```
+
+Default web login:
+
+```text
+admin / admin123
+```
+
+mongo-express connects to the MongoDB deployment through the `mongos` router,
+so it shows the same sharded cluster entry point that command-line clients use.
+
 The cluster `keyFile` is generated automatically into a dedicated Docker volume,
 so no fixed authentication key is stored in the repository. Running
 `docker compose down -v` removes it and the next `up` generates a new one.
@@ -71,6 +94,12 @@ Basic health check:
 
 ```powershell
 docker exec mongos-router mongosh --eval 'db.runCommand({ ping: 1 })'
+```
+
+mongo-express availability:
+
+```powershell
+docker compose ps mongo-express
 ```
 
 MongoDB version:
@@ -116,18 +145,18 @@ docker compose exec mongos mongosh -u admin -p admin123 --authenticationDatabase
 Pre-defense self-check with evidence capture:
 
 ```powershell
-.\scripts\pre-defense-check.ps1
+powershell -ExecutionPolicy Bypass -File .\scripts\pre-defense-check.ps1
 ```
 
 Optional failover demonstration for one shard replica set:
 
 ```powershell
-.\scripts\pre-defense-check.ps1 -SimulateFailover -ReplicaSet shard01rs
+powershell -ExecutionPolicy Bypass -File .\scripts\pre-defense-check.ps1 -SimulateFailover -ReplicaSet shard01rs
 ```
 
 ## Important Notes
 
 - `cluster-setup` performs the full automatic bootstrap during `docker compose up -d`.
 - `import-data.ps1` remains available as a manual utility for re-importing the prepared datasets.
-- `pre-defense-check.ps1` runs the common verification steps, captures evidence files, and can optionally demonstrate a controlled shard failover.
+- `pre-defense-check.ps1` runs the common verification steps, checks mongo-express availability, captures evidence files, and can optionally demonstrate a controlled shard failover.
 - The `events` collection is the main fact collection and provides enough records for the project requirement of at least `5,000` records in one dataset.

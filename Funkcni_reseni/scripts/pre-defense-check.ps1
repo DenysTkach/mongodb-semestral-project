@@ -12,6 +12,10 @@ function Read-EnvFile {
     param([string]$Path)
 
     $result = @{}
+    if (-not (Test-Path -LiteralPath $Path)) {
+        return $result
+    }
+
     Get-Content -LiteralPath $Path | ForEach-Object {
         $line = $_.Trim()
         if (-not $line -or $line.StartsWith("#")) {
@@ -25,6 +29,20 @@ function Read-EnvFile {
     }
 
     return $result
+}
+
+function Get-EnvOrDefault {
+    param(
+        [hashtable]$Map,
+        [string]$Name,
+        [string]$Default
+    )
+
+    if ($Map.ContainsKey($Name) -and $Map[$Name]) {
+        return $Map[$Name]
+    }
+
+    return $Default
 }
 
 function Invoke-DockerCapture {
@@ -233,12 +251,38 @@ function Test-ClusterHealth {
     }
 }
 
+function Test-MongoExpress {
+    $pair = "${mongoExpressUser}:${mongoExpressPassword}"
+    $encoded = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes($pair))
+    $uri = "http://localhost:$mongoExpressPort"
+
+    try {
+        $response = Invoke-WebRequest `
+            -Uri $uri `
+            -Headers @{ Authorization = "Basic $encoded" } `
+            -UseBasicParsing `
+            -TimeoutSec 15
+
+        return @{
+            url = $uri
+            statusCode = [int]$response.StatusCode
+            reachable = $true
+        }
+    }
+    catch {
+        throw "mongo-express availability check failed at ${uri}: $($_.Exception.Message)"
+    }
+}
+
 $solutionRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
 $envPath = Join-Path $solutionRoot ".env"
 $envMap = Read-EnvFile -Path $envPath
 
-$rootUser = $envMap["MONGO_ROOT_USERNAME"]
-$rootPassword = $envMap["MONGO_ROOT_PASSWORD"]
+$rootUser = Get-EnvOrDefault -Map $envMap -Name "MONGO_ROOT_USERNAME" -Default "admin"
+$rootPassword = Get-EnvOrDefault -Map $envMap -Name "MONGO_ROOT_PASSWORD" -Default "admin123"
+$mongoExpressPort = Get-EnvOrDefault -Map $envMap -Name "MONGO_EXPRESS_PORT" -Default "8081"
+$mongoExpressUser = Get-EnvOrDefault -Map $envMap -Name "MONGO_EXPRESS_BASICAUTH_USERNAME" -Default "admin"
+$mongoExpressPassword = Get-EnvOrDefault -Map $envMap -Name "MONGO_EXPRESS_BASICAUTH_PASSWORD" -Default "admin123"
 
 $replicaSets = @{
     "configReplSet" = @{
@@ -277,7 +321,9 @@ $dockerPs = Invoke-DockerCapture -Arguments @("compose", "ps")
 Write-EvidenceFile -RelativePath "docker-compose-ps.txt" -Content $dockerPs
 
 $clusterHealth = Test-ClusterHealth
+$mongoExpressHealth = Test-MongoExpress
 Write-EvidenceFile -RelativePath "summary\counts.json" -Content (Format-Json $clusterHealth.Counts)
+Write-EvidenceFile -RelativePath "summary\mongo-express.json" -Content (Format-Json $mongoExpressHealth)
 
 $buildInfo = Invoke-MongosJson -Expression 'db.runCommand({ buildInfo: 1 })'
 $dbStats = Invoke-MongosJson -Expression @'
@@ -410,6 +456,7 @@ Write-Host ""
 Write-Host "Self-check completed successfully."
 Write-Host "MongoDB version: $($buildInfo.version)"
 Write-Host "Counts: matches=$($clusterHealth.Counts.matches), players=$($clusterHealth.Counts.players), events=$($clusterHealth.Counts.events)"
+Write-Host "mongo-express: $($mongoExpressHealth.url), HTTP $($mongoExpressHealth.statusCode)"
 if ($SimulateFailover) {
     Write-Host "Failover scenario completed for $ReplicaSet."
 }

@@ -1,4 +1,4 @@
-# Mongo Query Outputs
+﻿# Mongo Query Outputs
 
 Source: `Dotazy/mongo_queries.md`
 Total queries executed: `30`
