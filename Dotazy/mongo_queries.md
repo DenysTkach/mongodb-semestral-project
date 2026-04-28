@@ -9,11 +9,15 @@ Find the players with the highest number of pass events and enrich the result wi
 Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
+  // Keep only pass events with a known player.
   { $match: { event_type_name: "Pass", player_id: { $ne: null } } },
+  // Count passes for each player.
   { $group: { _id: "$player_id", pass_count: { $sum: 1 } } },
+  // Show the players with the most passes first.
   { $sort: { pass_count: -1, _id: 1 } },
   { $limit: 10 },
   {
+    // Join player details from the players collection.
     $lookup: {
       from: "players",
       localField: "_id",
@@ -21,8 +25,10 @@ db.getSiblingDB("statsbomb").events.aggregate([
       as: "player"
     }
   },
+  // Convert the joined player array into one object.
   { $unwind: "$player" },
   {
+    // Return only readable fields for the final output.
     $project: {
       _id: 0,
       player_id: "$_id",
@@ -47,6 +53,7 @@ Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
   {
+    // Keep only complete pass records with passer and recipient.
     $match: {
       event_type_name: "Pass",
       player_id: { $ne: null },
@@ -54,6 +61,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Count how often each passer-recipient pair appears.
     $group: {
       _id: {
         passer_id: "$player_id",
@@ -62,9 +70,11 @@ db.getSiblingDB("statsbomb").events.aggregate([
       successful_passes: { $sum: 1 }
     }
   },
+  // Show the most common passing pairs first.
   { $sort: { successful_passes: -1, "_id.passer_id": 1, "_id.recipient_id": 1 } },
   { $limit: 10 },
   {
+    // Join details for the passer.
     $lookup: {
       from: "players",
       localField: "_id.passer_id",
@@ -73,6 +83,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Join details for the pass recipient.
     $lookup: {
       from: "players",
       localField: "_id.recipient_id",
@@ -80,9 +91,11 @@ db.getSiblingDB("statsbomb").events.aggregate([
       as: "recipient"
     }
   },
+  // Convert joined arrays into objects.
   { $unwind: "$passer" },
   { $unwind: "$recipient" },
   {
+    // Return readable names and team information.
     $project: {
       _id: 0,
       passer_name: "$passer.player_name",
@@ -106,11 +119,15 @@ Find the matches with the highest number of shot events and join them with the `
 Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
+  // Keep only shot events.
   { $match: { event_type_name: "Shot" } },
+  // Count shots for each match.
   { $group: { _id: "$match_id", shot_count: { $sum: 1 } } },
+  // Show matches with the highest shot count first.
   { $sort: { shot_count: -1, _id: 1 } },
   { $limit: 10 },
   {
+    // Join match metadata by match_id.
     $lookup: {
       from: "matches",
       localField: "_id",
@@ -118,8 +135,10 @@ db.getSiblingDB("statsbomb").events.aggregate([
       as: "match"
     }
   },
+  // Convert the joined match array into one object.
   { $unwind: "$match" },
   {
+    // Return match names, date, and shot count.
     $project: {
       _id: 0,
       match_id: "$_id",
@@ -143,9 +162,12 @@ For every match, find the minute of the first shot, join the match metadata, and
 Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
+  // Keep only shot events.
   { $match: { event_type_name: "Shot" } },
+  // Find the first shot minute in each match.
   { $group: { _id: "$match_id", first_shot_minute: { $min: "$minute" } } },
   {
+    // Join match metadata by match_id.
     $lookup: {
       from: "matches",
       localField: "_id",
@@ -153,17 +175,21 @@ db.getSiblingDB("statsbomb").events.aggregate([
       as: "match"
     }
   },
+  // Convert the joined match array into one object.
   { $unwind: "$match" },
   {
+    // Calculate the average first-shot minute for each home team.
     $group: {
       _id: "$match.home_team_name",
       avg_first_shot_minute: { $avg: "$first_shot_minute" },
       matches_count: { $sum: 1 }
     }
   },
+  // Teams with earlier first shots are shown first.
   { $sort: { avg_first_shot_minute: 1, _id: 1 } },
   { $limit: 10 },
   {
+    // Round the average value for cleaner output.
     $project: {
       _id: 0,
       home_team_name: "$_id",
@@ -186,6 +212,7 @@ Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
   {
+    // Keep only card events with team and match information.
     $match: {
       card_name: { $ne: null },
       team_id: { $ne: null },
@@ -193,6 +220,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Join match data so we can detect home or away venue.
     $lookup: {
       from: "matches",
       localField: "match_id",
@@ -200,8 +228,10 @@ db.getSiblingDB("statsbomb").events.aggregate([
       as: "match"
     }
   },
+  // Convert the joined match array into one object.
   { $unwind: "$match" },
   {
+    // Create a new field that says if the team played home or away.
     $project: {
       team_name: 1,
       card_name: 1,
@@ -215,6 +245,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Count card events by team, venue, and card type.
     $group: {
       _id: {
         team_name: "$team_name",
@@ -224,9 +255,11 @@ db.getSiblingDB("statsbomb").events.aggregate([
       card_events: { $sum: 1 }
     }
   },
+  // Show the most common card groups first.
   { $sort: { card_events: -1, "_id.team_name": 1 } },
   { $limit: 10 },
   {
+    // Return a simple flat result.
     $project: {
       _id: 0,
       team_name: "$_id.team_name",
@@ -250,13 +283,16 @@ Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
   {
+    // Keep only foul events with a known match.
     $match: {
       event_type_name: "Foul Committed",
       match_id: { $ne: null }
     }
   },
+  // Count fouls in each match.
   { $group: { _id: "$match_id", foul_count: { $sum: 1 } } },
   {
+    // Join match data to get the referee name.
     $lookup: {
       from: "matches",
       localField: "_id",
@@ -264,18 +300,23 @@ db.getSiblingDB("statsbomb").events.aggregate([
       as: "match"
     }
   },
+  // Convert the joined match array into one object.
   { $unwind: "$match" },
   {
+    // Calculate average fouls per match for each referee.
     $group: {
       _id: "$match.referee_name",
       avg_fouls_per_match: { $avg: "$foul_count" },
       matches_officiated: { $sum: 1 }
     }
   },
+  // Remove matches where the referee is missing.
   { $match: { _id: { $ne: null } } },
+  // Show referees with the highest average first.
   { $sort: { avg_fouls_per_match: -1, _id: 1 } },
   { $limit: 10 },
   {
+    // Return a clean readable result.
     $project: {
       _id: 0,
       referee_name: "$_id",
@@ -299,17 +340,21 @@ Count shot events for each team and rank the teams by total shot volume.
 Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
+  // Keep only shot events with a known team.
   { $match: { event_type_name: "Shot", team_name: { $ne: null } } },
   {
+    // Count shots and calculate the average shot minute for each team.
     $group: {
       _id: "$team_name",
       shot_count: { $sum: 1 },
       avg_shot_minute: { $avg: "$minute" }
     }
   },
+  // Show teams with the most shots first.
   { $sort: { shot_count: -1, _id: 1 } },
   { $limit: 10 },
   {
+    // Return a clean team-level result.
     $project: {
       _id: 0,
       team_name: "$_id",
@@ -332,6 +377,7 @@ Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
   {
+    // Keep only carry events with duration and player information.
     $match: {
       event_type_name: "Carry",
       duration: { $ne: null },
@@ -339,6 +385,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Group carries by player and calculate average carry duration.
     $group: {
       _id: {
         player_id: "$player_id",
@@ -349,10 +396,13 @@ db.getSiblingDB("statsbomb").events.aggregate([
       avg_duration: { $avg: "$duration" }
     }
   },
+  // Keep only players with enough carry events.
   { $match: { carries: { $gte: 30 } } },
+  // Show players with the longest average carry duration first.
   { $sort: { avg_duration: -1, carries: -1, "_id.player_name": 1 } },
   { $limit: 10 },
   {
+    // Return readable player fields and rounded duration.
     $project: {
       _id: 0,
       player_id: "$_id.player_id",
@@ -377,12 +427,14 @@ Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
   {
+    // Keep only events that belong to a possession and match.
     $match: {
       possession: { $ne: null },
       match_id: { $ne: null }
     }
   },
   {
+    // Identify each unique possession sequence inside a match.
     $group: {
       _id: {
         match_id: "$match_id",
@@ -392,15 +444,18 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Count possession sequences for each match.
     $group: {
       _id: "$_id.match_id",
       possession_sequences: { $sum: 1 },
       teams_involved: { $push: "$teams_in_possession" }
     }
   },
+  // Show matches with the most possession sequences first.
   { $sort: { possession_sequences: -1, _id: 1 } },
   { $limit: 10 },
   {
+    // Return match id, sequence count, and number of involved teams.
     $project: {
       _id: 0,
       match_id: "$_id",
@@ -423,13 +478,16 @@ Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
   {
+    // Keep only shots with a known outcome.
     $match: {
       event_type_name: "Shot",
       shot_outcome_name: { $ne: null }
     }
   },
+  // Count shots for each outcome.
   { $group: { _id: "$shot_outcome_name", shots: { $sum: 1 } } },
   {
+    // Store total shots and all outcome counts together.
     $group: {
       _id: null,
       total_shots: { $sum: "$shots" },
@@ -441,8 +499,10 @@ db.getSiblingDB("statsbomb").events.aggregate([
       }
     }
   },
+  // Split outcomes back into separate rows.
   { $unwind: "$outcomes" },
   {
+    // Calculate the percentage share for each outcome.
     $project: {
       _id: 0,
       shot_outcome_name: "$outcomes.shot_outcome_name",
@@ -460,6 +520,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
       }
     }
   },
+  // Show the most common outcomes first.
   { $sort: { shots: -1, shot_outcome_name: 1 } }
 ])
 ```
@@ -475,8 +536,10 @@ For teams with at least 10 shots, calculate how many of those shots became goals
 Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
+  // Keep only shot events with a known team.
   { $match: { event_type_name: "Shot", team_name: { $ne: null } } },
   {
+    // Count all shots and only goal shots for each team.
     $group: {
       _id: "$team_name",
       total_shots: { $sum: 1 },
@@ -491,8 +554,10 @@ db.getSiblingDB("statsbomb").events.aggregate([
       }
     }
   },
+  // Keep only teams with at least 10 shots.
   { $match: { total_shots: { $gte: 10 } } },
   {
+    // Calculate conversion rate as goals divided by total shots.
     $project: {
       _id: 0,
       team_name: "$_id",
@@ -511,6 +576,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
       }
     }
   },
+  // Show the most efficient teams first.
   { $sort: { conversion_rate_pct: -1, goals_scored: -1, team_name: 1 } },
   { $limit: 10 }
 ])
@@ -528,6 +594,7 @@ Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
   {
+    // Keep normal goals and own goals for the goal timeline.
     $match: {
       $or: [
         { shot_outcome_name: "Goal" },
@@ -536,6 +603,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Convert the match minute into a 15-minute interval.
     $addFields: {
       minute_band: {
         $switch: {
@@ -552,9 +620,12 @@ db.getSiblingDB("statsbomb").events.aggregate([
       }
     }
   },
+  // Count goals in each interval.
   { $group: { _id: "$minute_band", goals: { $sum: 1 } } },
+  // Sort intervals from the start of the match to the end.
   { $sort: { _id: 1 } },
   {
+    // Return a simple interval-level result.
     $project: {
       _id: 0,
       minute_band: "$_id",
@@ -578,6 +649,7 @@ Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
   {
+    // Keep only pass events with match, team, and player information.
     $match: {
       event_type_name: "Pass",
       match_id: { $ne: null },
@@ -586,6 +658,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Count passes for each player inside each match and team.
     $group: {
       _id: {
         match_id: "$match_id",
@@ -599,6 +672,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Join player metadata for each passer.
     $lookup: {
       from: "players",
       localField: "_id.player_id",
@@ -606,9 +680,12 @@ db.getSiblingDB("statsbomb").events.aggregate([
       as: "player"
     }
   },
+  // Convert the joined player array into one object.
   { $unwind: "$player" },
+  // Sort before building the top_passers array.
   { $sort: { "_id.match_id": 1, "_id.team_name": 1, pass_count: -1, "_id.player_id": 1 } },
   {
+    // Build one document per match and team with embedded passers.
     $group: {
       _id: {
         match_id: "$_id.match_id",
@@ -638,6 +715,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Join match metadata for readable match information.
     $lookup: {
       from: "matches",
       localField: "_id.match_id",
@@ -645,8 +723,10 @@ db.getSiblingDB("statsbomb").events.aggregate([
       as: "match"
     }
   },
+  // Convert the joined match array into one object.
   { $unwind: "$match" },
   {
+    // Return a nested match summary and team document.
     $project: {
       _id: 0,
       match_id: "$_id.match_id",
@@ -663,6 +743,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
       }
     }
   },
+  // Sort final documents by match and team.
   { $sort: { match_id: 1, "team.team_name": 1 } },
   { $limit: 10 }
 ])
@@ -680,6 +761,7 @@ Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
   {
+    // Keep only shot events with player and location data.
     $match: {
       event_type_name: "Shot",
       player_id: { $ne: null },
@@ -688,6 +770,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Create derived shot flags and a minute band.
     $set: {
       is_goal: { $eq: ["$shot_outcome_name", "Goal"] },
       is_on_target: {
@@ -712,6 +795,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Embed the derived fields into a shot_profile subdocument.
     $project: {
       _id: 0,
       event_id: 1,
@@ -745,6 +829,7 @@ Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
   {
+    // Keep only card events with team and match information.
     $match: {
       card_name: { $ne: null },
       team_id: { $ne: null },
@@ -752,6 +837,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Join match data so we can classify home or away venue.
     $lookup: {
       from: "matches",
       localField: "match_id",
@@ -759,8 +845,10 @@ db.getSiblingDB("statsbomb").events.aggregate([
       as: "match"
     }
   },
+  // Convert the joined match array into one object.
   { $unwind: "$match" },
   {
+    // Create a venue field based on the team's role in the match.
     $project: {
       team_id: 1,
       team_name: 1,
@@ -775,6 +863,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Count card events by team, venue, and card type.
     $group: {
       _id: {
         team_id: "$team_id",
@@ -785,8 +874,10 @@ db.getSiblingDB("statsbomb").events.aggregate([
       card_events: { $sum: 1 }
     }
   },
+  // Sort card types before they are pushed into arrays.
   { $sort: { "_id.team_name": 1, "_id.venue": 1, card_events: -1, "_id.card_name": 1 } },
   {
+    // Build one venue-level profile for each team.
     $group: {
       _id: {
         team_id: "$_id.team_id",
@@ -816,8 +907,10 @@ db.getSiblingDB("statsbomb").events.aggregate([
       }
     }
   },
+  // Sort venue profiles before building the team document.
   { $sort: { "_id.team_name": 1, total_cards_at_venue: -1, "_id.venue": 1 } },
   {
+    // Build one team-level document with embedded venue profiles.
     $group: {
       _id: {
         team_id: "$_id.team_id",
@@ -837,9 +930,11 @@ db.getSiblingDB("statsbomb").events.aggregate([
       red_cards: { $sum: "$red_cards_at_venue" }
     }
   },
+  // Show teams with the most card events first.
   { $sort: { total_cards: -1, "_id.team_name": 1 } },
   { $limit: 10 },
   {
+    // Return the final nested disciplinary profile.
     $project: {
       _id: 0,
       team: {
@@ -869,6 +964,7 @@ Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
   {
+    // Keep only selected event types with a known player.
     $match: {
       player_id: { $ne: null },
       event_type_name: {
@@ -877,6 +973,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Count each activity type for every player.
     $group: {
       _id: {
         player_id: "$player_id",
@@ -902,9 +999,11 @@ db.getSiblingDB("statsbomb").events.aggregate([
       }
     }
   },
+  // Show the most active passers first.
   { $sort: { passes: -1, carries: -1, shots: -1, "_id.player_name": 1 } },
   { $limit: 10 },
   {
+    // Return player data and an embedded activity profile.
     $project: {
       _id: 0,
       player: {
@@ -936,6 +1035,7 @@ Command:
 ```javascript
 db.getSiblingDB("statsbomb").matches.aggregate([
   {
+    // Reshape flat match fields into nested summary documents.
     $project: {
       _id: 0,
       match_id: 1,
@@ -968,6 +1068,7 @@ db.getSiblingDB("statsbomb").matches.aggregate([
       }
     }
   },
+  // Sort matches by id for stable output.
   { $sort: { match_id: 1 } },
   { $limit: 10 }
 ])
@@ -985,12 +1086,14 @@ Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
   {
+    // Keep only first-half and second-half events with match id.
     $match: {
       match_id: { $ne: null },
       period: { $in: [1, 2] }
     }
   },
   {
+    // Calculate statistics for each match and period.
     $group: {
       _id: {
         match_id: "$match_id",
@@ -1010,6 +1113,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Build an embedded period_stats array for each match.
     $group: {
       _id: "$_id.match_id",
       period_stats: {
@@ -1023,9 +1127,11 @@ db.getSiblingDB("statsbomb").events.aggregate([
       total_shots: { $sum: "$shots" }
     }
   },
+  // Show matches with the most total shots first.
   { $sort: { total_shots: -1, _id: 1 } },
   { $limit: 10 },
   {
+    // Return match id, total shots, and embedded period stats.
     $project: {
       _id: 0,
       match_id: "$_id",
@@ -1049,8 +1155,10 @@ Merge `$indexStats` output across the whole sharded cluster and rank indexes by 
 Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
+  // Read index usage statistics for the events collection.
   { $indexStats: {} },
   {
+    // Combine usage counters from all shards for each index.
     $group: {
       _id: {
         name: "$name",
@@ -1063,6 +1171,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Return one readable row per index.
     $project: {
       _id: 0,
       index_name: "$_id.name",
@@ -1074,6 +1183,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
       first_tracked: 1
     }
   },
+  // Show the most used indexes first.
   { $sort: { total_access_ops: -1, index_name: 1 } }
 ])
 ```
@@ -1089,8 +1199,10 @@ Identify indexes on the `events` collection that have recorded zero accesses acr
 Command:
 ```javascript
 db.getSiblingDB("statsbomb").events.aggregate([
+  // Read index usage statistics for the events collection.
   { $indexStats: {} },
   {
+    // Combine per-shard usage counters for each index.
     $group: {
       _id: {
         name: "$name",
@@ -1102,6 +1214,7 @@ db.getSiblingDB("statsbomb").events.aggregate([
     }
   },
   {
+    // Mark indexes with zero recorded accesses.
     $project: {
       _id: 0,
       index_name: "$_id.name",
@@ -1114,7 +1227,9 @@ db.getSiblingDB("statsbomb").events.aggregate([
       first_tracked: 1
     }
   },
+  // Keep only indexes that were not used since tracking started.
   { $match: { is_unused_since_tracking_started: true } },
+  // Sort unused indexes by name.
   { $sort: { index_name: 1 } }
 ])
 ```
@@ -1130,8 +1245,10 @@ Run `explain("executionStats")` for several representative analytical workloads 
 Command:
 ```javascript
 function summarize(label, cursorFactory) {
+  // Run explain with execution statistics for one workload.
   const exp = cursorFactory().explain("executionStats");
 
+  // Find the real scan stage inside the nested query plan.
   function findLeaf(node) {
     if (!node || typeof node !== "object") return null;
     if (node.stage === "IXSCAN" || node.stage === "COLLSCAN") return node;
@@ -1161,6 +1278,7 @@ function summarize(label, cursorFactory) {
 
   const leaf = findLeaf(exp.queryPlanner.winningPlan);
 
+  // Return only the important performance metrics.
   return {
     scenario: label,
     leaf_stage: leaf ? leaf.stage : null,
@@ -1178,18 +1296,22 @@ function summarize(label, cursorFactory) {
 }
 
 [
+  // Test exact lookup by match id.
   summarize(
     "match_id exact filter",
     () => db.getSiblingDB("statsbomb").events.find({ match_id: 303451 })
   ),
+  // Test exact lookup by player id.
   summarize(
     "player_id exact filter",
     () => db.getSiblingDB("statsbomb").events.find({ player_id: 5503 })
   ),
+  // Test the compound team and event type index.
   summarize(
     "team_id + event_type_name",
     () => db.getSiblingDB("statsbomb").events.find({ team_id: 217, event_type_name: "Pass" })
   ),
+  // Test filtering by season with sorting by minute.
   summarize(
     "season + minute with sort",
     () => db.getSiblingDB("statsbomb").events.find({ season: "2019/2020", minute: { $gte: 75 } }).sort({ minute: 1 }).limit(20)
@@ -1208,12 +1330,14 @@ Compare how the compound index `ix_events_team_type` behaves for a left-prefix q
 Command:
 ```javascript
 function summarize(label, query) {
+  // Run explain for one query shape.
   const exp = db.getSiblingDB("statsbomb")
     .events
     .find(query)
     .limit(20)
     .explain("executionStats");
 
+  // Find whether MongoDB used an index scan or collection scan.
   function findLeaf(node) {
     if (!node || typeof node !== "object") return null;
     if (node.stage === "IXSCAN" || node.stage === "COLLSCAN") return node;
@@ -1243,6 +1367,7 @@ function summarize(label, query) {
 
   const leaf = findLeaf(exp.queryPlanner.winningPlan);
 
+  // Return the scan type, index name, and examined document counts.
   return {
     scenario: label,
     leaf_stage: leaf ? leaf.stage : null,
@@ -1254,8 +1379,11 @@ function summarize(label, query) {
 }
 
 [
+  // Uses the leftmost field of the compound index.
   summarize("team_id only", { team_id: 217 }),
+  // Uses both fields of the compound index.
   summarize("team_id + event_type_name", { team_id: 217, event_type_name: "Pass" }),
+  // Skips the leftmost field of the compound index.
   summarize("event_type_name only", { event_type_name: "Pass" })
 ]
 ```
@@ -1271,13 +1399,17 @@ Compare an indexed sort supported by `ix_events_season_minute` with a non-indexe
 Command:
 ```javascript
 function summarize(label, query, sortSpec) {
+  // Create the base cursor for one workload.
   let cursor = db.getSiblingDB("statsbomb").events.find(query);
   if (sortSpec) {
+    // Add sorting when the scenario needs it.
     cursor = cursor.sort(sortSpec);
   }
 
+  // Run explain after applying limit and sort.
   const exp = cursor.limit(20).explain("executionStats");
 
+  // Check if a specific stage exists anywhere in the query plan.
   function hasStage(node, stageName) {
     if (!node || typeof node !== "object") return false;
     if (node.stage === stageName) return true;
@@ -1292,6 +1424,7 @@ function summarize(label, query, sortSpec) {
     );
   }
 
+  // Find the real scan stage inside the nested query plan.
   function findLeaf(node) {
     if (!node || typeof node !== "object") return null;
     if (node.stage === "IXSCAN" || node.stage === "COLLSCAN") return node;
@@ -1319,6 +1452,7 @@ function summarize(label, query, sortSpec) {
 
   const leaf = findLeaf(exp.queryPlanner.winningPlan);
 
+  // Return scan information and whether a blocking sort was used.
   return {
     scenario: label,
     leaf_stage: leaf ? leaf.stage : null,
@@ -1331,11 +1465,13 @@ function summarize(label, query, sortSpec) {
 }
 
 [
+  // Sorting can be supported by the season and minute index.
   summarize(
     "indexed season filter + minute sort",
     { season: "2019/2020", minute: { $gte: 75 } },
     { minute: 1 }
   ),
+  // Sorting by minute is not supported by an index for this filter.
   summarize(
     "non-indexed team_name filter + minute sort",
     { team_name: "Barcelona" },
@@ -1354,8 +1490,10 @@ Use `collStats` to compare how much index storage each shard consumes for the `e
 
 Command:
 ```javascript
+// Read collection statistics, including per-shard index sizes.
 const stats = db.getSiblingDB("statsbomb").runCommand({ collStats: "events" });
 
+// Convert shard statistics into a compact comparison table.
 Object.entries(stats.shards)
   .map(([shard, shardStats]) => ({
     shard,
@@ -1367,6 +1505,7 @@ Object.entries(stats.shards)
     largest_index_name: Object.entries(shardStats.indexSizes).sort((a, b) => b[1] - a[1])[0][0],
     largest_index_size: Object.entries(shardStats.indexSizes).sort((a, b) => b[1] - a[1])[0][1]
   }))
+  // Show shards with the largest total index size first.
   .sort((a, b) => b.totalIndexSize - a.totalIndexSize || a.shard.localeCompare(b.shard));
 ```
 
@@ -1383,8 +1522,10 @@ Analyze how the sharded `statsbomb.events` collection is split into chunks in Mo
 Command:
 ```javascript
 db.getSiblingDB("config").collections.aggregate([
+  // Find the active metadata record for the sharded events collection.
   { $match: { _id: "statsbomb.events", dropped: { $ne: true } } },
   {
+    // Join chunk metadata by collection UUID.
     $lookup: {
       from: "chunks",
       localField: "uuid",
@@ -1392,9 +1533,12 @@ db.getSiblingDB("config").collections.aggregate([
       as: "chunks"
     }
   },
+  // Work with one chunk document per row.
   { $unwind: "$chunks" },
+  // Sort chunks so first and last boundaries are meaningful.
   { $sort: { "chunks.shard": 1, "chunks.min.event_id": 1 } },
   {
+    // Count chunks and keep representative boundaries for each shard.
     $group: {
       _id: "$chunks.shard",
       chunk_count: { $sum: 1 },
@@ -1403,6 +1547,7 @@ db.getSiblingDB("config").collections.aggregate([
     }
   },
   {
+    // Join shard host metadata.
     $lookup: {
       from: "shards",
       localField: "_id",
@@ -1410,8 +1555,10 @@ db.getSiblingDB("config").collections.aggregate([
       as: "shard_meta"
     }
   },
+  // Convert the joined shard array into one object.
   { $unwind: "$shard_meta" },
   {
+    // Return a readable shard ownership summary.
     $project: {
       _id: 0,
       shard: "$_id",
@@ -1422,6 +1569,7 @@ db.getSiblingDB("config").collections.aggregate([
       last_chunk_max: 1
     }
   },
+  // Show shards with the most chunks first.
   { $sort: { chunk_count: -1, shard: 1 } }
 ])
 ```
@@ -1437,8 +1585,10 @@ Measure how evenly the `statsbomb.events` chunks are distributed by shard and co
 Command:
 ```javascript
 db.getSiblingDB("config").collections.aggregate([
+  // Find the active metadata record for the sharded events collection.
   { $match: { _id: "statsbomb.events", dropped: { $ne: true } } },
   {
+    // Join chunk metadata by collection UUID.
     $lookup: {
       from: "chunks",
       localField: "uuid",
@@ -1446,9 +1596,12 @@ db.getSiblingDB("config").collections.aggregate([
       as: "chunks"
     }
   },
+  // Work with one chunk document per row.
   { $unwind: "$chunks" },
+  // Count chunks owned by each shard.
   { $group: { _id: "$chunks.shard", chunk_count: { $sum: 1 } } },
   {
+    // Calculate total chunks and store per-shard stats together.
     $group: {
       _id: null,
       total_chunks: { $sum: "$chunk_count" },
@@ -1461,8 +1614,10 @@ db.getSiblingDB("config").collections.aggregate([
       }
     }
   },
+  // Split shard stats back into separate rows.
   { $unwind: "$shard_stats" },
   {
+    // Calculate shard share and deviation from ideal balance.
     $project: {
       _id: 0,
       shard: "$shard_stats.shard",
@@ -1505,6 +1660,7 @@ db.getSiblingDB("config").collections.aggregate([
       }
     }
   },
+  // Show shards with the most chunks first.
   { $sort: { chunk_count: -1, shard: 1 } }
 ])
 ```
@@ -1521,6 +1677,7 @@ Command:
 ```javascript
 db.getSiblingDB("config").changelog.aggregate([
   {
+    // Keep only relevant cluster lifecycle events for project collections.
     $match: {
       what: {
         $in: [
@@ -1535,6 +1692,7 @@ db.getSiblingDB("config").changelog.aggregate([
     }
   },
   {
+    // Group operations by event type and server.
     $group: {
       _id: {
         operation: "$what",
@@ -1547,6 +1705,7 @@ db.getSiblingDB("config").changelog.aggregate([
     }
   },
   {
+    // Return a compact operation history row.
     $project: {
       _id: 0,
       operation: "$_id.operation",
@@ -1557,6 +1716,7 @@ db.getSiblingDB("config").changelog.aggregate([
       namespaces: 1
     }
   },
+  // Show the most recent operations first.
   { $sort: { last_seen: -1, operations: -1, operation: 1 } }
 ])
 ```
@@ -1571,11 +1731,15 @@ Compute a concise replication health view for all replica set members of `shard0
 
 Command:
 ```javascript
+// Read the current replica set status.
 const status = rs.status();
+// Find the current primary member.
 const primary = status.members.find(member => member.stateStr === "PRIMARY");
 
 status.members
+  // Keep only data-bearing replica set members.
   .filter(member => ["PRIMARY", "SECONDARY"].includes(member.stateStr))
+  // Convert each member into a concise health row.
   .map(member => ({
     name: member.name,
     state: member.stateStr,
@@ -1587,6 +1751,7 @@ status.members
         ? Math.max(0, Math.round((primary.optimeDate - member.optimeDate) / 1000))
         : null
   }))
+  // Show members with the lowest replication lag first.
   .sort((a, b) =>
     a.replication_lag_seconds === b.replication_lag_seconds
       ? a.name.localeCompare(b.name)
@@ -1604,12 +1769,14 @@ Inspect all main project collections and summarize whether strict validation is 
 
 Command:
 ```javascript
+// Read collection metadata for the main project collections.
 const collInfos = db.getSiblingDB("statsbomb").runCommand({
   listCollections: 1,
   filter: { name: { $in: ["matches", "players", "events"] } }
 }).cursor.firstBatch;
 
 collInfos
+  // Extract validator settings from each collection.
   .map(function(collection) {
     const schema =
       (collection.options &&
@@ -1627,6 +1794,7 @@ collInfos
       validated_property_count: Object.keys(properties).length
     };
   })
+  // Show collections with the most required fields first.
   .sort(function(a, b) {
     return (
       b.required_field_count - a.required_field_count ||
@@ -1646,8 +1814,10 @@ Expand the internal user definitions in `admin.system.users` and show a normaliz
 Command:
 ```javascript
 db.getSiblingDB("admin").system.users.aggregate([
+  // Split each user's roles into separate rows.
   { $unwind: "$roles" },
   {
+    // Group roles back into one document per user.
     $group: {
       _id: {
         user: "$user",
@@ -1663,6 +1833,7 @@ db.getSiblingDB("admin").system.users.aggregate([
     }
   },
   {
+    // Return a readable user-role matrix.
     $project: {
       _id: 0,
       user: "$_id.user",
@@ -1671,6 +1842,7 @@ db.getSiblingDB("admin").system.users.aggregate([
       roles: 1
     }
   },
+  // Show users with the most roles first.
   { $sort: { role_count: -1, user: 1 } }
 ])
 ```
